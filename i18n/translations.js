@@ -1978,7 +1978,80 @@ module.exports = {
 	},
 
 	//NATIVE
-	"take_photo": {
+
+	"permissions_denied_title": { //User either denied or was never asked (probably the first only)
+
+		"en": "Permissions",
+		"de": "Berechtigungen",
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+
+	},
+	"permissions_denied_msg": { //User either denied or was never asked (probably the first only)
+
+		"en": "We need access to your camera and your location to continue.",
+		"de": "Wir brauchen Zugriff auf Deine Kamera und Deinen Standort, um fortzufahren.",
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+
+	},
+	"open_settings": {
+
+		"en": "Open Settings",
+		"de": "Einstellungen öffnen",
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+
+	},
+	"got_it": {
+
+		"en": "Got it!",
+		"de": "Verstanden!",
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+
+	},
+	"do_not_show_again": {
+
+		"en": "Don't show again",
+		"de": "Nicht mehr anzeigen",
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+
+	}
+
+
+	/*"take_photo": {
 		"en": "Take a picture ...",
 		"de": "Mach ein Foto ...",
 		"es": "Tomar foto ...",
@@ -1988,6 +2061,7 @@ module.exports = {
 		"el": "Βγάλε μια φωτογραφία ...",
 		"hi": "एक तस्वीर लें ...",
 		"fr": "Prendre une photo ..."
+		// "it": "" // !
 	},
 	"photo_library": {
 		"en": "Photo Library",
@@ -1999,6 +2073,7 @@ module.exports = {
 		"el": "Βιβλιοθήκη φωτογραφιών",
 		"hi": "चित्र पुस्तकालय",
 		"fr": "Galerie de photos"
+		// "it": "" // !
 	},
 	"permission_denied": {
 		"en": "Permission denied",
@@ -2010,6 +2085,7 @@ module.exports = {
 		"el": "Η άδεια απορρίφθηκε",
 		"hi": "अनुमति नहीं मिली",
 		"fr": "Permission refusée"
+		// "it": "" // !
 	},
 	"permission_denied_text": {
 		"en": "To be able to take pictures with your camera and choose images from your library",
@@ -2021,6 +2097,7 @@ module.exports = {
 		"el": "To be able to take pictures with your camera and choose images from your library", // !!!
 		"hi": "To be able to take pictures with your camera and choose images from your library", // !!!
 		"fr": "To be able to take pictures with your camera and choose images from your library" // !!!
+		// "it": "" // !
 	},
 	"permission_denied_reTryTitle": {
 		"en": "Re-try",
@@ -2032,6 +2109,7 @@ module.exports = {
 		"el": "Προσπάθησε ξανά", // !
 		"hi": "पुनः प्रयास करें", // !
 		"fr": "Réessayer" // !
+		// "it": "" // !
 	},
 	"home": {
 		"en": "Home",
@@ -2043,6 +2121,7 @@ module.exports = {
 		"el": "Αρχική", // !
 		"hi": "होम", // !
 		"fr": "Accueil" // !
+		// "it": "" // !
 	},
 	"map": { 
 
@@ -2055,6 +2134,7 @@ module.exports = {
 		// "el": "", // !
 		// "hi": "", // !
 		// "fr": "" // !
+		// "it": "" // !
 
 	},
 	"camera": { 
@@ -2068,6 +2148,7 @@ module.exports = {
 		// "el": "", // !
 		// "hi": "", // !
 		// "fr": "" // !
+		// "it": "" // !
 
 	},
 	"share": { 
@@ -2080,8 +2161,8 @@ module.exports = {
 		"zh": "分享",
 		"el": "Διάδωσε το",
 		"hi": "शेयर",
-		"fr": "Partager"
-
+		"fr": "Partager",
+		// "it": "" // !
 	},
 	"settings": {
 		"en": "Settings",
@@ -2093,6 +2174,7 @@ module.exports = {
 		"el": "Ρυθμίσεις", // !
 		"hi": "सेटिंग्स", // !
 		"fr": "Paramètres" // !
+		// "it": "" // !
 	},
 	"loading": {
 		"en": "Loading",
@@ -2104,6 +2186,7 @@ module.exports = {
 		"el": "Φόρτωση", // !
 		"hi": "लोड हो रहा है", // !
 		"fr": "Chargement" // !
+		// "it": "" // !
 	},
 	"library_denied": { //User either denied or was never asked (probably the first only)
 
@@ -2116,6 +2199,7 @@ module.exports = {
 		// "el": "", // !
 		// "hi": "", // !
 		// "fr": "" // !
+		// "it": "" // !
 
 	},
 	"library_restricted": { //User either has parental control activated or said to never ask again
@@ -2129,6 +2213,7 @@ module.exports = {
 		// "el": "", // !
 		// "hi": "", // !
 		// "fr": "" // !
+		// "it": "" // !
 
 	},
 	"change_library_permissions": {
@@ -2142,6 +2227,7 @@ module.exports = {
 		// "el": "", // !
 		// "hi": "", // !
 		// "fr": "" // !
+		// "it": "" // !
 
 	},
 	"gps_denied": { //User either denied or was never asked (probably the first only)
@@ -2155,6 +2241,7 @@ module.exports = {
 		// "el": "", // !
 		// "hi": "", // !
 		// "fr": "" // !
+		// "it": "" // !
 
 	},
 	"gps_restricted": { //User either has parental control activated or said to never ask again
@@ -2168,6 +2255,7 @@ module.exports = {
 		// "el": "", // !
 		// "hi": "", // !
 		// "fr": "" // !
+		// "it": "" // !
 
 	},
 	"change_gps_permissions": {
@@ -2181,6 +2269,7 @@ module.exports = {
 		// "el": "", // !
 		// "hi": "", // !
 		// "fr": "" // !
+		// "it": "" // !
 
 	},
 	"camera_denied": { //User either denied or was never asked (probably the first only)
@@ -2194,6 +2283,7 @@ module.exports = {
 		// "el": "", // !
 		// "hi": "", // !
 		// "fr": "" // !
+		// "it": "" // !
 
 	},
 	"camera_restricted": { //User either has parental control activated or said to never ask again
@@ -2207,11 +2297,12 @@ module.exports = {
 		// "el": "", // !
 		// "hi": "", // !
 		// "fr": "" // !
+		// "it": "" // !
 
 	},
 	"change_camera_permissions": {
 
-		"en": "We need your permission to access your camera. Please change your settings to continue.",
+		"en": "Please allow Coastwards to access your camera in your settings to continue.",
 		// "de": "",
 		// "es": "", // !
 		// "ar": "", // !
@@ -2220,7 +2311,7 @@ module.exports = {
 		// "el": "", // !
 		// "hi": "", // !
 		// "fr": "" // !
-
+		// "it": "" // !
 	},
 	"open_settings": {
 
@@ -2233,8 +2324,9 @@ module.exports = {
 		// "el": "", // !
 		// "hi": "", // !
 		// "fr": "" // !
+		// "it": "" // !
 
-	}
+	}*/
 
 
 }

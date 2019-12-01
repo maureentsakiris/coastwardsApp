@@ -3,7 +3,7 @@
     "name": "Coastwards",
     "slug": "coastwards",
     "privacy": "public",
-    "sdkVersion": "33.0.0",
+    "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
       "android",
@@ -14,7 +14,7 @@
     "icon": "./assets/images/icon.png",
     "splash": {
       "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#0071bc"
     },
     "updates": {
@@ -26,6 +26,18 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": ""
+    "description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
+    "locales": {
+      "en": "./i18n/locales/ios/en.json",
+      "de": "./i18n/locales/ios/de.json",
+      "es": "./i18n/locales/ios/es.json",
+      "fr": "./i18n/locales/ios/fr.json",
+      "pt": "./i18n/locales/ios/pt.json",
+      "ar": "./i18n/locales/ios/ar.json",
+      "zh": "./i18n/locales/ios/zh.json",
+      "el": "./i18n/locales/ios/el.json",
+      "hi": "./i18n/locales/ios/hi.json",
+      "it": "./i18n/locales/ios/it.json"
+    }
   }
 }
