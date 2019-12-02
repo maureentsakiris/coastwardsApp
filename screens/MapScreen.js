@@ -1,7 +1,9 @@
 import React from 'react'
 import { Platform, StyleSheet, TouchableOpacity, View, SafeAreaView, Alert, Linking } from 'react-native'
+import WebView from 'react-native-webview'
 import * as Permissions from 'expo-permissions'
 import * as IntentLauncher from 'expo-intent-launcher'
+import * as Location from 'expo-location'
 import { MaterialIcons } from '@expo/vector-icons'
 import I18n from '../i18n/i18n'
 import theme from '../theme'
@@ -14,6 +16,10 @@ const styles = StyleSheet.create({
 	},
 	webview: {
 		backgroundColor: theme.waterMap,
+		flex: 1,
+		alignSelf: 'stretch',
+	},
+	webviewInner: {
 		flex: 1,
 		alignSelf: 'stretch',
 	},
@@ -47,6 +53,27 @@ const styles = StyleSheet.create({
 })
 
 const MapScreen = ({ navigation }) => {
+	const checkLocationServicesPermission = () => {
+		return new Promise((resolve, reject) => {
+			Location.hasServicesEnabledAsync()
+				.then(status => {
+					switch (status) {
+						case true:
+							resolve(status)
+							break
+						case false:
+							resolve(status)
+							break
+						default:
+							reject(status)
+							break
+					}
+				})
+				.catch(error => {
+					reject(error)
+				})
+		})
+	}
 	const checkLocationPermission = () => {
 		return new Promise((resolve, reject) => {
 			const askLocationPermission = async () => {
@@ -61,7 +88,10 @@ const MapScreen = ({ navigation }) => {
 							resolve(status)
 							break
 						case 'denied':
-							reject(status)
+							resolve(status)
+							break
+						case 'undetermined':
+							resolve(status)
 							break
 						default:
 							reject(status)
@@ -73,7 +103,6 @@ const MapScreen = ({ navigation }) => {
 				})
 		})
 	}
-
 	const checkCameraPermission = () => {
 		return new Promise((resolve, reject) => {
 			const askCameraPermission = async () => {
@@ -88,7 +117,10 @@ const MapScreen = ({ navigation }) => {
 							resolve(status)
 							break
 						case 'denied':
-							reject(status)
+							resolve(status)
+							break
+						case 'undetermined':
+							resolve(status)
 							break
 						default:
 							reject(status)
@@ -102,22 +134,33 @@ const MapScreen = ({ navigation }) => {
 	}
 
 	const checkPermissions = () => {
-		checkLocationPermission()
-			.then(() => {
+		const results = []
+		// Only breacking permissions
+		checkLocationServicesPermission()
+			.then(val => {
+				results[0] = val
+				return checkLocationPermission()
+			})
+			.then(val => {
+				results[1] = val
 				return checkCameraPermission()
 			})
-			.then(() => {
-				navigation.navigate('Modal')
-				return true
-			})
-			.catch(error => {
-				if (error === 'denied') {
+			.then(val => {
+				results[2] = val
+
+				// const resultsMsg = `Location Services are on: ${results[0]}\nPermission to access location: ${results[1]}\nPermission to use camera: ${results[2]}`
+
+				let resultsMsg = results[0] ? '' : 'Location Services\n'
+				resultsMsg += results[1] === 'granted' ? '' : 'Location\n'
+				resultsMsg += results[2] === 'granted' ? '' : 'Camera\n'
+
+				if (results.includes(false) || results.includes('denied')) {
 					Alert.alert(
-						I18n.t('permissions_denied_title'),
-						I18n.t('permissions_denied_msg'),
+						I18n.t('permissions_missing_title'),
+						`\n${I18n.t('permissions_missing_msg')}\n\n${resultsMsg}\n`,
 						[
 							{
-								text: I18n.t('cancel'),
+								text: I18n.t('ok'),
 								style: 'cancel',
 							},
 							{
@@ -136,14 +179,18 @@ const MapScreen = ({ navigation }) => {
 						{ cancelable: false } // Don't allow to cancel by tapping outside
 					)
 				} else {
-					Alert.alert(error)
+					navigation.navigate('Modal')
 				}
+				return true
+			})
+			.catch(error => {
+				alert(error)
 			})
 	}
 
 	return (
 		<SafeAreaView style={styles.safeAreaView}>
-			<View style={styles.webview} />
+			<View style={styles.webview}></View>
 			<TouchableOpacity style={styles.uploadButton}>
 				<MaterialIcons
 					name="add-a-photo"

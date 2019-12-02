@@ -1,4 +1,5 @@
-<WebView style={styles.webview} source={{ uri: 'http://coastwards.org/map' }}  />
+<WebView style={styles.webviewInner} source={{ uri: 'http://coastwards.org/map' }} />
+
 <TouchableOpacity  style={styles.button} >
   			<Text style={styles.buttonText} >Take a picture</Text>
   		</TouchableOpacity>
@@ -243,13 +244,189 @@
 
 
 
+checkLocationServicesPermission()
+      
+      // .then(() => {
+      //  if (Platform.OS === 'android') {
+      //    return checkProviderStatusAsync()
+      //  }
+      //  return true
+      // })
+      
+      .then(() => {
+        return checkLocationPermission()
+      })
+      .then(() => {
+        return checkCameraPermission()
+      })
+      .then(() => {
+        navigation.navigate('Modal')
+        return true
+      })
+      .catch(error => {
+        Alert.alert(
+          I18n.t('permissions_missing_title'),
+          `${I18n.t('permissions_missing_msg')} \n\n Error: ${error}`,
+          [
+            {
+              text: I18n.t('ok'),
+              style: 'cancel',
+            },
+            {
+              text: I18n.t('open_settings'),
+              onPress: () => {
+                if (Platform.OS === 'ios') {
+                  Linking.openURL('app-settings:')
+                } else {
+                  // IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS)
+                  IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_SETTINGS)
+                }
+              },
+              style: 'cancel',
+            },
+          ],
+          { cancelable: false } // Don't allow to cancel by tapping outside
+        )
+
+        /*
+        if (error === 'location_services_denied') {
+          Alert.alert(
+            I18n.t('locationservices_denied_title'),
+            `${I18n.t('locationservices_denied_msg')} \n\n ${I18n.t('permissions_missing_msg')} \n\n Error: ${error}`,
+            [
+              {
+                text: I18n.t('ok'),
+                style: 'cancel',
+              },
+              
+              // {
+              //  text: I18n.t('open_settings'),
+              //  onPress: () => {
+              //    if (Platform.OS === 'ios') {
+              //      Linking.openURL('prefs:')
+              //    } else {
+              //      IntentLauncher.startActivityAsync(IntentLauncher.ACTION_LOCATION_SOURCE_SETTINGS)
+              //    }
+              //  },
+              //  style: 'cancel',
+              // },
+              
+            ],
+            { cancelable: false } // Don't allow to cancel by tapping outside
+          )
+        } else if (error === 'location_permission_denied') {
+          Alert.alert(
+            I18n.t('location_denied_title'),
+            `${I18n.t('location_denied_msg')} \n\n ${I18n.t('permissions_missing_msg')} \n\n Error: ${error}`,
+            [
+              {
+                text: I18n.t('cancel'),
+                style: 'cancel',
+              },
+              {
+                text: I18n.t('open_settings'),
+                onPress: () => {
+                  if (Platform.OS === 'ios') {
+                    Linking.openURL('app-settings:')
+                  } else {
+                    // IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_SETTINGS)
+                  }
+                },
+                style: 'cancel',
+              },
+            ],
+            { cancelable: false } // Don't allow to cancel by tapping outside
+          )
+        } else if (error === 'camera_permission_denied') {
+          Alert.alert(
+            I18n.t('camera_denied_title'),
+            `${I18n.t('camera_denied_msg')} \n\n ${I18n.t('permissions_missing_msg')} \n\n Error: ${error}`,
+            [
+              {
+                text: I18n.t('cancel'),
+                style: 'cancel',
+              },
+              {
+                text: I18n.t('open_settings'),
+                onPress: () => {
+                  if (Platform.OS === 'ios') {
+                    Linking.openURL('app-settings:')
+                  } else {
+                    // IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_SETTINGS)
+                  }
+                },
+                style: 'cancel',
+              },
+            ],
+            { cancelable: false } // Don't allow to cancel by tapping outside
+          )
+        } else {
+          alert(error)
+        }
+        */
+      })
+
+// .then(() => {
+      //  if (Platform.OS === 'android') {
+      //    return checkProviderStatusAsync()
+      //  }
+      //  return true
+      // })
+
+const checkProviderStatusAsync = () => {
+    return new Promise((resolve, reject) => {
+      Location.getProviderStatusAsync()
+        .then(status => {
+          const { networkAvailable } = status
+          switch (networkAvailable) {
+            case true:
+              resolve(networkAvailable)
+              break
+            case false:
+              return networkAvailable
+            default:
+              reject(networkAvailable)
+              break
+          }
+          return status
+        })
+        .then(() => {
+          return Location.enableNetworkProviderAsync()
+        })
+        // this is already returned above
+        /*
+        .then(status => {
+          switch (status) {
+            case true:
+              resolve(status)
+              break
+            case false:
+              reject(status)
+              break
+            default:
+              reject(status)
+              break
+          }
+        })
+        */
+        .catch(error => {
+          reject(error)
+        })
+    })
+  }
 
 
 
-
-
-
-
+Promise.all([Location.hasServicesEnabledAsync(), Permissions.askAsync(Permissions.LOCATION), Permissions.askAsync(Permissions.CAMERA)])
+      .then(values => {
+        alert(values)
+      })
+      .catch(error => {
+        alert(values)
+      })
+  }
 
 
 
