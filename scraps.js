@@ -1,3 +1,22 @@
+
+{picture && <Text>Width: {picture.width}</Text>}
+{picture && <Text>Height: {picture.height}</Text>}
+{picture && <Text>{JSON.stringify(picture.exif)}</Text>}
+
+{location && (
+  <View>
+    <Text>latitude: {location.coords.latitude}</Text>
+    <Text>
+      longitude: {location.coords.longitude} accuracy: {location.coords.accuracy} heading: {location.coords.heading}
+    </Text>
+    <Text>
+      accuracy: {location.coords.accuracy} heading: {location.coords.heading}
+    </Text>
+    <Text>heading: {location.coords.heading}</Text>
+  </View>
+)}
+
+
 <WebView style={styles.webviewInner} source={{ uri: 'http://coastwards.org/map' }} />
 
 <TouchableOpacity  style={styles.button} >

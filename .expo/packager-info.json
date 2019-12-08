@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 8763,
+  "expoServerNgrokUrl": "https://f8-ycq.anonymous.coastwardsapp.exp.direct",
+  "packagerNgrokUrl": "https://packager.f8-ycq.anonymous.coastwardsapp.exp.direct",
+  "ngrokPid": 8969,
   "webpackServerPort": null
 }

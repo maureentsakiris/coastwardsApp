@@ -29,6 +29,11 @@ const styles = StyleSheet.create({
 	},
 	takePic: {
 		zIndex: 1,
+		alignItems: 'center',
+	},
+	takePicBtn: {
+		position: 'relative',
+		top: -90,
 	},
 	validating: {
 		zIndex: 2,
@@ -52,10 +57,6 @@ const styles = StyleSheet.create({
 		// zIndex: 0,
 	},
 	picture: {
-		width,
-		height: width,
-	},
-	pictureResized: {
 		width,
 		height: width,
 	},
@@ -214,31 +215,12 @@ const Contribute = () => {
 						ratio={ratio}
 					/>
 					<TouchableOpacity style={{ ...styles.takePicBtn, display: cameraReady ? 'flex' : 'none' }}>
-						<MaterialIcons onPress={takePic} name="radio-button-checked" size={80} color="red" />
+						<MaterialIcons onPress={takePic} name="radio-button-checked" size={80} color="white" />
 					</TouchableOpacity>
 				</View>
 			)}
 
-			<ScrollView contentContainerStyle={styles.scrollView}>
-				{picture && <Image style={styles.picture} source={{ uri: picture.uri }} />}
-				{pictureResized && <Image style={styles.pictureResized} source={{ uri: pictureResized.uri }} />}
-				{picture && <Text>Width: {picture.width}</Text>}
-				{picture && <Text>Height: {picture.height}</Text>}
-				{picture && <Text>{JSON.stringify(picture.exif)}</Text>}
-
-				{location && (
-					<View>
-						<Text>latitude: {location.coords.latitude}</Text>
-						<Text>
-							longitude: {location.coords.longitude} accuracy: {location.coords.accuracy} heading: {location.coords.heading}
-						</Text>
-						<Text>
-							accuracy: {location.coords.accuracy} heading: {location.coords.heading}
-						</Text>
-						<Text>heading: {location.coords.heading}</Text>
-					</View>
-				)}
-			</ScrollView>
+			<ScrollView contentContainerStyle={styles.scrollView}>{picture && <Image style={styles.picture} source={{ uri: picture.uri }} />}</ScrollView>
 
 			<View style={{ ...styles.fullscreen, ...styles.validating }} pointerEvents="none">
 				<View style={{ ...styles.validatingInner, display: validating ? 'flex' : 'none' }}>
