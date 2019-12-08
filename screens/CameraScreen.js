@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, AsyncStorage, Alert, Image, Dimensions } from 'react-native'
+import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, AsyncStorage, Alert, Image, Dimensions, ScrollView } from 'react-native'
 import Swiper from 'react-native-swiper'
 import { Camera } from 'expo-camera'
+import * as MediaLibrary from 'expo-media-library'
 import * as Location from 'expo-location'
 import { MaterialIcons } from '@expo/vector-icons'
 import I18n from '../i18n/i18n'
@@ -20,12 +21,45 @@ const styles = StyleSheet.create({
 	safeAreaView: {
 		flex: 1,
 	},
+	takePic: {
+		flex: 1,
+		alignItems: 'center',
+	},
 	cameraView: {
 		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'flex-end',
 	},
 	camera: {
 		height: width,
 		width,
+		zIndex: 0,
+	},
+	validating: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		width,
+		height: width,
+		backgroundColor: 'rgba(0, 0, 0, 0.8)',
+		flex: 1,
+		zIndex: 20,
+	},
+	picture: {
+		width,
+		height: width,
+		zIndex: 2,
+	},
+	takePicBtn: {
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5,
+		zIndex: 0,
 	},
 	form: {
 		flex: 2,
@@ -94,6 +128,21 @@ const styles = StyleSheet.create({
 })
 
 const CameraScreen = () => {
+	const [isChecked, setIsChecked] = useState(false)
+	const gotIt = () => {
+		async function setShowGuidelinesStorage() {
+			return AsyncStorage.setItem('HIDE_GUIDELINES', String(isChecked))
+		}
+
+		setShowGuidelinesStorage()
+			.then(() => {
+				setHideGuidelines(true)
+			})
+			.catch(error => {
+				Alert.alert(error)
+			})
+	}
+
 	const [hideGuidelines, setHideGuidelines] = useState(false)
 	useEffect(() => {
 		async function checkHideGuidelinesStorage() {
@@ -126,47 +175,81 @@ const CameraScreen = () => {
 			})
 	}, [])
 
-	const [userLocation, setUserLocation] = useState(null)
+	const [cameraReady, setCameraReady] = useState(false)
+	const [cameraRef, setCameraRef] = useState(false)
+	const [picture, setPicture] = useState(null)
+	const [errorMsg, setErrorMsg] = useState(null)
+	const [validating, setValidating] = useState(false)
 
-	const getUserPosition = () => {
-		Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High })
-			.then(value => {
-				alert(JSON.stringify(value))
-				setUserLocation(value)
-				return value
-			})
-			.catch(error => {
-				Alert.alert(error)
-			})
-	}
+	const takePic = () => {
+		const pictureOptions = {
+			exif: true,
+			quality: 0,
+			// base64: true,
 
-	const [isChecked, setIsChecked] = useState(false)
-
-	const gotIt = () => {
-		async function setShowGuidelinesStorage() {
-			return AsyncStorage.setItem('HIDE_GUIDELINES', String(isChecked))
+			// onPictureSaved: () => {
+			// 	setValidating(false)
+			// },
 		}
 
-		setShowGuidelinesStorage()
-			.then(() => {
-				setHideGuidelines(true)
+		setValidating(true)
+		cameraRef
+			.takePictureAsync(pictureOptions)
+			.then(pic => {
+				setPicture(pic)
+				setValidating(false)
 			})
 			.catch(error => {
-				Alert.alert(error)
+				alert(error)
 			})
+
+		// const asset = await MediaLibrary.createAssetAsync(uri)
 	}
+
+	// alert(pictureURI)
 
 	return (
 		<SafeAreaView style={styles.safeAreaView}>
 			{hideGuidelines && (
-				<View style={styles.cameraView}>
-					<Camera style={styles.camera} type="back" />
-					{userLocation && (
-						<View style={styles.form}>
-							<Text>{userLocation.coords.latitude}</Text>
-							<Text>{userLocation.coords.longitude}</Text>
-						</View>
-					)}
+				<View style={styles.takePic}>
+					<View style={styles.cameraView}>
+						{!picture && (
+							<View style={styles.cameraView}>
+								<Camera
+									style={styles.camera}
+									type="back"
+									ref={ref => {
+										setCameraRef(ref)
+									}}
+									onCameraReady={() => {
+										setCameraReady(true)
+									}}
+									onMountError={error => {
+										setErrorMsg(error.message)
+									}}
+									ratio="1:1"
+								/>
+
+								{cameraReady && (
+									<TouchableOpacity style={styles.takePicBtn}>
+										<MaterialIcons onPress={takePic} name="radio-button-checked" size={80} color="white" />
+									</TouchableOpacity>
+								)}
+
+								{validating && (
+									<View style={styles.validating}>
+										<Text>Validating</Text>
+									</View>
+								)}
+							</View>
+						)}
+
+						{picture && <Image style={styles.picture} source={{ uri: picture.uri }} />}
+					</View>
+					<View style={styles.form}>
+						<Text>Error:</Text>
+						{errorMsg && <Text>{errorMsg}</Text>}
+					</View>
 				</View>
 			)}
 			{!hideGuidelines && (

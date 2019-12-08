@@ -189,7 +189,7 @@ const MapScreen = ({ navigation }) => {
 	}
 
 	return (
-		<SafeAreaView style={styles.safeAreaView}>
+		<View style={styles.safeAreaView}>
 			<View style={styles.webview}></View>
 			<TouchableOpacity style={styles.uploadButton}>
 				<MaterialIcons
@@ -211,7 +211,7 @@ const MapScreen = ({ navigation }) => {
 					}}
 				/>
 			</TouchableOpacity>
-		</SafeAreaView>
+		</View>
 	)
 }
 

@@ -5,7 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { Ionicons } from '@expo/vector-icons'
 import MapScreen from '../screens/MapScreen'
 import SettingsScreen from '../screens/SettingsScreen'
-import CameraScreen from '../screens/CameraScreen'
+import Contribute from '../screens/Contribute'
 import theme from '../theme'
 
 const turtle = require('../assets/images/icon.png')
@@ -18,8 +18,7 @@ const styles = StyleSheet.create({
 		height: 120,
 		alignItems: 'center',
 		justifyContent: 'center',
-		marginTop: Platform.OS === 'ios' ? 0 : 25,
-		//backgroundColor: theme.primary
+		marginTop: theme.safePadding,
 	},
 	logoImage: {
 		height: 100,
@@ -30,14 +29,14 @@ const styles = StyleSheet.create({
 
 const Drawer = props => {
 	return (
-		<SafeAreaView style={styles.safeAreaView}>
+		<View style={styles.safeAreaView}>
 			<View style={styles.logoView}>
 				<Image source={turtle} style={styles.logoImage} />
 			</View>
 			<ScrollView>
 				<DrawerItems {...props} />
 			</ScrollView>
-		</SafeAreaView>
+		</View>
 	)
 }
 
@@ -79,7 +78,7 @@ const MainNavigator = createStackNavigator(
 			screen: DrawerNavigator,
 		},
 		Modal: {
-			screen: CameraScreen,
+			screen: Contribute,
 		},
 	},
 	{
