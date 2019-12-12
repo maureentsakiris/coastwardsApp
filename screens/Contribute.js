@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, AsyncStorage, Alert, Image, Dimensions, ScrollView, ActivityIndicator, Platform } from 'react-native'
 import { Camera } from 'expo-camera'
 import * as Location from 'expo-location'
@@ -90,17 +90,27 @@ const Contribute = () => {
 	const [location, setLocation] = useState(null)
 	const [errorMsg, setErrorMsg] = useState(null)
 
+	const isSafe = useRef(true)
+
+	// setting states after asynchronous calls was causing memory leak. calls cannot be wrapped into an effect because they are not called onMount but when user clicks btn
+	// https://jeffchheng.github.io/brains-base/2019-08-02-usestatesafely/?utm_campaign=Week%20of%20React&utm_medium=email&utm_source=Revue%20newsletter
 	useEffect(() => {
-		alert('mounted')
-		return () => alert('unmounting...')
+		// Future proofing for double-invoking
+		// effects in Strict Mode.
+		isSafe.current = true
+		return () => {
+			isSafe.current = false
+		}
 	}, [])
 
 	const resetContribute = () => {
-		setValidating('')
-		setPicture(null)
-		setPictureResized(null)
-		setLocation(null)
-		setErrorMsg(null)
+		if (isSafe.current) {
+			setValidating('')
+			setPicture(null)
+			setPictureResized(null)
+			setLocation(null)
+			setErrorMsg(null)
+		}
 	}
 
 	const checkForFaces = pic => {
@@ -136,39 +146,52 @@ const Contribute = () => {
 			// },
 		}
 
-		setValidating('saving_picture')
+		if (isSafe.current) {
+			setValidating('saving_picture')
+		}
 
 		cameraRef
 			.takePictureAsync(pictureOptions)
 			.then(pic => {
-				setPicture(pic)
+				if (isSafe.current) {
+					setPicture(pic)
+				}
 				return pic
 			})
 			.then(pic => {
-				setValidating('resizing_picture')
+				if (isSafe.current) {
+					setValidating('resizing_picture')
+				}
 				return ImageManipulator.manipulateAsync(pic.uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPG, base64: true })
 			})
 			.then(picResized => {
-				setPictureResized(picResized)
+				if (isSafe.current) {
+					setPictureResized(picResized)
+				}
 				return picResized
 			})
 			.then(picResized => {
-				setValidating('checking_for_faces')
+				if (isSafe.current) {
+					setValidating('checking_for_faces')
+				}
 				return checkForFaces(picResized)
 			})
 
 			.then(() => {
-				setValidating('getting_location')
+				if (isSafe.current) {
+					setValidating('getting_location')
+				}
 				return false
 				// return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
 			})
 			.then(loc => {
-				setLocation(loc)
-				setValidating('')
+				if (isSafe.current) {
+					setLocation(loc)
+					setValidating('')
+				}
 			})
 			.catch(error => {
 				alert(error)
-				setValidating('')
 				resetContribute()
 			})
 
@@ -181,12 +204,16 @@ const Contribute = () => {
 				.getSupportedRatiosAsync()
 				.then(value => {
 					if (value.includes(RATIO)) {
-						setRatio(RATIO)
-						setCameraReady(true)
+						if (isSafe.current) {
+							setRatio(RATIO)
+							setCameraReady(true)
+						}
 						return RATIO
 					}
-					setRatio('4:3')
-					setCameraReady(true)
+					if (isSafe.current) {
+						setRatio('4:3')
+						setCameraReady(true)
+					}
 					return '4:3'
 				})
 				/*
@@ -195,20 +222,26 @@ const Contribute = () => {
 				})
 				.then(availableSizes => {
 					// alert(availableSizes)
+					if(isSafe.current){
 					setCameraReady(true)
+					}
 				})
 				*/
 				.catch(error => {
 					alert(error)
 				})
 		} else {
-			setCameraReady(true)
+			if (isSafe.current) {
+				setCameraReady(true)
+			}
 			/*
 			cameraRef
 				.getAvailablePictureSizesAsync(RATIO)
 				.then(availableSizes => {
 					// alert(availableSizes)
+					if(isSafe.current){
 					setCameraReady(true)
+					}
 				})
 				.catch(error => {
 					alert(error)
