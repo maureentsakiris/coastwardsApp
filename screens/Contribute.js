@@ -28,12 +28,29 @@ const styles = StyleSheet.create({
 		// flex: 1,
 	},
 	takePic: {
+		flex: 1,
 		zIndex: 1,
 		alignItems: 'center',
+		backgroundColor: 'white',
 	},
 	takePicBtn: {
 		position: 'relative',
-		top: -90,
+		top: 10,
+		// backgroundColor: 'red',
+		backgroundColor: theme.primary,
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: 80,
+		height: 80,
+		borderRadius: 50,
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 5,
+		},
+		shadowOpacity: 0.36,
+		shadowRadius: 6.68,
+		elevation: 11,
 	},
 	validating: {
 		zIndex: 2,
@@ -44,7 +61,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: 'rgba(0, 0, 0, 0.8)',
+		backgroundColor: 'rgba(0, 0, 0, 0.9)',
 		padding: theme.safePadding,
 	},
 	validatingTxt: {
@@ -52,8 +69,8 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 	},
 	camera: {
-		height: width,
 		width,
+		height: width,
 		// zIndex: 0,
 	},
 	picture: {
@@ -72,6 +89,11 @@ const Contribute = () => {
 	const [pictureResized, setPictureResized] = useState(null)
 	const [location, setLocation] = useState(null)
 	const [errorMsg, setErrorMsg] = useState(null)
+
+	useEffect(() => {
+		alert('mounted')
+		return () => alert('unmounting...')
+	}, [])
 
 	const resetContribute = () => {
 		setValidating('')
@@ -108,7 +130,7 @@ const Contribute = () => {
 			exif: true,
 			quality: 0,
 			// base64: true,
-			skipProcessing: true,
+			// skipProcessing: true,
 			// onPictureSaved: () => {
 			//  setValidating(false)
 			// },
@@ -215,7 +237,7 @@ const Contribute = () => {
 						ratio={ratio}
 					/>
 					<TouchableOpacity style={{ ...styles.takePicBtn, display: cameraReady ? 'flex' : 'none' }}>
-						<MaterialIcons onPress={takePic} name="radio-button-checked" size={80} color="white" />
+						<MaterialIcons onPress={takePic} name="photo-camera" size={40} color="white" />
 					</TouchableOpacity>
 				</View>
 			)}
