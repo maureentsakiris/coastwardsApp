@@ -5,6 +5,7 @@ import * as Location from 'expo-location'
 import * as FaceDetector from 'expo-face-detector'
 import * as ImageManipulator from 'expo-image-manipulator'
 import { MaterialIcons } from '@expo/vector-icons'
+
 import Guidelines from '../components/Guidelines'
 import I18n from '../i18n/i18n'
 import theme from '../theme'
@@ -27,17 +28,44 @@ const styles = StyleSheet.create({
 		left: 0,
 		// flex: 1,
 	},
+	cancelBtn: {
+		paddingTop: theme.safePadding,
+		paddingRight: 20,
+		paddingBottom: 20,
+		alignSelf: 'flex-end',
+		zIndex: 5,
+		// position: 'absolute',
+		// top: theme.safePadding,
+		// left: 20,
+		// zIndex: 3,
+		// shadowColor: '#000',
+		// shadowOffset: {
+		// 	width: 0,
+		// 	height: 5,
+		// },
+		// shadowOpacity: 0.36,
+		// shadowRadius: 6.68,
+		// elevation: 11,
+	},
+	cancelBtnTxt: {
+		color: 'white',
+		fontSize: 18,
+	},
 	takePic: {
 		flex: 1,
 		zIndex: 1,
+		alignItems: 'flex-start',
+		backgroundColor: 'black',
+	},
+	takePicBtnContainer: {
+		flex: 1,
+		width,
 		alignItems: 'center',
-		backgroundColor: 'white',
+		justifyContent: 'center',
 	},
 	takePicBtn: {
-		position: 'relative',
-		top: 10,
-		// backgroundColor: 'red',
-		backgroundColor: theme.primary,
+		backgroundColor: 'white',
+
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: 80,
@@ -77,6 +105,14 @@ const styles = StyleSheet.create({
 		width,
 		height: width,
 	},
+	takePicInner: {
+		padding: theme.safePadding,
+	},
+	hurray: {
+		fontSize: 28,
+		fontWeight: '300',
+		color: theme.body,
+	},
 })
 
 const Contribute = ({ navigation }) => {
@@ -88,7 +124,11 @@ const Contribute = ({ navigation }) => {
 	const [picture, setPicture] = useState(null)
 	const [pictureResized, setPictureResized] = useState(null)
 	const [location, setLocation] = useState(null)
-	const [errorMsg, setErrorMsg] = useState('this is an error message')
+	const [savingPictureMsg, setSavingPictureMsg] = useState(false)
+	const [resizingPictureMsg, setResizingPictureMsg] = useState(false)
+	const [checkingFacesMsg, setCheckingFacesMsg] = useState(false)
+	const [gettingLocationMsg, setGettingLocationMsg] = useState(false)
+	const [hurray, setHurray] = useState(false)
 
 	const isSafe = useRef(true)
 
@@ -109,7 +149,11 @@ const Contribute = ({ navigation }) => {
 			setPicture(null)
 			setPictureResized(null)
 			setLocation(null)
-			setErrorMsg(null)
+			setSavingPictureMsg(false)
+			setResizingPictureMsg(false)
+			setCheckingFacesMsg(false)
+			setGettingLocationMsg(false)
+			setHurray(false)
 		}
 	}
 
@@ -124,10 +168,8 @@ const Contribute = ({ navigation }) => {
 			FaceDetector.detectFacesAsync(pic.uri, options)
 				.then(value => {
 					if (value.faces.length > 0) {
-						reject(Error({ t: 'faces_detected' }))
+						reject(Error('faces_detected'))
 					}
-
-					reject(Error('faces_detected'))
 					resolve(pic)
 				})
 				.catch(error => {
@@ -143,30 +185,34 @@ const Contribute = ({ navigation }) => {
 			// base64: true,
 			// skipProcessing: true,
 			// onPictureSaved: () => {
-			//  setValidating(false)
+			//  setValidating('')
 			// },
 		}
 
 		if (isSafe.current) {
 			setValidating('saving_picture')
+			setSavingPictureMsg(I18n.t('saving_picture'))
 		}
 
 		cameraRef
 			.takePictureAsync(pictureOptions)
 			.then(pic => {
 				if (isSafe.current) {
+					setSavingPictureMsg(`${I18n.t('saving_picture')} ✓`)
 					setPicture(pic)
 				}
 				return pic
 			})
 			.then(pic => {
 				if (isSafe.current) {
+					setResizingPictureMsg(I18n.t('resizing_picture'))
 					setValidating('resizing_picture')
 				}
 				return ImageManipulator.manipulateAsync(pic.uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPG, base64: true })
 			})
 			.then(picResized => {
 				if (isSafe.current) {
+					setSavingPictureMsg(`${I18n.t('resizing_picture')} ✓`)
 					setPictureResized(picResized)
 				}
 				return picResized
@@ -182,23 +228,23 @@ const Contribute = ({ navigation }) => {
 				if (isSafe.current) {
 					setValidating('getting_location')
 				}
-				return false
-				// return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
+				return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
 			})
 			.then(loc => {
 				if (isSafe.current) {
 					setLocation(loc)
 					setValidating('')
+					setHurray(true)
 				}
 			})
 			.catch(error => {
-				const handledErrorMessages = ['faces_detected']
-				const msg = handledErrorMessages.includes(error.message) ? I18n.t(error.message) : JSON.stringify(error)
+				const translatedErrorMessages = ['faces_detected']
+				const msg = translatedErrorMessages.includes(error.message) ? I18n.t(error.message) : error.message
 				if (isSafe.current) {
 					setValidating('')
 				}
 				Alert.alert(
-					I18n.t('something_went_wrong'),
+					I18n.t('oops'),
 					msg,
 					[
 						{
@@ -253,15 +299,16 @@ const Contribute = ({ navigation }) => {
 				})
 				*/
 				.catch(error => {
-					const handledErrorMessages = []
-					const msg = handledErrorMessages.includes(error.message) ? I18n.t(error.message) : JSON.stringify(error)
 					Alert.alert(
 						I18n.t('something_went_wrong'),
-						msg,
+						error.message,
 						[
 							{
-								text: I18n.t('try_again'),
+								text: I18n.t('cancel'),
 								style: 'cancel',
+								onPress: () => {
+									navigation.navigate('Main')
+								},
 							},
 						],
 						{ cancelable: false } // Don't allow to cancel by tapping outside
@@ -291,9 +338,18 @@ const Contribute = ({ navigation }) => {
 
 	return (
 		<View style={styles.safeAreaView}>
-			{errorMsg && <Text>{errorMsg}</Text>}
 			{!picture && (
 				<View style={{ ...styles.fullscreen, ...styles.takePic }}>
+					<TouchableOpacity style={styles.cancelBtn}>
+						<Text
+							onPress={() => {
+								navigation.navigate('Main')
+							}}
+							style={styles.cancelBtnTxt}
+						>
+							{I18n.t('cancel')}
+						</Text>
+					</TouchableOpacity>
 					<Camera
 						style={styles.camera}
 						type="back"
@@ -309,7 +365,7 @@ const Contribute = ({ navigation }) => {
 								error.message,
 								[
 									{
-										text: I18n.t('ok'),
+										text: I18n.t('cancel'),
 										style: 'cancel',
 										onPress: () => {
 											navigation.navigate('Main')
@@ -322,18 +378,37 @@ const Contribute = ({ navigation }) => {
 						}}
 						ratio={ratio}
 					/>
-					<TouchableOpacity style={{ ...styles.takePicBtn, display: cameraReady ? 'flex' : 'none' }}>
-						<MaterialIcons onPress={takePic} name="photo-camera" size={40} color="white" />
-					</TouchableOpacity>
+					<View style={styles.takePicBtnContainer}>
+						<TouchableOpacity style={{ ...styles.takePicBtn, display: cameraReady ? 'flex' : 'none' }}>
+							<MaterialIcons onPress={takePic} name="photo-camera" size={40} color="black" />
+						</TouchableOpacity>
+					</View>
 				</View>
 			)}
-
-			<ScrollView contentContainerStyle={styles.scrollView}>{picture && <Image style={styles.picture} source={{ uri: picture.uri }} />}</ScrollView>
+			<TouchableOpacity style={styles.cancelBtn}>
+				<Text
+					onPress={() => {
+						navigation.navigate('Main')
+					}}
+					style={{ ...styles.cancelBtnTxt, color: theme.primary }}
+				>
+					{I18n.t('cancel')}
+				</Text>
+			</TouchableOpacity>
+			<ScrollView contentContainerStyle={styles.scrollView}>
+				{picture && <Image style={styles.picture} source={{ uri: picture.uri }} />}
+				{hurray && (
+					<View style={styles.takePicInner}>
+						<Text style={styles.hurray}>{I18n.t('hurray')}</Text>
+					</View>
+				)}
+			</ScrollView>
 
 			<View style={{ ...styles.fullscreen, ...styles.validating }} pointerEvents="none">
 				<View style={{ ...styles.validatingInner, display: validating ? 'flex' : 'none' }}>
 					<ActivityIndicator size="large" color="white" />
-					<Text style={styles.validatingTxt}>{I18n.t(validating)}</Text>
+					{savingPictureMsg && <Text style={styles.validatingTxt}>{savingPictureMsg}</Text>}
+					{resizingPictureMsg && <Text style={styles.validatingTxt}>{resizingPictureMsg}</Text>}
 				</View>
 			</View>
 			<Guidelines />

@@ -2180,6 +2180,18 @@ module.exports = {
 		// "it": "" // !
 	},
 	something_went_wrong: {
+		en: 'Something went wrong',
+		de: 'Irgendetwas ist schiefgelaufen',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	oops: {
 		en: 'Oops!',
 		de: 'Ups!',
 		// "es": "", // !

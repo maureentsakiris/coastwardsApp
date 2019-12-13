@@ -5,7 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { Ionicons } from '@expo/vector-icons'
 import MapScreen from '../screens/MapScreen'
 import SettingsScreen from '../screens/SettingsScreen'
-import Contribute from '../screens/Contribute'
+import ContributeScreen from '../screens/ContributeScreen'
 import theme from '../theme'
 
 const turtle = require('../assets/images/icon.png')
@@ -78,7 +78,7 @@ const MainNavigator = createStackNavigator(
 			screen: DrawerNavigator,
 		},
 		Modal: {
-			screen: Contribute,
+			screen: ContributeScreen,
 		},
 	},
 	{
