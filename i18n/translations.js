@@ -2131,6 +2131,7 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
+	/*
 	saving_picture: {
 		en: 'Saving picture',
 		de: 'Foto wird gespeichert',
@@ -2158,6 +2159,19 @@ module.exports = {
 	checking_for_faces: {
 		en: 'Running face detection',
 		de: 'Gesichtserkennung läuft',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	*/
+	validating_picture: {
+		en: 'Validating picture',
+		de: 'Foto wird validiert',
 		// "es": "", // !
 		// "ar": "", // !
 		// "pt": "", // !

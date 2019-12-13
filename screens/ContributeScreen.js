@@ -120,14 +120,12 @@ const Contribute = ({ navigation }) => {
 	const [cameraReady, setCameraReady] = useState(false)
 	const [ratio, setRatio] = useState(RATIO)
 	// const [pictureSize, setPictureSize] = useState(null)
-	const [validating, setValidating] = useState('')
+	const [validating, setValidating] = useState(false)
+	const [validatingMsg, setValidatingMsg] = useState(false)
 	const [picture, setPicture] = useState(null)
 	const [pictureResized, setPictureResized] = useState(null)
 	const [location, setLocation] = useState(null)
-	const [savingPictureMsg, setSavingPictureMsg] = useState(false)
-	const [resizingPictureMsg, setResizingPictureMsg] = useState(false)
-	const [checkingFacesMsg, setCheckingFacesMsg] = useState(false)
-	const [gettingLocationMsg, setGettingLocationMsg] = useState(false)
+
 	const [hurray, setHurray] = useState(false)
 
 	const isSafe = useRef(true)
@@ -145,14 +143,12 @@ const Contribute = ({ navigation }) => {
 
 	const resetContribute = () => {
 		if (isSafe.current) {
-			setValidating('')
+			setValidating(false)
+			setValidatingMsg(false)
 			setPicture(null)
 			setPictureResized(null)
 			setLocation(null)
-			setSavingPictureMsg(false)
-			setResizingPictureMsg(false)
-			setCheckingFacesMsg(false)
-			setGettingLocationMsg(false)
+
 			setHurray(false)
 		}
 	}
@@ -185,55 +181,45 @@ const Contribute = ({ navigation }) => {
 			// base64: true,
 			// skipProcessing: true,
 			// onPictureSaved: () => {
-			//  setValidating('')
+
 			// },
 		}
 
 		if (isSafe.current) {
-			setValidating('saving_picture')
-			setSavingPictureMsg(I18n.t('saving_picture'))
+			setValidating(true)
+			setValidatingMsg(I18n.t('status_validating'))
 		}
 
 		cameraRef
 			.takePictureAsync(pictureOptions)
 			.then(pic => {
 				if (isSafe.current) {
-					setSavingPictureMsg(`${I18n.t('saving_picture')} ✓`)
 					setPicture(pic)
 				}
 				return pic
 			})
 			.then(pic => {
-				if (isSafe.current) {
-					setResizingPictureMsg(I18n.t('resizing_picture'))
-					setValidating('resizing_picture')
-				}
 				return ImageManipulator.manipulateAsync(pic.uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPG, base64: true })
 			})
 			.then(picResized => {
 				if (isSafe.current) {
-					setSavingPictureMsg(`${I18n.t('resizing_picture')} ✓`)
 					setPictureResized(picResized)
 				}
 				return picResized
 			})
 			.then(picResized => {
-				if (isSafe.current) {
-					setValidating('checking_for_faces')
-				}
 				return checkForFaces(picResized)
 			})
 
 			.then(() => {
-				if (isSafe.current) {
-					setValidating('getting_location')
-				}
+				return true
 				return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
 			})
 			.then(loc => {
 				if (isSafe.current) {
 					setLocation(loc)
-					setValidating('')
+					setValidating(false)
+					setValidatingMsg(false)
 					setHurray(true)
 				}
 			})
@@ -241,7 +227,7 @@ const Contribute = ({ navigation }) => {
 				const translatedErrorMessages = ['faces_detected']
 				const msg = translatedErrorMessages.includes(error.message) ? I18n.t(error.message) : error.message
 				if (isSafe.current) {
-					setValidating('')
+					setValidating(false)
 				}
 				Alert.alert(
 					I18n.t('oops'),
@@ -407,8 +393,7 @@ const Contribute = ({ navigation }) => {
 			<View style={{ ...styles.fullscreen, ...styles.validating }} pointerEvents="none">
 				<View style={{ ...styles.validatingInner, display: validating ? 'flex' : 'none' }}>
 					<ActivityIndicator size="large" color="white" />
-					{savingPictureMsg && <Text style={styles.validatingTxt}>{savingPictureMsg}</Text>}
-					{resizingPictureMsg && <Text style={styles.validatingTxt}>{resizingPictureMsg}</Text>}
+					{validatingMsg && <Text style={styles.validatingTxt}>{validatingMsg}</Text>}
 				</View>
 			</View>
 			<Guidelines />
