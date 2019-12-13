@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 9912,
-  "expoServerNgrokUrl": "https://f8-ycq.anonymous.coastwardsapp.exp.direct",
-  "packagerNgrokUrl": "https://packager.f8-ycq.anonymous.coastwardsapp.exp.direct",
-  "ngrokPid": 9923,
+  "packagerPid": 2640,
+  "expoServerNgrokUrl": "https://f8-ycq.maureentsakiris.coastwardsapp.exp.direct",
+  "packagerNgrokUrl": "https://packager.f8-ycq.maureentsakiris.coastwardsapp.exp.direct",
+  "ngrokPid": 2659,
   "webpackServerPort": null
 }

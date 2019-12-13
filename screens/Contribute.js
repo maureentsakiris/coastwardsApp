@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
 	},
 })
 
-const Contribute = () => {
+const Contribute = ({ navigation }) => {
 	const [cameraRef, setCameraRef] = useState(false)
 	const [cameraReady, setCameraReady] = useState(false)
 	const [ratio, setRatio] = useState(RATIO)
@@ -88,7 +88,7 @@ const Contribute = () => {
 	const [picture, setPicture] = useState(null)
 	const [pictureResized, setPictureResized] = useState(null)
 	const [location, setLocation] = useState(null)
-	const [errorMsg, setErrorMsg] = useState(null)
+	const [errorMsg, setErrorMsg] = useState('this is an error message')
 
 	const isSafe = useRef(true)
 
@@ -124,9 +124,10 @@ const Contribute = () => {
 			FaceDetector.detectFacesAsync(pic.uri, options)
 				.then(value => {
 					if (value.faces.length > 0) {
-						reject(Error('faces_detected'))
+						reject(Error({ t: 'faces_detected' }))
 					}
 
+					reject(Error('faces_detected'))
 					resolve(pic)
 				})
 				.catch(error => {
@@ -191,8 +192,32 @@ const Contribute = () => {
 				}
 			})
 			.catch(error => {
-				alert(error)
-				resetContribute()
+				const handledErrorMessages = ['faces_detected']
+				const msg = handledErrorMessages.includes(error.message) ? I18n.t(error.message) : JSON.stringify(error)
+				if (isSafe.current) {
+					setValidating('')
+				}
+				Alert.alert(
+					I18n.t('something_went_wrong'),
+					msg,
+					[
+						{
+							text: I18n.t('try_again'),
+							style: 'cancel',
+							onPress: () => {
+								resetContribute()
+							},
+						},
+						{
+							text: I18n.t('cancel'),
+							onPress: () => {
+								navigation.navigate('Main')
+							},
+						},
+					],
+
+					{ cancelable: false } // Don't allow to cancel by tapping outside
+				)
 			})
 
 		// const asset = await MediaLibrary.createAssetAsync(uri)
@@ -228,7 +253,21 @@ const Contribute = () => {
 				})
 				*/
 				.catch(error => {
-					alert(error)
+					const handledErrorMessages = []
+					const msg = handledErrorMessages.includes(error.message) ? I18n.t(error.message) : JSON.stringify(error)
+					Alert.alert(
+						I18n.t('something_went_wrong'),
+						msg,
+						[
+							{
+								text: I18n.t('try_again'),
+								style: 'cancel',
+							},
+						],
+						{ cancelable: false } // Don't allow to cancel by tapping outside
+					)
+
+					resetContribute()
 				})
 		} else {
 			if (isSafe.current) {
@@ -265,7 +304,21 @@ const Contribute = () => {
 							setupCamera()
 						}}
 						onMountError={error => {
-							setErrorMsg(error.message)
+							Alert.alert(
+								I18n.t('something_went_wrong'),
+								error.message,
+								[
+									{
+										text: I18n.t('ok'),
+										style: 'cancel',
+										onPress: () => {
+											navigation.navigate('Main')
+										},
+									},
+								],
+
+								{ cancelable: false } // Don't allow to cancel by tapping outside
+							)
 						}}
 						ratio={ratio}
 					/>

@@ -2131,6 +2131,78 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
+	saving_picture: {
+		en: 'Saving picture',
+		de: 'Foto wird gespeichert',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	resizing_picture: {
+		en: 'Resizing picture',
+		de: 'Foto wird bearbeitet',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	checking_for_faces: {
+		en: 'Running face detection',
+		de: 'Gesichtserkennung läuft',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	getting_location: {
+		en: 'Getting your location',
+		de: 'Standort wird ermittelt',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	something_went_wrong: {
+		en: 'Oops!',
+		de: 'Ups!',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	try_again: {
+		en: 'Try again',
+		de: 'Erneut versuchen',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
 
 	/*
 	"take_photo": {

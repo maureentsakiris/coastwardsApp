@@ -4,6 +4,7 @@ import * as Font from 'expo-font'
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native'
+import { AppearanceProvider } from 'react-native-appearance'
 import { createAppContainer } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons'
 import MainNavigator from './navigation/MainNavigator'
@@ -52,10 +53,10 @@ const App = props => {
 	}
 
 	return (
-		<View style={styles.container}>
+		<AppearanceProvider style={styles.container}>
 			{Platform.OS === 'ios' && <StatusBar barStyle="default" hidden={false} />}
 			<AppNavigator />
-		</View>
+		</AppearanceProvider>
 	)
 }
 
