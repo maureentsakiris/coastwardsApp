@@ -10,6 +10,7 @@ import { Ionicons } from '@expo/vector-icons'
 import MainNavigator from './navigation/MainNavigator'
 
 const icon = require('./assets/images/icon.png')
+const anyCoast = require('./assets/guidelines/anycoast.png')
 
 const styles = StyleSheet.create({
 	container: {
@@ -23,7 +24,7 @@ const AppNavigator = createAppContainer(MainNavigator)
 async function loadResourcesAsync() {
 	await Promise.all([
 		// AsyncStorage.clear(),
-		Asset.loadAsync([icon]),
+		Asset.loadAsync([icon, anyCoast]),
 		Font.loadAsync({
 			// This is the font that we are using for our tab bar
 			...Ionicons.font,

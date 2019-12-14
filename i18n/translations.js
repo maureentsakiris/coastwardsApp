@@ -2131,7 +2131,20 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-	/*
+
+	validating_picture: {
+		en: 'Validating picture',
+		de: 'Foto wird validiert',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+
 	saving_picture: {
 		en: 'Saving picture',
 		de: 'Foto wird gespeichert',
@@ -2144,8 +2157,8 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-	resizing_picture: {
-		en: 'Resizing picture',
+	processing_picture: {
+		en: 'Processing picture',
 		de: 'Foto wird bearbeitet',
 		// "es": "", // !
 		// "ar": "", // !
@@ -2168,19 +2181,7 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-	*/
-	validating_picture: {
-		en: 'Validating picture',
-		de: 'Foto wird validiert',
-		// "es": "", // !
-		// "ar": "", // !
-		// "pt": "", // !
-		// "zh": "", // !
-		// "el": "", // !
-		// "hi": "", // !
-		// "fr": "" // !
-		// "it": "" // !
-	},
+
 	getting_location: {
 		en: 'Getting your location',
 		de: 'Standort wird ermittelt',

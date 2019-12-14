@@ -1,173 +1,153 @@
-import React, { useState, useEffect } from 'react'
-import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, AsyncStorage, Alert, Image, Dimensions, ScrollView } from 'react-native'
-import Swiper from 'react-native-swiper'
+import React, { useState, useEffect, useRef } from 'react'
+import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, AsyncStorage, Alert, Image, Dimensions, ScrollView, ActivityIndicator, Platform, StatusBar } from 'react-native'
 import { Camera } from 'expo-camera'
-import * as MediaLibrary from 'expo-media-library'
 import * as Location from 'expo-location'
+import * as FaceDetector from 'expo-face-detector'
+import * as ImageManipulator from 'expo-image-manipulator'
 import { MaterialIcons } from '@expo/vector-icons'
+
 import I18n from '../i18n/i18n'
 import theme from '../theme'
 
-const anycoast = require('../assets/guidelines/anycoast.png')
-// const original = require('../assets/guidelines/original.png')
-const closeup = require('../assets/guidelines/closeup.png')
-const nofaces = require('../assets/guidelines/nofaces.png')
-const coastmaterial = require('../assets/guidelines/coastmaterial.png')
-const notonlybeaches = require('../assets/guidelines/notonlybeaches.png')
-
 const { width } = Dimensions.get('window')
+const RATIO = '1:1'
 
 const styles = StyleSheet.create({
 	safeAreaView: {
 		flex: 1,
 	},
-	takePic: {
-		flex: 1,
-		alignItems: 'center',
+	scrollView: {
+		paddingBottom: 20,
 	},
-	cameraView: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'flex-end',
-	},
-	camera: {
-		height: width,
+	fullscreen: {
 		width,
-		zIndex: 0,
-	},
-	validating: {
+		height: '100%',
 		position: 'absolute',
 		top: 0,
 		left: 0,
+		// flex: 1,
+	},
+	takePic: {
+		flex: 1,
+		zIndex: 1,
+		alignItems: 'flex-start',
+		backgroundColor: 'black',
+	},
+
+	takePicBtnContainer: {
+		flex: 1,
+		width,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-around',
+	},
+	takePicBtn: {
+		backgroundColor: 'white',
+
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: 80,
+		height: 80,
+		borderRadius: 50,
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+
+		elevation: 5,
+	},
+	validating: {
+		zIndex: 2,
+		// pointerEvents: 'none',
+	},
+	// https://github.com/facebook/react-native/issues/18415
+	validatingInner: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: 'rgba(0, 0, 0, 0.9)',
+		padding: theme.safePadding,
+	},
+	validatingTxt: {
+		color: 'white',
+		marginTop: 20,
+	},
+	camera: {
 		width,
 		height: width,
-		backgroundColor: 'rgba(0, 0, 0, 0.8)',
-		flex: 1,
-		zIndex: 20,
+		// zIndex: 0,
 	},
 	picture: {
 		width,
 		height: width,
-		zIndex: 2,
 	},
-	takePicBtn: {
-		shadowColor: '#000',
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
-		elevation: 5,
-		zIndex: 0,
+	takePicInner: {
+		padding: theme.padding,
 	},
-	form: {
-		flex: 2,
+	hurray: {
+		fontSize: 24,
+		fontWeight: '300',
+		color: theme.body,
+		marginBottom: 15,
 	},
-	guidelines: {
-		flex: 1,
+	hurraySubtitle: {
+		fontSize: 18,
+		fontWeight: '600',
+		color: theme.body,
 	},
-	swiper: {
-		// flex: 1
+	materialBtnsContainer: {
+		marginTop: 20,
+		flexDirection: 'row',
+		flexWrap: 'wrap',
 	},
-	slide: {
-		flex: 1,
-		justifyContent: 'center',
+	materialBtn: {
+		// flex: 1,
+		flexDirection: 'row',
 		alignItems: 'center',
-		padding: theme.safePadding,
-		textAlign: 'center',
+		// justifyContent: 'center',
+		marginBottom: 10,
+		marginRight: 10,
+		paddingTop: 10,
+		paddingBottom: 10,
+		paddingRight: 15,
+		paddingLeft: 15,
+		borderRadius: 3,
+		borderWidth: 3,
 	},
-	icon: {
-		width: 150,
-		height: 150,
-		marginBottom: 20,
-	},
-	slideTitle: {
-		fontSize: 20,
-		fontWeight: 'bold',
-		marginBottom: 5,
-		textAlign: 'center',
-	},
-	slideText: {
-		textAlign: 'center',
-	},
-	dismiss: {
-		height: 150,
-		justifyContent: 'center',
-		alignItems: 'center',
-		paddingBottom: theme.safePadding,
-		paddingRight: theme.safePadding,
-		paddingLeft: theme.safePadding,
-	},
-	dismissBtn: {
-		backgroundColor: theme.primary,
-		padding: 10,
-		marginBottom: 20,
+	materialBtnTxt: {
 		color: 'white',
 		fontSize: 18,
-		borderRadius: 3,
-		shadowColor: '#000',
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 3.84,
-		elevation: 5,
-		minWidth: 100,
-		textAlign: 'center',
-	},
-	dismissForever: {
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	dismissForeverTxt: {
 		marginLeft: 5,
 	},
 })
 
-const CameraScreen = () => {
-	const [isChecked, setIsChecked] = useState(false)
-	const gotIt = () => {
-		async function setShowGuidelinesStorage() {
-			return AsyncStorage.setItem('HIDE_GUIDELINES', String(isChecked))
-		}
-
-		setShowGuidelinesStorage()
-			.then(() => {
-				setHideGuidelines(true)
-			})
-			.catch(error => {
-				Alert.alert(error)
-			})
-	}
-
-	const [hideGuidelines, setHideGuidelines] = useState(false)
+const CameraScreen = ({ navigation }) => {
 	useEffect(() => {
-		async function checkHideGuidelinesStorage() {
-			return AsyncStorage.getItem('HIDE_GUIDELINES')
+		async function fetchGotItStorage() {
+			return AsyncStorage.getItem('GOTIT')
 		}
 
-		checkHideGuidelinesStorage()
+		fetchGotItStorage()
 			.then(value => {
-				// const val = value === null ? false : Boolean(value)
 				let val
 				switch (value) {
 					case null:
-						val = false
+						navigation.navigate('Guidelines')
 						break
 					case 'false':
-						val = false
+						navigation.navigate('Guidelines')
 						break
 					case 'true':
-						val = true
+						// navigation.navigate('Camera')
 						break
 					default:
-						val = false
+						navigation.navigate('Guidelines')
 						break
 				}
-				setHideGuidelines(val)
+
 				return val
 			})
 			.catch(error => {
@@ -175,135 +155,265 @@ const CameraScreen = () => {
 			})
 	}, [])
 
-	const [cameraReady, setCameraReady] = useState(false)
 	const [cameraRef, setCameraRef] = useState(false)
-	const [picture, setPicture] = useState(null)
-	const [errorMsg, setErrorMsg] = useState(null)
+	const [cameraReady, setCameraReady] = useState(false)
+	const [ratio, setRatio] = useState(RATIO)
+	// const [pictureSize, setPictureSize] = useState(null)
 	const [validating, setValidating] = useState(false)
+	const [validatingMsg, setValidatingMsg] = useState(false)
+
+	const [picture, setPicture] = useState(null)
+	const [pictureResized, setPictureResized] = useState(null)
+	const [location, setLocation] = useState(null)
+
+	const isSafe = useRef(true)
+
+	// setting states after asynchronous calls was causing memory leak. calls cannot be wrapped into an effect because they are not called onMount but when user clicks btn
+	// https://jeffchheng.github.io/brains-base/2019-08-02-usestatesafely/?utm_campaign=Week%20of%20React&utm_medium=email&utm_source=Revue%20newsletter
+	useEffect(() => {
+		// Future proofing for double-invoking
+		// effects in Strict Mode.
+		isSafe.current = true
+		return () => {
+			isSafe.current = false
+		}
+	}, [])
+
+	const resetContribute = () => {
+		if (isSafe.current) {
+			setValidating(false)
+			setValidatingMsg(false)
+			setPicture(null)
+			setPictureResized(null)
+			setLocation(null)
+		}
+	}
+
+	const checkForFaces = pic => {
+		return new Promise((resolve, reject) => {
+			const options = {
+				mode: FaceDetector.Constants.Mode.fast,
+				detectLandmarks: FaceDetector.Constants.Landmarks.none,
+				runClassifications: FaceDetector.Constants.Classifications.none,
+			}
+
+			FaceDetector.detectFacesAsync(pic.uri, options)
+				.then(value => {
+					if (value.faces.length > 0) {
+						reject(Error('faces_detected'))
+					}
+					resolve(pic)
+				})
+				.catch(error => {
+					reject(error)
+				})
+		})
+	}
 
 	const takePic = () => {
 		const pictureOptions = {
 			exif: true,
 			quality: 0,
 			// base64: true,
-
+			// skipProcessing: true,
 			// onPictureSaved: () => {
-			// 	setValidating(false)
+
 			// },
 		}
 
-		setValidating(true)
+		if (isSafe.current) {
+			setValidating(true)
+			setValidatingMsg(I18n.t('saving_picture'))
+		}
+
+		const params = {}
+
 		cameraRef
 			.takePictureAsync(pictureOptions)
 			.then(pic => {
-				setPicture(pic)
-				setValidating(false)
+				params.picture = pic
+				return pic
+			})
+			.then(pic => {
+				if (isSafe.current) {
+					setValidatingMsg(I18n.t('processing_picture'))
+				}
+				return ImageManipulator.manipulateAsync(pic.uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPG, base64: true })
+			})
+			.then(picResized => {
+				params.pictureResized = picResized
+				return picResized
+			})
+			.then(picResized => {
+				if (isSafe.current) {
+					setValidatingMsg(I18n.t('checking_for_faces'))
+				}
+				return checkForFaces(picResized)
+			})
+
+			.then(() => {
+				if (isSafe.current) {
+					setValidatingMsg(I18n.t('getting_location'))
+				}
+				return true
+				return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
+			})
+			.then(loc => {
+				params.location = loc
+				if (isSafe.current) {
+					setLocation(loc)
+					setValidating(false)
+					setValidatingMsg(false)
+
+					navigation.navigate({ routeName: 'Material', params })
+				}
 			})
 			.catch(error => {
-				alert(error)
+				const translatedErrorMessages = ['faces_detected']
+				const msg = translatedErrorMessages.includes(error.message) ? I18n.t(error.message) : error.message
+				if (isSafe.current) {
+					setValidating(false)
+				}
+				Alert.alert(
+					I18n.t('oops'),
+					msg,
+					[
+						{
+							text: I18n.t('try_again'),
+							style: 'cancel',
+							onPress: () => {
+								resetContribute()
+							},
+						},
+						{
+							text: I18n.t('cancel'),
+							onPress: () => {
+								navigation.navigate('Main')
+							},
+						},
+					],
+
+					{ cancelable: false } // Don't allow to cancel by tapping outside
+				)
 			})
 
 		// const asset = await MediaLibrary.createAssetAsync(uri)
 	}
 
-	// alert(pictureURI)
+	const setupCamera = () => {
+		if (Platform.OS === 'android') {
+			cameraRef
+				.getSupportedRatiosAsync()
+				.then(value => {
+					if (value.includes(RATIO)) {
+						if (isSafe.current) {
+							setRatio(RATIO)
+							setCameraReady(true)
+						}
+						return RATIO
+					}
+					if (isSafe.current) {
+						setRatio('4:3')
+						setCameraReady(true)
+					}
+					return '4:3'
+				})
+				/*
+				.then(availableRatio => {
+					return cameraRef.getAvailablePictureSizesAsync(availableRatio)
+				})
+				.then(availableSizes => {
+					// alert(availableSizes)
+					if(isSafe.current){
+					setCameraReady(true)
+					}
+				})
+				*/
+				.catch(error => {
+					Alert.alert(
+						I18n.t('something_went_wrong'),
+						error.message,
+						[
+							{
+								text: I18n.t('cancel'),
+								style: 'cancel',
+								onPress: () => {
+									navigation.navigate('Main')
+								},
+							},
+						],
+						{ cancelable: false } // Don't allow to cancel by tapping outside
+					)
+
+					resetContribute()
+				})
+		} else {
+			if (isSafe.current) {
+				setCameraReady(true)
+			}
+			/*
+			cameraRef
+				.getAvailablePictureSizesAsync(RATIO)
+				.then(availableSizes => {
+					// alert(availableSizes)
+					if(isSafe.current){
+					setCameraReady(true)
+					}
+				})
+				.catch(error => {
+					alert(error)
+				})
+				*/
+		}
+	}
 
 	return (
-		<SafeAreaView style={styles.safeAreaView}>
-			{hideGuidelines && (
-				<View style={styles.takePic}>
-					<View style={styles.cameraView}>
-						{!picture && (
-							<View style={styles.cameraView}>
-								<Camera
-									style={styles.camera}
-									type="back"
-									ref={ref => {
-										setCameraRef(ref)
-									}}
-									onCameraReady={() => {
-										setCameraReady(true)
-									}}
-									onMountError={error => {
-										setErrorMsg(error.message)
-									}}
-									ratio="1:1"
-								/>
+		<View style={styles.safeAreaView}>
+			<StatusBar barStyle="light-content" />
+			{picture && <Image style={styles.picture} source={{ uri: picture.uri }} />}
+			<View style={{ ...styles.fullscreen, ...styles.takePic }}>
+				<Camera
+					style={styles.camera}
+					type="back"
+					ref={ref => {
+						setCameraRef(ref)
+					}}
+					onCameraReady={() => {
+						setupCamera()
+					}}
+					onMountError={error => {
+						Alert.alert(
+							I18n.t('something_went_wrong'),
+							error.message,
+							[
+								{
+									text: I18n.t('cancel'),
+									style: 'cancel',
+									onPress: () => {
+										navigation.navigate('Main')
+									},
+								},
+							],
 
-								{cameraReady && (
-									<TouchableOpacity style={styles.takePicBtn}>
-										<MaterialIcons onPress={takePic} name="radio-button-checked" size={80} color="white" />
-									</TouchableOpacity>
-								)}
-
-								{validating && (
-									<View style={styles.validating}>
-										<Text>Validating</Text>
-									</View>
-								)}
-							</View>
-						)}
-
-						{picture && <Image style={styles.picture} source={{ uri: picture.uri }} />}
-					</View>
-					<View style={styles.form}>
-						<Text>Error:</Text>
-						{errorMsg && <Text>{errorMsg}</Text>}
-					</View>
+							{ cancelable: false } // Don't allow to cancel by tapping outside
+						)
+					}}
+					ratio={ratio}
+				/>
+				<View style={styles.takePicBtnContainer}>
+					<TouchableOpacity style={{ ...styles.takePicBtn, display: cameraReady ? 'flex' : 'none' }}>
+						<MaterialIcons onPress={takePic} name="photo-camera" size={40} color="black" />
+					</TouchableOpacity>
 				</View>
-			)}
-			{!hideGuidelines && (
-				<View style={styles.guidelines}>
-					<Swiper style={styles.swiper} showsButtons={false} activeDotColor={theme.primary} loop={false}>
-						<View style={styles.slide}>
-							<Image source={anycoast} style={styles.icon} />
-							<Text style={styles.slideTitle}>{I18n.t('any_picture')}</Text>
-							<Text style={styles.slideText}>{I18n.t('any_coast')}</Text>
-						</View>
-						<View style={styles.slide}>
-							<Image source={nofaces} style={styles.icon} />
-							<Text style={styles.slideTitle}>{I18n.t('guideline_faces_header')}</Text>
-							<Text style={styles.slideText}>{I18n.t('guideline_faces_text')}</Text>
-						</View>
-						<View style={styles.slide}>
-							<Image source={coastmaterial} style={styles.icon} />
-							<Text style={styles.slideTitle}>{I18n.t('guideline_material_header')}</Text>
-							<Text style={styles.slideText}>{I18n.t('guideline_material_text')}</Text>
-						</View>
-						<View style={styles.slide}>
-							<Image source={notonlybeaches} style={styles.icon} />
-							<Text style={styles.slideTitle}>{I18n.t('guideline_coasts_header')}</Text>
-							<Text style={styles.slideText}>{I18n.t('guideline_coasts_text')}</Text>
-						</View>
-						<View style={styles.slide}>
-							<Image source={closeup} style={styles.icon} />
-							<Text style={styles.slideTitle}>{I18n.t('guideline_closer_header')}</Text>
-							<Text style={styles.slideText}>{I18n.t('guideline_closer_text')}</Text>
-						</View>
-					</Swiper>
-					<View style={styles.dismiss}>
-						<TouchableOpacity
-							onPress={() => {
-								gotIt()
-							}}
-						>
-							<Text style={styles.dismissBtn}>{I18n.t('got_it')}</Text>
-						</TouchableOpacity>
-						<View style={styles.dismissForever}>
-							<MaterialIcons
-								name={isChecked ? 'check-box' : 'check-box-outline-blank'}
-								size={24}
-								color={theme.primary}
-								onPress={() => {
-									setIsChecked(!isChecked)
-								}}
-							/>
-							<Text style={styles.dismissForeverTxt}>{I18n.t('do_not_show_again')}</Text>
-						</View>
-					</View>
+			</View>
+
+			<View style={{ ...styles.fullscreen, ...styles.validating }} pointerEvents="none">
+				<View style={{ ...styles.validatingInner, display: validating ? 'flex' : 'none' }}>
+					<ActivityIndicator size="large" color="white" />
+					{validatingMsg && <Text style={styles.validatingTxt}>{validatingMsg}</Text>}
 				</View>
-			)}
-		</SafeAreaView>
+			</View>
+		</View>
 	)
 }
 

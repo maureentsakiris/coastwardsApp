@@ -1,5 +1,6 @@
 import React from 'react'
-import { Platform, StyleSheet, TouchableOpacity, View, SafeAreaView, Alert, Linking } from 'react-native'
+import { Platform, StyleSheet, TouchableOpacity, View, SafeAreaView, Alert, Linking, AsyncStorage } from 'react-native'
+
 import WebView from 'react-native-webview'
 import * as Permissions from 'expo-permissions'
 import * as IntentLauncher from 'expo-intent-launcher'
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
 	},
 	uploadButton: {
 		position: 'absolute',
-		bottom: 20,
+		bottom: theme.safePadding,
 		backgroundColor: theme.primary,
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
 	menuButton: {
 		position: 'absolute',
 		top: theme.safePadding,
-		left: 20,
+		left: theme.padding,
 	},
 })
 
@@ -132,6 +133,38 @@ const MapScreen = ({ navigation }) => {
 				})
 		})
 	}
+	/*
+	const fetchGotItStorage = () => {
+		return new Promise((resolve, reject) => {
+			async function fetchGotIt() {
+				return AsyncStorage.getItem('GOTIT')
+			}
+
+			fetchGotIt()
+				.then(status => {
+					let val
+					switch (status) {
+						case null:
+							resolve(true)
+							break
+						case 'false':
+							resolve(true)
+							break
+						case 'true':
+							resolve(false)
+							break
+						default:
+							resolve(true)
+							break
+					}
+					return val
+				})
+				.catch(error => {
+					reject(error)
+				})
+		})
+	}
+	*/
 
 	const checkPermissions = () => {
 		const results = []
@@ -179,14 +212,28 @@ const MapScreen = ({ navigation }) => {
 						{ cancelable: false } // Don't allow to cancel by tapping outside
 					)
 				} else {
-					navigation.navigate('Modal')
+					navigation.navigate('Contribute')
 				}
 				return true
 			})
+			/*
+			.then(() => {
+				return fetchGotItStorage()
+			})
+			.then(val => {
+				if (val) {
+					navigation.navigate('Guidelines')
+				} else {
+					navigation.navigate('Contribute')
+				}
+			})
+			*/
 			.catch(error => {
 				alert(error)
 			})
 	}
+
+	// <WebView style={styles.webviewInner} source={{ uri: 'http://coastwards.org/map' }} />
 
 	return (
 		<View style={styles.safeAreaView}>
@@ -213,6 +260,13 @@ const MapScreen = ({ navigation }) => {
 			</TouchableOpacity>
 		</View>
 	)
+}
+
+MapScreen.navigationOptions = {
+	title: 'Home',
+	headerStyle: {
+		backgroundColor: '#f4511e',
+	},
 }
 
 export default MapScreen

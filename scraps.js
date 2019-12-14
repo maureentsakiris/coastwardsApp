@@ -1,3 +1,14 @@
+<TouchableOpacity style={styles.cancelBtn}>
+            <Text
+              onPress={() => {
+                navigation.navigate('Main')
+              }}
+              style={styles.cancelBtnTxt}
+            >
+              {I18n.t('cancel')}
+            </Text>
+          </TouchableOpacity>
+
 
 {picture && <Text>Width: {picture.width}</Text>}
 {picture && <Text>Height: {picture.height}</Text>}

@@ -6,12 +6,48 @@ import * as FaceDetector from 'expo-face-detector'
 import * as ImageManipulator from 'expo-image-manipulator'
 import { MaterialIcons } from '@expo/vector-icons'
 
-import Guidelines from '../components/Guidelines'
 import I18n from '../i18n/i18n'
 import theme from '../theme'
 
 const { width, height } = Dimensions.get('window')
 const RATIO = '1:1'
+const MATERIALS = [
+	{
+		label: 'Sand',
+		value: 'sand',
+		color: '#ffc417',
+	},
+	{
+		label: 'Pebble',
+		value: 'pebble',
+		color: '#bed839',
+	},
+	{
+		label: 'Rock',
+		value: 'rock',
+		color: '#f46e36',
+	},
+	{
+		label: 'Mud',
+		value: 'mud',
+		color: '#bb80ef',
+	},
+	{
+		label: 'Ice',
+		value: 'ice',
+		color: '#ff99ad',
+	},
+	{
+		label: 'Man-made',
+		value: 'manmade',
+		color: '#24adbb',
+	},
+	{
+		label: 'Not sure',
+		value: 'notsure',
+		color: '#a9a9a9',
+	},
+]
 
 const styles = StyleSheet.create({
 	safeAreaView: {
@@ -22,7 +58,7 @@ const styles = StyleSheet.create({
 	},
 	fullscreen: {
 		width,
-		height,
+		height: '100%',
 		position: 'absolute',
 		top: 0,
 		left: 0,
@@ -55,16 +91,17 @@ const styles = StyleSheet.create({
 		flex: 1,
 		zIndex: 1,
 		alignItems: 'flex-start',
-		backgroundColor: 'black',
+		backgroundColor: 'white',
 	},
 	takePicBtnContainer: {
 		flex: 1,
 		width,
+		flexDirection: 'row',
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'space-around',
 	},
 	takePicBtn: {
-		backgroundColor: 'white',
+		backgroundColor: theme.primary,
 
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -74,11 +111,12 @@ const styles = StyleSheet.create({
 		shadowColor: '#000',
 		shadowOffset: {
 			width: 0,
-			height: 5,
+			height: 2,
 		},
-		shadowOpacity: 0.36,
-		shadowRadius: 6.68,
-		elevation: 11,
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+
+		elevation: 5,
 	},
 	validating: {
 		zIndex: 2,
@@ -106,16 +144,76 @@ const styles = StyleSheet.create({
 		height: width,
 	},
 	takePicInner: {
-		padding: theme.safePadding,
+		padding: theme.padding,
 	},
 	hurray: {
-		fontSize: 28,
+		fontSize: 24,
 		fontWeight: '300',
 		color: theme.body,
+		marginBottom: 15,
+	},
+	hurraySubtitle: {
+		fontSize: 18,
+		fontWeight: '600',
+		color: theme.body,
+	},
+	materialBtnsContainer: {
+		marginTop: 20,
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+	},
+	materialBtn: {
+		// flex: 1,
+		flexDirection: 'row',
+		alignItems: 'center',
+		// justifyContent: 'center',
+		marginBottom: 10,
+		marginRight: 10,
+		paddingTop: 10,
+		paddingBottom: 10,
+		paddingRight: 15,
+		paddingLeft: 15,
+		borderRadius: 3,
+		borderWidth: 3,
+	},
+	materialBtnTxt: {
+		color: 'white',
+		fontSize: 18,
+		marginLeft: 5,
 	},
 })
 
 const Contribute = ({ navigation }) => {
+	useEffect(() => {
+		async function fetchGotItStorage() {
+			return AsyncStorage.getItem('GOTIT')
+		}
+
+		fetchGotItStorage()
+			.then(value => {
+				let val
+				switch (value) {
+					case null:
+						navigation.navigate('Guidelines')
+						break
+					case 'false':
+						navigation.navigate('Guidelines')
+						break
+					case 'true':
+						navigation.navigate('Contribute')
+						break
+					default:
+						navigation.navigate('Guidelines')
+						break
+				}
+
+				return val
+			})
+			.catch(error => {
+				Alert.alert(error)
+			})
+	}, [])
+
 	const [cameraRef, setCameraRef] = useState(false)
 	const [cameraReady, setCameraReady] = useState(false)
 	const [ratio, setRatio] = useState(RATIO)
@@ -187,7 +285,7 @@ const Contribute = ({ navigation }) => {
 
 		if (isSafe.current) {
 			setValidating(true)
-			setValidatingMsg(I18n.t('status_validating'))
+			setValidatingMsg(I18n.t('saving_picture'))
 		}
 
 		cameraRef
@@ -199,6 +297,9 @@ const Contribute = ({ navigation }) => {
 				return pic
 			})
 			.then(pic => {
+				if (isSafe.current) {
+					setValidatingMsg(I18n.t('processing_picture'))
+				}
 				return ImageManipulator.manipulateAsync(pic.uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPG, base64: true })
 			})
 			.then(picResized => {
@@ -208,10 +309,16 @@ const Contribute = ({ navigation }) => {
 				return picResized
 			})
 			.then(picResized => {
+				if (isSafe.current) {
+					setValidatingMsg(I18n.t('checking_for_faces'))
+				}
 				return checkForFaces(picResized)
 			})
 
 			.then(() => {
+				if (isSafe.current) {
+					setValidatingMsg(I18n.t('getting_location'))
+				}
 				return true
 				return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
 			})
@@ -322,20 +429,19 @@ const Contribute = ({ navigation }) => {
 		}
 	}
 
+	const materialBtns = MATERIALS.map(material => {
+		return (
+			<TouchableOpacity key={material.value} style={{ ...styles.materialBtn, borderColor: material.color }}>
+				<MaterialIcons name="radio-button-unchecked" size={40} color={material.color} />
+				<Text style={{ ...styles.materialBtnTxt, color: material.color }}>{I18n.t(material.value)}</Text>
+			</TouchableOpacity>
+		)
+	})
+
 	return (
 		<View style={styles.safeAreaView}>
 			{!picture && (
 				<View style={{ ...styles.fullscreen, ...styles.takePic }}>
-					<TouchableOpacity style={styles.cancelBtn}>
-						<Text
-							onPress={() => {
-								navigation.navigate('Main')
-							}}
-							style={styles.cancelBtnTxt}
-						>
-							{I18n.t('cancel')}
-						</Text>
-					</TouchableOpacity>
 					<Camera
 						style={styles.camera}
 						type="back"
@@ -365,27 +471,40 @@ const Contribute = ({ navigation }) => {
 						ratio={ratio}
 					/>
 					<View style={styles.takePicBtnContainer}>
+						<TouchableOpacity style={styles.guidelinesBtn}>
+							<MaterialIcons
+								onPress={() => {
+									navigation.navigate('Guidelines')
+								}}
+								name="help-outline"
+								size={40}
+								color={theme.primary}
+							/>
+						</TouchableOpacity>
 						<TouchableOpacity style={{ ...styles.takePicBtn, display: cameraReady ? 'flex' : 'none' }}>
-							<MaterialIcons onPress={takePic} name="photo-camera" size={40} color="black" />
+							<MaterialIcons onPress={takePic} name="photo-camera" size={40} color="white" />
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.guidelinesBtn}>
+							<MaterialIcons
+								onPress={() => {
+									navigation.navigate('Guidelines')
+								}}
+								name="help-outline"
+								size={40}
+								color={theme.primary}
+							/>
 						</TouchableOpacity>
 					</View>
 				</View>
 			)}
-			<TouchableOpacity style={styles.cancelBtn}>
-				<Text
-					onPress={() => {
-						navigation.navigate('Main')
-					}}
-					style={{ ...styles.cancelBtnTxt, color: theme.primary }}
-				>
-					{I18n.t('cancel')}
-				</Text>
-			</TouchableOpacity>
+
 			<ScrollView contentContainerStyle={styles.scrollView}>
 				{picture && <Image style={styles.picture} source={{ uri: picture.uri }} />}
 				{hurray && (
 					<View style={styles.takePicInner}>
 						<Text style={styles.hurray}>{I18n.t('hurray')}</Text>
+						<Text style={styles.hurraySubtitle}>{I18n.t('select_material')}</Text>
+						<View style={styles.materialBtnsContainer}>{materialBtns}</View>
 					</View>
 				)}
 			</ScrollView>
@@ -396,7 +515,6 @@ const Contribute = ({ navigation }) => {
 					{validatingMsg && <Text style={styles.validatingTxt}>{validatingMsg}</Text>}
 				</View>
 			</View>
-			<Guidelines />
 		</View>
 	)
 }

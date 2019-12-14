@@ -16,7 +16,7 @@ const notonlybeaches = require('../assets/guidelines/notonlybeaches.png')
 const styles = StyleSheet.create({
 	safeAreaView: {
 		width,
-		height,
+		height: '100%',
 		position: 'absolute',
 		top: 0,
 		left: 0,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
 	},
 })
 
-const Guidelines = () => {
+const Guidelines = ({ navigation }) => {
 	const [showGuidelines, setShowGuidelines] = useState(false)
 	useEffect(() => {
 		async function fetchGotItStorage() {
@@ -122,7 +122,7 @@ const Guidelines = () => {
 	const gotIt = () => {
 		AsyncStorage.setItem('GOTIT', String(isChecked))
 			.then(() => {
-				setShowGuidelines(false)
+				navigation.navigate('Contribute')
 			})
 			.catch(error => {
 				Alert.alert(error)
