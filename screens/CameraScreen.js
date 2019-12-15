@@ -213,7 +213,7 @@ const CameraScreen = ({ navigation }) => {
 	const takePic = () => {
 		const pictureOptions = {
 			exif: true,
-			quality: 0,
+			quality: 1,
 			// base64: true,
 			// skipProcessing: true,
 			// onPictureSaved: () => {
@@ -231,6 +231,9 @@ const CameraScreen = ({ navigation }) => {
 		cameraRef
 			.takePictureAsync(pictureOptions)
 			.then(pic => {
+				if (isSafe.current) {
+					setPicture(pic)
+				}
 				params.picture = pic
 				return pic
 			})
@@ -255,7 +258,7 @@ const CameraScreen = ({ navigation }) => {
 				if (isSafe.current) {
 					setValidatingMsg(I18n.t('getting_location'))
 				}
-				return true
+
 				return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
 			})
 			.then(loc => {
@@ -370,7 +373,6 @@ const CameraScreen = ({ navigation }) => {
 	return (
 		<View style={styles.safeAreaView}>
 			<StatusBar barStyle="light-content" />
-			{picture && <Image style={styles.picture} source={{ uri: picture.uri }} />}
 			<View style={{ ...styles.fullscreen, ...styles.takePic }}>
 				<Camera
 					style={styles.camera}

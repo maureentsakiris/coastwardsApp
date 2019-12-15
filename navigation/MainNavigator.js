@@ -86,9 +86,18 @@ const ContributeStack = createStackNavigator(
 				// title: '1/3',
 				headerStyle: {
 					backgroundColor: 'black',
-
+					// borderBottomColor: '#333',
 					borderBottomWidth: 0,
 					// height: 80,
+					shadowColor: '#000',
+					shadowOffset: {
+						width: 0,
+						height: 1,
+					},
+					shadowOpacity: 0.22,
+					shadowRadius: 2.22,
+
+					elevation: 3,
 				},
 				headerTintColor: 'white',
 				// headerLeft: <HeaderBackButton tintColor={theme.primary} onPress={() => navigation.navigate('Main')} />,
@@ -118,21 +127,30 @@ const ContributeStack = createStackNavigator(
 			navigationOptions: ({ navigation }) => ({
 				// headerShown: false,
 				// title: '2/3',
-				headerStyle: {
-					backgroundColor: 'white',
-					borderBottomWidth: 0,
-				},
-				headerTintColor: theme.primary,
-				headerLeft: ({ tintColor }) => {
-					return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
-				},
-				// headerTransparent: true,
+				// headerStyle: {
+				// 	backgroundColor: 'black',
+				// 	borderBottomWidth: 0,
+				// 	shadowColor: '#000',
+				// 	shadowOffset: {
+				// 		width: 0,
+				// 		height: 1,
+				// 	},
+				// 	shadowOpacity: 0.22,
+				// 	shadowRadius: 2.22,
+
+				// 	elevation: 3,
+				// },
+				headerTintColor: 'white',
+				// headerLeft: ({ tintColor }) => {
+				// 	return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
+				// },
+				headerTransparent: true,
 			}),
 		},
 	},
 	{
 		// mode: 'modal',
-		headerMode: 'float',
+		headerMode: 'screen',
 		headerBackTitleVisible: false,
 		headerTransitionPreset: 'fade-in-place',
 		// cardShadowEnabled: false,
@@ -144,6 +162,24 @@ const ContributeStack = createStackNavigator(
 			// 	return <LogoTitle />
 			// },
 		},
+		// transitionConfig: () => ({
+		// 	transitionSpec: {
+		// 		duration: 200,
+		// 		easing: Easing.linear,
+		// 		timing: Animated.timing,
+		// 	},
+		// 	screenInterpolator: sceneProps => {
+		// 		const { position, scene } = sceneProps
+		// 		const { index } = scene
+
+		// 		const opacity = position.interpolate({
+		// 			inputRange: [index - 0.7, index, index + 0.7],
+		// 			outputRange: [0.3, 1, 0.3],
+		// 		})
+
+		// 		return { opacity }
+		// 	},
+		// }),
 	}
 )
 
