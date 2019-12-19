@@ -191,7 +191,6 @@ const MaterialScreen = ({ navigation }) => {
 			name: `${uid}.${fileType}`,
 			type: `image/${fileType}`,
 		})
-		// formData.append('file', base64, `${uid}.jpg`)
 		formData.append('exifdata', JSON.stringify(exif))
 		formData.append('lat', latitude)
 		formData.append('long', longitude)
@@ -199,9 +198,10 @@ const MaterialScreen = ({ navigation }) => {
 		formData.append('corrected', 0)
 		formData.append('uid', uid)
 		formData.append('datetime', datetime)
-		// formData.append('labels', JSON.stringify(devLabels))
+		// formData.append('labels', JSON.stringify(devLabels)) <--- DONE ON SERVER
 		formData.append('material', materialUser)
 		formData.append('comment', commentUser)
+		formData.append('source', 'app')
 
 		// alert(JSON.stringify(formData))
 
@@ -214,14 +214,25 @@ const MaterialScreen = ({ navigation }) => {
 				alert(JSON.stringify(responseJson))
 				if (responseJson.status === 'OK') {
 					setUploading(false)
+					navigation.navigate('Main')
 				} else {
-					alert('ERRRRRROR')
+					const { message } = responseJson
+					const translatedErrors = ['spam_detected']
+
+					if (translatedErrors.includes(message)) {
+						alert(I18n.t(message))
+					} else {
+						alert(I18n.t('upload_error') + '\n\nError: ' + message)
+					}
+
+					setUploading(false)
 				}
 
 				// return responseJson.movies
 			})
 			.catch(error => {
-				alert('error: ' + error)
+				alert(I18n.t('upload_error' + '\n\nError: ' + error))
+				setUploading(false)
 			})
 	}
 
@@ -230,7 +241,7 @@ const MaterialScreen = ({ navigation }) => {
 			<StatusBar barStyle="light-content" />
 
 			<KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.Os === 'ios' ? 'padding' : 'height'} enabled>
-				<ScrollView>
+				<ScrollView stickyHeaderIndices={[0]}>
 					<ImageBackground style={styles.picture} source={{ uri: picture.uri }} />
 					<View style={styles.formContainer}>
 						<Text style={styles.hurray}>{I18n.t('hurray')}</Text>

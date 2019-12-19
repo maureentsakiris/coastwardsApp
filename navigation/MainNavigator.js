@@ -13,6 +13,7 @@ import GuidelinesScreen from '../screens/GuidelinesScreen'
 import theme from '../theme'
 
 const turtle = require('../assets/images/icon.png')
+const tinyTurtle = require('../assets/images/tinyTurtle.png')
 
 const styles = StyleSheet.create({
 	safeAreaView: {
@@ -117,6 +118,9 @@ const ContributeStack = createStackNavigator(
 						/>
 					)
 				},
+				headerTitle: ({ tintColor }) => {
+					return <Image style={{ width: 40, height: 17 }} source={tinyTurtle} />
+				},
 
 				// headerTransparent: true,
 			}),
@@ -145,6 +149,9 @@ const ContributeStack = createStackNavigator(
 				// 	return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
 				// },
 				headerTransparent: true,
+				headerTitle: ({ tintColor }) => {
+					return <Image style={{ width: 40, height: 17 }} source={tinyTurtle} />
+				},
 			}),
 		},
 	},
