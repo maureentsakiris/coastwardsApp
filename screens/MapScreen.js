@@ -238,7 +238,7 @@ const MapScreen = ({ navigation }) => {
 	return (
 		<View style={styles.safeAreaView}>
 			<View style={styles.webview}>
-				<WebView style={styles.webviewInner} source={{ uri: 'http://192.168.0.6:8888/map' }} />
+				<WebView style={styles.webviewInner} source={{ uri: 'http://192.168.178.61:8888/map' }} />
 			</View>
 			<TouchableOpacity style={styles.uploadButton}>
 				<MaterialIcons

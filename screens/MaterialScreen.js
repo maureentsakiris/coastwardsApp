@@ -205,7 +205,7 @@ const MaterialScreen = ({ navigation }) => {
 
 		// alert(JSON.stringify(formData))
 
-		fetch('http://192.168.0.6:8888/contribute/upload', {
+		fetch('http://192.168.178.61:8888/contribute/upload', {
 			method: 'POST',
 			body: formData,
 		})
@@ -241,7 +241,7 @@ const MaterialScreen = ({ navigation }) => {
 			<StatusBar barStyle="light-content" />
 
 			<KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.Os === 'ios' ? 'padding' : 'height'} enabled>
-				<ScrollView stickyHeaderIndices={[0]}>
+				<ScrollView>
 					<ImageBackground style={styles.picture} source={{ uri: picture.uri }} />
 					<View style={styles.formContainer}>
 						<Text style={styles.hurray}>{I18n.t('hurray')}</Text>
