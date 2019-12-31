@@ -258,7 +258,7 @@ const CameraScreen = ({ navigation }) => {
 				if (isSafe.current) {
 					setValidatingMsg(I18n.t('getting_location'))
 				}
-
+				return true
 				return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
 			})
 			.then(loc => {

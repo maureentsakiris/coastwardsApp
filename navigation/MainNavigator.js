@@ -14,6 +14,7 @@ import theme from '../theme'
 
 const turtle = require('../assets/images/icon.png')
 const tinyTurtle = require('../assets/images/tinyTurtle.png')
+const tinyTurtleBlue = require('../assets/images/tinyTurtleBlue.png')
 
 const styles = StyleSheet.create({
 	safeAreaView: {
@@ -131,26 +132,26 @@ const ContributeStack = createStackNavigator(
 			navigationOptions: ({ navigation }) => ({
 				// headerShown: false,
 				// title: '2/3',
-				// headerStyle: {
-				// 	backgroundColor: 'black',
-				// 	borderBottomWidth: 0,
-				// 	shadowColor: '#000',
-				// 	shadowOffset: {
-				// 		width: 0,
-				// 		height: 1,
-				// 	},
-				// 	shadowOpacity: 0.22,
-				// 	shadowRadius: 2.22,
+				headerStyle: {
+					backgroundColor: 'white',
+					borderBottomWidth: 0,
+					shadowColor: '#000',
+					shadowOffset: {
+						width: 0,
+						height: 1,
+					},
+					shadowOpacity: 0.22,
+					shadowRadius: 2.22,
 
-				// 	elevation: 3,
-				// },
-				headerTintColor: 'white',
+					elevation: 3,
+				},
+				headerTintColor: theme.primary,
 				// headerLeft: ({ tintColor }) => {
 				// 	return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
 				// },
-				headerTransparent: true,
+				headerTransparent: false,
 				headerTitle: ({ tintColor }) => {
-					return <Image style={{ width: 40, height: 17 }} source={tinyTurtle} />
+					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
 				},
 			}),
 		},

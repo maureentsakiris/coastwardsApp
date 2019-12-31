@@ -96,15 +96,41 @@ const styles = StyleSheet.create({
 		marginLeft: 5,
 	},
 	comment: {
-		borderColor: '#ddd',
+		borderColor: theme.primary,
 		borderWidth: 1,
+		padding: 20,
+		// height: 40,
+		// backgroundColor: theme.primary,
+		color: theme.primary,
+		borderRadius: 30,
+		flex: 1,
+	},
+	uploadNow: {
+		position: 'absolute',
+		left: 0,
+		bottom: 0,
+		// height: 200,
 		padding: 10,
-		height: 100,
+		width: '100%',
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'rgba(255,255,255,1)',
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 1,
+		},
+		shadowOpacity: 0.22,
+		shadowRadius: 2.22,
+
+		elevation: 3,
 	},
 	uploadBtn: {
-		position: 'absolute',
-		bottom: theme.safePadding,
-		right: theme.safePadding,
+		// position: 'absolute',
+		// bottom: theme.safePadding,
+		// right: theme.safePadding,
 		backgroundColor: theme.primary,
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -123,11 +149,13 @@ const styles = StyleSheet.create({
 
 	uploading: {
 		width,
-		height: '100%',
+		height: 200,
 		position: 'absolute',
-		top: 0,
+		bottom: 0,
 		left: 0,
 		zIndex: 2,
+		display: 'flex',
+		flexDirection: 'row',
 		// pointerEvents: 'none',
 	},
 	// https://github.com/facebook/react-native/issues/18415
@@ -148,6 +176,7 @@ const MaterialScreen = ({ navigation }) => {
 	const [materialUser, setMaterialUser] = useState(false)
 	const [commentUser, setCommentUser] = useState('')
 	const [uploading, setUploading] = useState(false)
+	const [termsAccepted, setTermsAccepted] = useState(false)
 
 	const materialBtns = MATERIALS.map(material => {
 		const active = materialUser === material.value ? true : false
@@ -238,42 +267,45 @@ const MaterialScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.safeAreaView}>
-			<StatusBar barStyle="light-content" />
+			<StatusBar barStyle="dark-content" />
 
-			<KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.Os === 'ios' ? 'padding' : 'height'} enabled>
+			<KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={90} behavior={Platform.Os === 'ios' ? 'padding' : 'height'} enabled>
 				<ScrollView>
 					<ImageBackground style={styles.picture} source={{ uri: picture.uri }} />
 					<View style={styles.formContainer}>
 						<Text style={styles.hurray}>{I18n.t('hurray')}</Text>
 						<Text style={styles.hurraySubtitle}>{I18n.t('select_material')}</Text>
 						<View style={styles.materialBtnsContainer}>{materialBtns}</View>
-						<Text style={styles.hurraySubtitle}>{I18n.t('comment')}</Text>
-						<TextInput
-							style={styles.comment}
-							onChangeText={txt => {
-								setCommentUser(txt)
-							}}
-							value={commentUser}
-							placeholder={I18n.t('comment_placeholder')}
-							multiline
-						/>
 					</View>
 				</ScrollView>
-			</KeyboardAvoidingView>
-			<TouchableOpacity
-				style={styles.uploadBtn}
-				onPress={() => {
-					uploadPicture()
-				}}
-			>
-				<MaterialIcons name="send" size={40} color="white" />
-			</TouchableOpacity>
-			<View style={styles.uploading} pointerEvents="none">
-				<View style={{ ...styles.uploadingInner, display: uploading ? 'flex' : 'none' }}>
-					<ActivityIndicator size="large" color="white" />
-					<Text style={styles.uploadingTxt}>{I18n.t('status_uploading')}</Text>
+				<View style={styles.uploadNow}>
+					<TextInput
+						style={styles.comment}
+						onChangeText={txt => {
+							setCommentUser(txt)
+						}}
+						value={commentUser}
+						placeholder={I18n.t('comment_placeholder')}
+						textAlignVertical="middle"
+						multiline
+					/>
+					<TouchableOpacity
+						style={styles.uploadBtn}
+						onPress={() => {
+							uploadPicture()
+						}}
+						disabled={!termsAccepted}
+					>
+						<MaterialIcons name="send" size={40} color="white" />
+					</TouchableOpacity>
 				</View>
-			</View>
+				<View style={styles.uploading} pointerEvents="none">
+					<View style={{ ...styles.uploadingInner, display: uploading ? 'flex' : 'none' }}>
+						<ActivityIndicator size="large" color="white" />
+						<Text style={styles.uploadingTxt}>{I18n.t('status_uploading')}</Text>
+					</View>
+				</View>
+			</KeyboardAvoidingView>
 		</View>
 	)
 }
