@@ -9,6 +9,7 @@ import MapScreen from '../screens/MapScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 import CameraScreen from '../screens/CameraScreen'
 import MaterialScreen from '../screens/MaterialScreen'
+import HurrayScreen from '../screens/HurrayScreen'
 import GuidelinesScreen from '../screens/GuidelinesScreen'
 import theme from '../theme'
 
@@ -128,6 +129,35 @@ const ContributeStack = createStackNavigator(
 		},
 		Material: {
 			screen: MaterialScreen,
+
+			navigationOptions: ({ navigation }) => ({
+				// headerShown: false,
+				// title: '2/3',
+				headerStyle: {
+					backgroundColor: 'white',
+					borderBottomWidth: 0,
+					shadowColor: '#000',
+					shadowOffset: {
+						width: 0,
+						height: 1,
+					},
+					shadowOpacity: 0.22,
+					shadowRadius: 2.22,
+
+					elevation: 3,
+				},
+				headerTintColor: theme.primary,
+				// headerLeft: ({ tintColor }) => {
+				// 	return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
+				// },
+				headerTransparent: false,
+				headerTitle: ({ tintColor }) => {
+					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
+				},
+			}),
+		},
+		Hurray: {
+			screen: HurrayScreen,
 
 			navigationOptions: ({ navigation }) => ({
 				// headerShown: false,

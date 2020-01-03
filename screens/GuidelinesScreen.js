@@ -77,6 +77,36 @@ const styles = StyleSheet.create({
 
 const GuidelinesScreen = ({ navigation }) => {
 	const [isChecked, setIsChecked] = useState(false)
+	useEffect(() => {
+		async function fetchGotItStorage() {
+			return AsyncStorage.getItem('GOTIT')
+		}
+
+		fetchGotItStorage()
+			.then(value => {
+				let val
+				switch (value) {
+					case null:
+						setIsChecked(false)
+						break
+					case 'false':
+						setIsChecked(false)
+						break
+					case 'true':
+						setIsChecked(true)
+						break
+					default:
+						setIsChecked(false)
+						break
+				}
+
+				return val
+			})
+			.catch(error => {
+				Alert.alert(error)
+			})
+	}, [])
+
 	const gotIt = () => {
 		AsyncStorage.setItem('GOTIT', String(isChecked))
 			.then(() => {

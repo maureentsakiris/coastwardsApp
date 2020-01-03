@@ -258,7 +258,7 @@ const CameraScreen = ({ navigation }) => {
 				if (isSafe.current) {
 					setValidatingMsg(I18n.t('getting_location'))
 				}
-				return true
+				// return true
 				return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
 			})
 			.then(loc => {
@@ -401,6 +401,7 @@ const CameraScreen = ({ navigation }) => {
 						)
 					}}
 					ratio={ratio}
+					autoFocus="on"
 				/>
 				<View style={styles.takePicBtnContainer}>
 					<TouchableOpacity style={{ ...styles.takePicBtn, display: cameraReady ? 'flex' : 'none' }}>

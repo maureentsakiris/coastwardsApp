@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, AsyncStorage, Alert, Image, Dimensions, ScrollView, ActivityIndicator, Platform, StatusBar, Animated, TextInput, KeyboardAvoidingView, ImageBackground } from 'react-native'
+import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, AsyncStorage, Alert, Image, Dimensions, ScrollView, ActivityIndicator, Platform, StatusBar, Animated, TextInput, KeyboardAvoidingView, ImageBackground, Keyboard } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import uuid from 'uuid/v1'
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
 	},
 	formContainer: {
 		padding: theme.padding,
-		paddingBottom: 150,
 	},
 	hurray: {
 		fontSize: 28,
@@ -95,42 +94,54 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		marginLeft: 5,
 	},
-	comment: {
-		borderColor: theme.primary,
-		borderWidth: 1,
-		padding: 20,
-		// height: 40,
-		// backgroundColor: theme.primary,
-		color: theme.primary,
-		borderRadius: 30,
-		flex: 1,
-	},
-	uploadNow: {
-		position: 'absolute',
-		left: 0,
-		bottom: 0,
-		// height: 200,
+
+	helpTxtContainer: {
+		backgroundColor: theme.primary,
+
+		borderRadius: 3,
 		padding: 10,
+	},
+
+	helpTxt: {
+		color: 'white',
+	},
+
+	uploadNow: {
+		// position: 'absolute',
+		// left: 0,
+		// bottom: 0,
+		// height: 200,
+
+		padding: theme.padding,
+		paddingBottom: 20,
 		width: '100%',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'rgba(255,255,255,1)',
+		backgroundColor: 'white',
 		shadowColor: '#000',
 		shadowOffset: {
 			width: 0,
-			height: 1,
+			height: 12,
 		},
-		shadowOpacity: 0.22,
-		shadowRadius: 2.22,
+		shadowOpacity: 0.58,
+		shadowRadius: 16.0,
 
-		elevation: 3,
+		elevation: 24,
+	},
+	comment: {
+		borderColor: theme.primary,
+		borderWidth: 1,
+		padding: 7,
+
+		// backgroundColor: theme.primary,
+		color: theme.primary,
+		borderRadius: 5,
+		marginRight: 10,
+		flex: 1,
 	},
 	uploadBtn: {
-		// position: 'absolute',
-		// bottom: theme.safePadding,
-		// right: theme.safePadding,
 		backgroundColor: theme.primary,
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -149,13 +160,15 @@ const styles = StyleSheet.create({
 
 	uploading: {
 		width,
-		height: 200,
+		height,
 		position: 'absolute',
-		bottom: 0,
+		top: 0,
+
 		left: 0,
-		zIndex: 2,
+		zIndex: 3,
 		display: 'flex',
 		flexDirection: 'row',
+
 		// pointerEvents: 'none',
 	},
 	// https://github.com/facebook/react-native/issues/18415
@@ -173,10 +186,40 @@ const styles = StyleSheet.create({
 })
 
 const MaterialScreen = ({ navigation }) => {
-	const [materialUser, setMaterialUser] = useState(false)
+	const [materialUser, setMaterialUser] = useState('notset')
 	const [commentUser, setCommentUser] = useState('')
 	const [uploading, setUploading] = useState(false)
 	const [termsAccepted, setTermsAccepted] = useState(false)
+
+	useEffect(() => {
+		async function fetchGotItStorage() {
+			return AsyncStorage.getItem('TERMSACCEPTED')
+		}
+
+		fetchGotItStorage()
+			.then(value => {
+				let val
+				switch (value) {
+					case null:
+						setTermsAccepted(false)
+						break
+					case 'false':
+						setTermsAccepted(false)
+						break
+					case 'true':
+						setTermsAccepted(true)
+						break
+					default:
+						setTermsAccepted(false)
+						break
+				}
+
+				return val
+			})
+			.catch(error => {
+				Alert.alert(error)
+			})
+	}, [])
 
 	const materialBtns = MATERIALS.map(material => {
 		const active = materialUser === material.value ? true : false
@@ -234,16 +277,21 @@ const MaterialScreen = ({ navigation }) => {
 
 		// alert(JSON.stringify(formData))
 
-		fetch('http://192.168.178.61:8888/contribute/upload', {
+		fetch('http://192.168.0.6:8888/contribute/upload', {
 			method: 'POST',
 			body: formData,
 		})
 			.then(response => response.json())
 			.then(responseJson => {
 				alert(JSON.stringify(responseJson))
+
 				if (responseJson.status === 'OK') {
 					setUploading(false)
-					navigation.navigate('Main')
+					// const params = {
+					// 	reload: true,
+					// }
+					// navigation.navigate({ routeName: 'Main', params })
+					navigation.navigate('Hurray')
 				} else {
 					const { message } = responseJson
 					const translatedErrors = ['spam_detected']
@@ -265,17 +313,63 @@ const MaterialScreen = ({ navigation }) => {
 			})
 	}
 
+	const checkTerms = () => {
+		Keyboard.dismiss()
+		if (termsAccepted) {
+			uploadPicture()
+		} else {
+			Alert.alert(
+				I18n.t('terms_header'),
+				`\n${I18n.t('terms_author')}\n\n${I18n.t('honor_privacy')}\n\n${I18n.t('terms_cc0_app', { license: I18n.t('license') })}\n`,
+				[
+					{
+						text: I18n.t('cancel'),
+						style: 'cancel',
+					},
+					{
+						text: I18n.t('accept_once'),
+						onPress: () => {
+							uploadPicture()
+						},
+					},
+					{
+						text: I18n.t('accept_always'),
+						onPress: () => {
+							AsyncStorage.setItem('TERMSACCEPTED', 'true')
+								.then(() => {
+									uploadPicture()
+								})
+								.catch(error => {
+									alert(error)
+								})
+						},
+					},
+				],
+
+				{ cancelable: false } // Don't allow to cancel by tapping outside
+			)
+		}
+	}
+
 	return (
 		<View style={styles.safeAreaView}>
 			<StatusBar barStyle="dark-content" />
 
-			<KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={90} behavior={Platform.Os === 'ios' ? 'padding' : 'height'} enabled>
+			<KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 63 : 80} enabled>
 				<ScrollView>
 					<ImageBackground style={styles.picture} source={{ uri: picture.uri }} />
 					<View style={styles.formContainer}>
 						<Text style={styles.hurray}>{I18n.t('hurray')}</Text>
 						<Text style={styles.hurraySubtitle}>{I18n.t('select_material')}</Text>
+
 						<View style={styles.materialBtnsContainer}>{materialBtns}</View>
+						<View style={styles.helpTxtContainer}>
+							<Text style={{ ...styles.helpTxt, fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>{I18n.t('guideline_material_help_app')}</Text>
+							<Text style={{ ...styles.helpTxt, marginBottom: 10 }}>{I18n.t('the_obvious_header')}</Text>
+							<Text style={{ ...styles.helpTxt, marginBottom: 15 }}>{I18n.t('the_obvious_text')}</Text>
+							<Text style={{ ...styles.helpTxt, fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>{I18n.t('multiple_materials_header')}</Text>
+							<Text style={{ ...styles.helpTxt, marginBottom: 10 }}>{I18n.t('multiple_materials_text')}</Text>
+						</View>
 					</View>
 				</ScrollView>
 				<View style={styles.uploadNow}>
@@ -286,26 +380,25 @@ const MaterialScreen = ({ navigation }) => {
 						}}
 						value={commentUser}
 						placeholder={I18n.t('comment_placeholder')}
-						textAlignVertical="middle"
+						textAlignVertical="center"
 						multiline
 					/>
 					<TouchableOpacity
 						style={styles.uploadBtn}
 						onPress={() => {
-							uploadPicture()
+							checkTerms()
 						}}
-						disabled={!termsAccepted}
 					>
 						<MaterialIcons name="send" size={40} color="white" />
 					</TouchableOpacity>
 				</View>
-				<View style={styles.uploading} pointerEvents="none">
-					<View style={{ ...styles.uploadingInner, display: uploading ? 'flex' : 'none' }}>
-						<ActivityIndicator size="large" color="white" />
-						<Text style={styles.uploadingTxt}>{I18n.t('status_uploading')}</Text>
-					</View>
-				</View>
 			</KeyboardAvoidingView>
+			<View style={styles.uploading} pointerEvents="none">
+				<View style={{ ...styles.uploadingInner, display: uploading ? 'flex' : 'none' }}>
+					<ActivityIndicator size="large" color="white" />
+					<Text style={styles.uploadingTxt}>{I18n.t('status_uploading_app')}</Text>
+				</View>
+			</View>
 		</View>
 	)
 }

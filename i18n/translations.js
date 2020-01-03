@@ -932,15 +932,15 @@ module.exports = {
 		fr: "Le logiciel d'annotation d'image a détecté une erreur. Merci de réessayer",
 	},
 	upload_error: {
-		en: "Oh no, something went wrong during upload. I'm sure this is my fault (or maybe your connection is bad). Try again?",
-		de: 'Ach Mist. Das Foto wurde nicht hochgeladen. Das ist sicherlich meine Schuld (oder es liegt an Deiner Internetverbindung). Versuche es noch mal!',
-		es: '¡Huy! Hubo un problema al subir la imágen. Seguramente es culpa mía (o tu conexión es mala). Inténtalo de nuevo, porfa!',
+		en: 'Oh no, something went wrong during upload. Try again?',
+		de: 'Ups. Das Foto wurde nicht hochgeladen. Versuche es noch mal!',
+		es: '¡Huy! Hubo un problema al subir la imágen. Inténtalo de nuevo, porfa!',
 		ar: 'تباً، حدث خطأ أثناء التحميل. أنا متأكد من أن هذا هو خطأي (أو ربما لديك اتصال سيئ). حاول ثانية؟',
-		pt: 'Ah não, alguma coisa deu errado durante a subida do arquivo. Tenho certeza que foi minha culpa (ou talvez sua conexão esteja ruim). Quer tentar de novo?',
+		pt: 'Ah não, alguma coisa deu errado durante a subida do arquivo. Quer tentar de novo?',
 		zh: '上传发生错误。 我确定是我的错误（或者您的连接不好）再试试？',
-		el: 'Κρίμα, κάτι πήγε στραβά κατά τη διάρκεια της αποστολής. Είμαι σίγουρη ότι αυτό είναι δικό μου λάθος (ή ίσως η σύνδεσή σου είναι κακή). Προσπάθησε ξανά?',
+		el: 'Κρίμα, κάτι πήγε στραβά κατά τη διάρκεια της αποστολής. Προσπάθησε ξανά?',
 		hi: 'ओह नहीं, अपलोड के दौरान कुछ गलत हो गया। मुझे यकीन है कि यह मेरी गलती है (या शायद आपका कनेक्शन खराब है)। पुनः प्रयास करें?',
-		fr: "Oh non. Une erreur s'est produite durant l'envoi. C'est probablement notre faute (ou peut être ta connexion qui est mauvaise). Un autre essai ?",
+		fr: "Oh non. Une erreur s'est produite durant l'envoi. Un autre essai ?",
 	},
 	make_blacklisted: {
 		en: 'Hm, looks like the image was taken with an App that uses color filters, e.g. Hipstamatic. Sorry, try another one!',
@@ -1773,6 +1773,7 @@ module.exports = {
 		hi: 'इस छवि को अपलोड करके आप अपने कॉपीराइट को छोड़ने और सार्वजनिक डोमेन में छवि को स्थान देने के लिए सहमत हैं। ({license})',
 		fr: "Par l'envoi de cette image, tu confirmes que tu renonces à ces droits d'auteurs et que tu places cette image dans le domaine publique sous la {licence}",
 	},
+
 	license: {
 		en: 'Creative Commons CC0 1.0 Universal (CC0 1.0) Public Domain Dedication license',
 		de: 'Creative Commons CC0 1.0 Universell (CC0 1.0) Public Domain Dedication',
@@ -2230,7 +2231,64 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-
+	guideline_material_help_app: {
+		en: 'What do you mean by coast material?',
+		de: "Was meinst Du mit 'Küstenmaterial'?",
+		es: "¿Qué quiere decir 'material de la costa'?",
+		ar: 'ماذا تقصد بمكونات الساحل؟',
+		pt: 'Que quero dizer com material da costa?',
+		zh: '与海岸有关的材料是什么意思？',
+		el: 'Τι εννοείς με το υλικό της ακτής;',
+		hi: 'तटो के पदार्थो से आपका क्या मतलब है?',
+		fr: 'Que signifie les matériaux de la côte?',
+	},
+	terms_cc0_app: {
+		en: 'By uploading this image you agree to waive your copyright and place the image in the public domain under the %{license}.',
+		de: 'Durch das Hochladen des Fotos verzichten Sie auf Ihr Urheberrecht und stellen das Foto in die öffentliche Domäne unter der %{license} Lizenz.',
+		es: 'Al subir la imágen confirmas que cedes los derechos de autor y colocas la imágen en el dominio público bajo la licencia %{license}.',
+		ar: 'بتحميل هذه الصورة فإنك توافق على التنازل عن حقوق النشر الخاصة بك ووضعها في المجال العام تحت %{license}.',
+		pt: 'Ao subir esta imagem, você concorda em renunciar aos seus direitos autorais e colocar a imagem no domínio público sob a %{license}',
+		zh: '上传此图片即表示您同意放弃您的版权，并将图片放置在%{license}下的公共领域。',
+		el: 'Με τη μεταφόρτωση αυτής της εικόνας  συμφωνείς και παραιτείσαι από τα δικαιώματα πνευματικής ιδιοκτησίας και τοποθετείς την εικόνα αυτή στον δημόσιο τομέα υπό την %{license}.',
+		hi: 'इस छवि को अपलोड करके आप अपने कॉपीराइट को छोड़ने और सार्वजनिक डोमेन में छवि को स्थान देने के लिए सहमत हैं। (%{license})',
+		fr: "Par l'envoi de cette image, tu confirmes que tu renonces à ces droits d'auteurs et que tu places cette image dans le domaine publique sous la %{license}",
+	},
+	accept_once: {
+		en: 'Accept',
+		de: 'Akzeptieren',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	accept_always: {
+		en: 'Always accept',
+		de: 'Immer akzeptieren',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	status_uploading_app: {
+		en: 'Uploading image ...',
+		de: 'Foto wird hochgeladen ...',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
 	/*
 	"take_photo": {
 		"en": "Take a picture ...",

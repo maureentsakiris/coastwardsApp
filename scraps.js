@@ -1,3 +1,95 @@
+<WebView style={styles.webviewInner} source={{ uri: 'http://192.168.0.6:8888/map' }} />
+
+<SafeAreaView style={styles.safeAreaView}>
+      <StatusBar barStyle="dark-content" />
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.Os === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={100} enabled>
+        <ScrollView>
+          <Image style={styles.picture} source={{ uri: picture.uri }} />
+          <View style={styles.formContainer}>
+            <Text style={styles.hurray}>{I18n.t('hurray')}</Text>
+            <Text style={styles.hurraySubtitle}>{I18n.t('select_material')}</Text>
+            <View style={styles.materialBtnsContainer}>{materialBtns}</View>
+            <Text style={styles.hurraySubtitle}>{I18n.t('comment')}</Text>
+            <TextInput
+              style={styles.comment}
+              onChangeText={txt => {
+                setCommentUser(txt)
+              }}
+              value={commentUser}
+              placeholder={I18n.t('comment_placeholder')}
+              multiline
+            />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+
+
+
+{!picture && (
+          <Camera
+            style={styles.camera}
+            type="back"
+            ref={ref => {
+              setCameraRef(ref)
+            }}
+            onCameraReady={() => {
+              setupCamera()
+            }}
+            onMountError={error => {
+              Alert.alert(
+                I18n.t('something_went_wrong'),
+                error.message,
+                [
+                  {
+                    text: I18n.t('cancel'),
+                    style: 'cancel',
+                    onPress: () => {
+                      navigation.navigate('Main')
+                    },
+                  },
+                ],
+
+                { cancelable: false } // Don't allow to cancel by tapping outside
+              )
+            }}
+            ratio={ratio}
+          />
+        )}
+        {picture && <Image style={styles.picture} source={{ uri: picture.uri }} />}
+
+
+useEffect(() => {
+  async function fetchGotItStorage() {
+    return AsyncStorage.getItem('GOTIT')
+  }
+
+  fetchGotItStorage()
+    .then(value => {
+      let val
+      switch (value) {
+        case null:
+          val = true
+          break
+        case 'false':
+          val = true
+          break
+        case 'true':
+          val = false
+          break
+        default:
+          val = true
+          break
+      }
+      navigation.navigate('Guidelines')
+      return val
+    })
+    .catch(error => {
+      Alert.alert(error)
+    })
+}, [])
+
+
 <TouchableOpacity style={styles.cancelBtn}>
             <Text
               onPress={() => {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Platform, StyleSheet, TouchableOpacity, View, SafeAreaView, Alert, Linking, AsyncStorage } from 'react-native'
 
 import WebView from 'react-native-webview'
@@ -54,6 +54,8 @@ const styles = StyleSheet.create({
 })
 
 const MapScreen = ({ navigation }) => {
+	// const [webViewRef, setWebViewRef] = useState(null)
+
 	const checkLocationServicesPermission = () => {
 		return new Promise((resolve, reject) => {
 			Location.hasServicesEnabledAsync()
@@ -238,7 +240,7 @@ const MapScreen = ({ navigation }) => {
 	return (
 		<View style={styles.safeAreaView}>
 			<View style={styles.webview}>
-				<WebView style={styles.webviewInner} source={{ uri: 'http://192.168.178.61:8888/map' }} />
+				<WebView style={styles.webviewInner} source={{ uri: 'http://coastwards.org/map' }} />
 			</View>
 			<TouchableOpacity style={styles.uploadButton}>
 				<MaterialIcons
