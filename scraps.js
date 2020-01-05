@@ -1,3 +1,19 @@
+<View style={styles.videoView}>
+        <Video style={styles.video} useNativeControls source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }} rate={1.0} volume={1.0} isMuted={false} resizeMode="cover" shouldPlay={false} isLooping />
+      </View>
+
+<TouchableOpacity style={styles.refresh}>
+          <MaterialIcons
+            name="refresh"
+            size={40}
+            color={theme.primary}
+            onPress={() => {
+              navigation.openDrawer()
+            }}
+          />
+        </TouchableOpacity>
+
+
 <WebView style={styles.webviewInner} source={{ uri: 'http://192.168.0.6:8888/map' }} />
 
 <SafeAreaView style={styles.safeAreaView}>

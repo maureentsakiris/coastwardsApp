@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		zIndex: 1,
 		alignItems: 'flex-start',
-		backgroundColor: 'black',
+		backgroundColor: 'white',
 	},
 
 	takePicBtnContainer: {
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 	},
 	takePicBtn: {
-		backgroundColor: 'white',
+		backgroundColor: theme.primary,
 
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -372,7 +372,7 @@ const CameraScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.safeAreaView}>
-			<StatusBar barStyle="light-content" />
+			<StatusBar barStyle="dark-content" />
 			<View style={{ ...styles.fullscreen, ...styles.takePic }}>
 				<Camera
 					style={styles.camera}
@@ -405,12 +405,12 @@ const CameraScreen = ({ navigation }) => {
 				/>
 				<View style={styles.takePicBtnContainer}>
 					<TouchableOpacity style={{ ...styles.takePicBtn, display: cameraReady ? 'flex' : 'none' }}>
-						<MaterialIcons onPress={takePic} name="photo-camera" size={40} color="black" />
+						<MaterialIcons onPress={takePic} name="photo-camera" size={40} color="white" />
 					</TouchableOpacity>
 				</View>
 			</View>
 
-			<View style={{ ...styles.fullscreen, ...styles.validating }} pointerEvents="none">
+			<View style={{ ...styles.fullscreen, ...styles.validating }} pointerEvents={validating ? 'all' : 'none'}>
 				<View style={{ ...styles.validatingInner, display: validating ? 'flex' : 'none' }}>
 					<ActivityIndicator size="large" color="white" />
 					{validatingMsg && <Text style={styles.validatingTxt}>{validatingMsg}</Text>}

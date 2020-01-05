@@ -123,23 +123,26 @@ const styles = StyleSheet.create({
 		shadowColor: '#000',
 		shadowOffset: {
 			width: 0,
-			height: 12,
+			height: 3,
 		},
-		shadowOpacity: 0.58,
-		shadowRadius: 16.0,
+		shadowOpacity: 0.29,
+		shadowRadius: 4.65,
 
-		elevation: 24,
+		elevation: 7,
 	},
 	comment: {
-		borderColor: theme.primary,
+		borderColor: '#c1d7e2',
 		borderWidth: 1,
-		padding: 7,
-
+		paddingTop: 10,
+		paddingBottom: 10,
+		paddingLeft: 15,
+		paddingRight: 15,
 		// backgroundColor: theme.primary,
 		color: theme.primary,
-		borderRadius: 5,
+		borderRadius: 30,
 		marginRight: 10,
 		flex: 1,
+		backgroundColor: theme.waterMap,
 	},
 	uploadBtn: {
 		backgroundColor: theme.primary,
@@ -190,6 +193,21 @@ const MaterialScreen = ({ navigation }) => {
 	const [commentUser, setCommentUser] = useState('')
 	const [uploading, setUploading] = useState(false)
 	const [termsAccepted, setTermsAccepted] = useState(false)
+
+	const isSafe = useRef(true)
+
+	// setting states after asynchronous calls was causing memory leak. calls cannot be wrapped into an effect because they are not called onMount but when user clicks btn
+	// https://jeffchheng.github.io/brains-base/2019-08-02-usestatesafely/?utm_campaign=Week%20of%20React&utm_medium=email&utm_source=Revue%20newsletter
+	useEffect(() => {
+		// Future proofing for double-invoking
+		// effects in Strict Mode.
+		isSafe.current = true
+		return () => {
+			isSafe.current = false
+		}
+	}, [])
+
+	const [alreadyUploaded, setAlreadyUploaded] = useState(false)
 
 	useEffect(() => {
 		async function fetchGotItStorage() {
@@ -247,7 +265,9 @@ const MaterialScreen = ({ navigation }) => {
 	// https://ovpv.me/keyboardavoidingview-rn-expo/
 
 	const uploadPicture = () => {
-		setUploading(true)
+		if (isSafe.current) {
+			setUploading(true)
+		}
 
 		const { latitude, longitude, accuracy } = location.coords
 		const { exif } = picture
@@ -283,10 +303,14 @@ const MaterialScreen = ({ navigation }) => {
 		})
 			.then(response => response.json())
 			.then(responseJson => {
-				alert(JSON.stringify(responseJson))
+				// alert(JSON.stringify(responseJson))
 
 				if (responseJson.status === 'OK') {
-					setUploading(false)
+					// setUploading(false)
+					if (isSafe.current) {
+						setAlreadyUploaded(true)
+					}
+
 					// const params = {
 					// 	reload: true,
 					// }
@@ -302,14 +326,18 @@ const MaterialScreen = ({ navigation }) => {
 						alert(I18n.t('upload_error') + '\n\nError: ' + message)
 					}
 
-					setUploading(false)
+					if (isSafe.current) {
+						setUploading(false)
+					}
 				}
 
 				// return responseJson.movies
 			})
 			.catch(error => {
 				alert(I18n.t('upload_error' + '\n\nError: ' + error))
-				setUploading(false)
+				if (isSafe.current) {
+					setUploading(false)
+				}
 			})
 	}
 
@@ -380,7 +408,8 @@ const MaterialScreen = ({ navigation }) => {
 						}}
 						value={commentUser}
 						placeholder={I18n.t('comment_placeholder')}
-						textAlignVertical="center"
+						placeholderTextColor={theme.primary}
+						textAlignVertical="top"
 						multiline
 					/>
 					<TouchableOpacity
@@ -393,10 +422,15 @@ const MaterialScreen = ({ navigation }) => {
 					</TouchableOpacity>
 				</View>
 			</KeyboardAvoidingView>
-			<View style={styles.uploading} pointerEvents="none">
+			<View style={styles.uploading} pointerEvents={uploading ? 'all' : 'none'}>
 				<View style={{ ...styles.uploadingInner, display: uploading ? 'flex' : 'none' }}>
-					<ActivityIndicator size="large" color="white" />
-					<Text style={styles.uploadingTxt}>{I18n.t('status_uploading_app')}</Text>
+					{!alreadyUploaded && (
+						<View>
+							<ActivityIndicator size="large" color="white" />
+							<Text style={styles.uploadingTxt}>{I18n.t('status_uploading_app')}</Text>
+						</View>
+					)}
+					{alreadyUploaded && <Text style={styles.uploadingTxt}>{I18n.t('already_uploaded')}</Text>}
 				</View>
 			</View>
 		</View>

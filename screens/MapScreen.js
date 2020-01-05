@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Platform, StyleSheet, TouchableOpacity, View, SafeAreaView, Alert, Linking, AsyncStorage } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { Platform, StyleSheet, TouchableOpacity, View, SafeAreaView, Alert, Linking, AsyncStorage, Text, Image } from 'react-native'
 
 import WebView from 'react-native-webview'
 import * as Permissions from 'expo-permissions'
@@ -8,6 +8,8 @@ import * as Location from 'expo-location'
 import { MaterialIcons } from '@expo/vector-icons'
 import I18n from '../i18n/i18n'
 import theme from '../theme'
+
+import turtle from '../assets/images/tinyTurtleBlue.png'
 
 const styles = StyleSheet.create({
 	safeAreaView: {
@@ -23,10 +25,9 @@ const styles = StyleSheet.create({
 	webviewInner: {
 		flex: 1,
 		alignSelf: 'stretch',
+		// marginTop: theme.padding,
 	},
 	uploadButton: {
-		position: 'absolute',
-		bottom: theme.safePadding,
 		backgroundColor: theme.primary,
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -41,20 +42,108 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.36,
 		shadowRadius: 6.68,
 		elevation: 11,
+		// position: 'absolute',
+		// right: theme.padding,
 	},
 	buttonText: {
 		fontSize: 20,
 		color: 'white',
 	},
-	menuButton: {
+	controlsTop: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '100%',
+		height: 50,
 		position: 'absolute',
 		top: theme.safePadding,
+		left: 0,
+		paddingLeft: theme.padding,
+		paddingRight: theme.padding,
+	},
+	controlsBottom: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: '100%',
+		height: 120,
+		position: 'absolute',
+		bottom: 0,
+		left: 0,
+		paddingLeft: theme.padding,
+		paddingRight: theme.padding,
+		// backgroundColor: 'pink',
+		// paddingBottom: 40,
+		backgroundColor: 'rgba(255,255,255,0)',
+	},
+	menuButton: {
+		// backgroundColor: 'pink',
+		position: 'absolute',
 		left: theme.padding,
+	},
+	logo: {
+		// backgroundColor: 'pink',
+	},
+	counterControl: {
+		position: 'absolute',
+		left: theme.padding,
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	counter: {
+		fontSize: 28,
+		// fontWeight: 'bold',
+		color: theme.primary,
+		// backgroundColor: 'pink',
+		marginLeft: 5,
+	},
+	bottomLeft: {
+		position: 'absolute',
+		left: theme.padding,
+		bottom: theme.safePadding,
 	},
 })
 
 const MapScreen = ({ navigation }) => {
 	// const [webViewRef, setWebViewRef] = useState(null)
+	const [counter, setCounter] = useState(false)
+
+	const refreshMap = () => {
+		fetch('http://coastwards.org/contribute/count', {
+			method: 'GET',
+		})
+			.then(response => response.json())
+			.then(responseJson => {
+				const newCount = responseJson.count
+				if (newCount !== counter) {
+					setCounter(responseJson.count)
+				} else {
+					Alert.alert(
+						I18n.t('no_new_contributions_title'),
+						I18n.t('no_new_contributions'),
+						[
+							{
+								text: I18n.t('ok'),
+								style: 'cancel',
+							},
+						],
+						{ cancelable: false } // Don't allow to cancel by tapping outside
+					)
+				}
+			})
+			.catch(error => {
+				Alert(error)
+			})
+	}
+
+	useEffect(() => {
+		// Future proofing for double-invoking
+		// effects in Strict Mode.
+		refreshMap()
+	}, [])
 
 	const checkLocationServicesPermission = () => {
 		return new Promise((resolve, reject) => {
@@ -239,29 +328,47 @@ const MapScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.safeAreaView}>
-			<View style={styles.webview}>
-				<WebView style={styles.webviewInner} source={{ uri: 'http://coastwards.org/map' }} />
+			<View style={styles.webview}>{counter && <WebView style={styles.webviewInner} source={{ uri: `http://coastwards.org/map?id=${counter}` }} />}</View>
+			<View style={styles.controlsTop} pointerevents="box-none">
+				<TouchableOpacity style={styles.menuButton}>
+					<MaterialIcons
+						name="menu"
+						size={50}
+						color={theme.primary}
+						onPress={() => {
+							navigation.openDrawer()
+						}}
+					/>
+				</TouchableOpacity>
+				<Image source={turtle} style={styles.logo} />
 			</View>
-			<TouchableOpacity style={styles.uploadButton}>
-				<MaterialIcons
-					name="add-a-photo"
-					size={30}
-					color="white"
-					onPress={() => {
-						checkPermissions()
-					}}
-				/>
-			</TouchableOpacity>
-			<TouchableOpacity style={styles.menuButton}>
-				<MaterialIcons
-					name="menu"
-					size={50}
-					color={theme.primary}
-					onPress={() => {
-						navigation.openDrawer()
-					}}
-				/>
-			</TouchableOpacity>
+			<View style={styles.controlsBottom}>
+				{counter && (
+					<View style={styles.counterControl}>
+						<TouchableOpacity>
+							<MaterialIcons
+								name="refresh"
+								size={40}
+								color={theme.primary}
+								onPress={() => {
+									refreshMap()
+								}}
+							/>
+						</TouchableOpacity>
+						<Text style={styles.counter}>{counter}</Text>
+					</View>
+				)}
+				<TouchableOpacity style={styles.uploadButton}>
+					<MaterialIcons
+						name="add-a-photo"
+						size={30}
+						color="white"
+						onPress={() => {
+							checkPermissions()
+						}}
+					/>
+				</TouchableOpacity>
+			</View>
 		</View>
 	)
 }

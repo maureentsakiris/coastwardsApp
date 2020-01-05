@@ -2289,6 +2289,79 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
+	image_will_appear: {
+		en: 'Your image will appear on the map shortly',
+		de: 'Dein Foto wird bald auf der Karte zu sehen sein',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	refresh_map: {
+		en: 'Refresh the map to see your contribution',
+		de: 'Lade die Weltkarte neu, um deinen Beitrag zu sehen',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	no_new_contributions_title: {
+		en: 'Map is refreshed',
+		de: 'Weltkarte aktualisiert',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	no_new_contributions: {
+		en: 'The map is up-to-date',
+		de: 'Die Weltkarte zeigt den letzten Stand',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	already_uploaded: {
+		en: 'This picture was uploaded',
+		de: 'Dieses Foto wurde hochgeladen',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	settings: {
+		en: 'Settings',
+		de: 'Einstellungen',
+		es: 'Ajustes', // !
+		ar: 'إعدادات', // !
+		pt: 'Configurações', // !
+		zh: '设置', // !
+		el: 'Ρυθμίσεις', // !
+		hi: 'सेटिंग्स', // !
+		fr: 'Paramètres', // !
+		// "it": "" // !
+	},
+
 	/*
 	"take_photo": {
 		"en": "Take a picture ...",
