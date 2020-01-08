@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, AsyncStorage, Alert, Image, Dimensions, ScrollView, ActivityIndicator, Platform, StatusBar, Animated, TextInput, KeyboardAvoidingView, ImageBackground, Keyboard } from 'react-native'
+import React from 'react'
+import { Text, View, TouchableOpacity, StyleSheet, Image, Dimensions, ImageBackground } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 
 import I18n from '../i18n/i18n'
@@ -35,11 +35,14 @@ const styles = StyleSheet.create({
 		color: theme.primary,
 		textAlign: 'center',
 	},
+	refresh: {
+		marginTop: 20,
+		marginBottom: 5,
+	},
 	wohooWait: {
 		fontSize: 16,
 		color: theme.primary,
 		textAlign: 'center',
-		marginTop: 20,
 	},
 	okidoke: {
 		backgroundColor: theme.primary,
@@ -69,10 +72,10 @@ const styles = StyleSheet.create({
 const HurrayScreen = ({ navigation }) => {
 	return (
 		<View style={styles.safeAreaView}>
-			<StatusBar barStyle="dark-content" />
 			<ImageBackground style={styles.bg} source={wohoo} />
 			<Image style={styles.wohooTurtle} source={wohooTurtle} />
 			<Text style={styles.wohoo}>{I18n.t('upload_ok')}</Text>
+			<MaterialIcons style={styles.refresh} name="refresh" size={40} color={theme.primary} />
 			<Text style={styles.wohooWait}>({I18n.t('refresh_map')})</Text>
 			<TouchableOpacity
 				style={styles.okidoke}

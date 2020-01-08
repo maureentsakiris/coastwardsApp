@@ -1,43 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, AsyncStorage, Alert, Image, Dimensions } from 'react-native'
-import Swiper from 'react-native-swiper'
+import { Text, View, TouchableOpacity, StyleSheet, AsyncStorage, Alert } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import I18n from '../i18n/i18n'
 import theme from '../theme'
-
-const anycoast = require('../assets/guidelines/anycoast.png')
-const closeup = require('../assets/guidelines/closeup.png')
-const nofaces = require('../assets/guidelines/nofaces.png')
-const coastmaterial = require('../assets/guidelines/coastmaterial.png')
-const notonlybeaches = require('../assets/guidelines/notonlybeaches.png')
+import Guidelines from '../components/Guidelines'
 
 const styles = StyleSheet.create({
 	safeAreaView: {
 		flex: 1,
-	},
-	swiper: {
-		flex: 1,
-	},
-	slide: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		paddingLeft: theme.safePadding,
-		paddingRight: theme.safePadding,
-	},
-	slideIcon: {
-		width: 150,
-		height: 150,
-		marginBottom: 20,
-	},
-	slideTitle: {
-		fontSize: 20,
-		fontWeight: 'bold',
-		marginBottom: 5,
-		textAlign: 'center',
-	},
-	slideText: {
-		textAlign: 'center',
 	},
 	actions: {
 		height: 150,
@@ -119,35 +89,7 @@ const GuidelinesScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.safeAreaView} pointerEvents="box-none">
-			<View style={styles.swiper}>
-				<Swiper showsButtons={false} activeDotColor={theme.primary} loop={false}>
-					<View style={styles.slide}>
-						<Image source={anycoast} style={styles.slideIcon} />
-						<Text style={styles.slideTitle}>{I18n.t('any_picture')}</Text>
-						<Text style={styles.slideText}>{I18n.t('any_coast')}</Text>
-					</View>
-					<View style={styles.slide}>
-						<Image source={nofaces} style={styles.slideIcon} />
-						<Text style={styles.slideTitle}>{I18n.t('guideline_faces_header')}</Text>
-						<Text style={styles.slideText}>{I18n.t('guideline_faces_text')}</Text>
-					</View>
-					<View style={styles.slide}>
-						<Image source={coastmaterial} style={styles.slideIcon} />
-						<Text style={styles.slideTitle}>{I18n.t('guideline_material_header')}</Text>
-						<Text style={styles.slideText}>{I18n.t('guideline_material_text')}</Text>
-					</View>
-					<View style={styles.slide}>
-						<Image source={notonlybeaches} style={styles.slideIcon} />
-						<Text style={styles.slideTitle}>{I18n.t('guideline_coasts_header')}</Text>
-						<Text style={styles.slideText}>{I18n.t('guideline_coasts_text')}</Text>
-					</View>
-					<View style={styles.slide}>
-						<Image source={closeup} style={styles.slideIcon} />
-						<Text style={styles.slideTitle}>{I18n.t('guideline_closer_header')}</Text>
-						<Text style={styles.slideText}>{I18n.t('guideline_closer_text')}</Text>
-					</View>
-				</Swiper>
-			</View>
+			<Guidelines />
 			<View style={styles.actions}>
 				<TouchableOpacity onPress={gotIt}>
 					<Text style={styles.gotItBtn}>{I18n.t('got_it')}</Text>

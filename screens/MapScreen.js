@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Platform, StyleSheet, TouchableOpacity, View, SafeAreaView, Alert, Linking, AsyncStorage, Text, Image } from 'react-native'
+import { Platform, StyleSheet, TouchableOpacity, View, Alert, Linking, Text, Image } from 'react-native'
 
 import WebView from 'react-native-webview'
 import * as Permissions from 'expo-permissions'
@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
 	webviewInner: {
 		flex: 1,
 		alignSelf: 'stretch',
-		// marginTop: theme.padding,
 	},
 	uploadButton: {
 		backgroundColor: theme.primary,
@@ -42,8 +41,6 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.36,
 		shadowRadius: 6.68,
 		elevation: 11,
-		// position: 'absolute',
-		// right: theme.padding,
 	},
 	buttonText: {
 		fontSize: 20,
@@ -74,18 +71,13 @@ const styles = StyleSheet.create({
 		left: 0,
 		paddingLeft: theme.padding,
 		paddingRight: theme.padding,
-		// backgroundColor: 'pink',
-		// paddingBottom: 40,
 		backgroundColor: 'rgba(255,255,255,0)',
 	},
 	menuButton: {
-		// backgroundColor: 'pink',
 		position: 'absolute',
 		left: theme.padding,
 	},
-	logo: {
-		// backgroundColor: 'pink',
-	},
+	logo: {},
 	counterControl: {
 		position: 'absolute',
 		left: theme.padding,
@@ -95,9 +87,7 @@ const styles = StyleSheet.create({
 	},
 	counter: {
 		fontSize: 28,
-		// fontWeight: 'bold',
 		color: theme.primary,
-		// backgroundColor: 'pink',
 		marginLeft: 5,
 	},
 	bottomLeft: {
@@ -108,7 +98,6 @@ const styles = StyleSheet.create({
 })
 
 const MapScreen = ({ navigation }) => {
-	// const [webViewRef, setWebViewRef] = useState(null)
 	const [counter, setCounter] = useState(false)
 
 	const refreshMap = () => {
@@ -224,38 +213,6 @@ const MapScreen = ({ navigation }) => {
 				})
 		})
 	}
-	/*
-	const fetchGotItStorage = () => {
-		return new Promise((resolve, reject) => {
-			async function fetchGotIt() {
-				return AsyncStorage.getItem('GOTIT')
-			}
-
-			fetchGotIt()
-				.then(status => {
-					let val
-					switch (status) {
-						case null:
-							resolve(true)
-							break
-						case 'false':
-							resolve(true)
-							break
-						case 'true':
-							resolve(false)
-							break
-						default:
-							resolve(true)
-							break
-					}
-					return val
-				})
-				.catch(error => {
-					reject(error)
-				})
-		})
-	}
-	*/
 
 	const checkPermissions = () => {
 		const results = []
@@ -307,29 +264,15 @@ const MapScreen = ({ navigation }) => {
 				}
 				return true
 			})
-			/*
-			.then(() => {
-				return fetchGotItStorage()
-			})
-			.then(val => {
-				if (val) {
-					navigation.navigate('Guidelines')
-				} else {
-					navigation.navigate('Contribute')
-				}
-			})
-			*/
 			.catch(error => {
 				alert(error)
 			})
 	}
 
-	// <WebView style={styles.webviewInner} source={{ uri: 'http://coastwards.org/map' }} />
-
 	return (
 		<View style={styles.safeAreaView}>
 			<View style={styles.webview}>{counter && <WebView style={styles.webviewInner} source={{ uri: `http://coastwards.org/map?id=${counter}` }} />}</View>
-			<View style={styles.controlsTop} pointerevents="box-none">
+			<View style={styles.controlsTop} pointerEvents="box-none">
 				<TouchableOpacity style={styles.menuButton}>
 					<MaterialIcons
 						name="menu"

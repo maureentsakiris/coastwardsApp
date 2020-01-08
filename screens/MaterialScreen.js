@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, AsyncStorage, Alert, Image, Dimensions, ScrollView, ActivityIndicator, Platform, StatusBar, Animated, TextInput, KeyboardAvoidingView, ImageBackground, Keyboard } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, AsyncStorage, Alert, Dimensions, ScrollView, ActivityIndicator, Platform, TextInput, KeyboardAvoidingView, ImageBackground, Keyboard } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 import uuid from 'uuid/v1'
 import I18n from '../i18n/i18n'
 import theme from '../theme'
@@ -240,7 +240,7 @@ const MaterialScreen = ({ navigation }) => {
 	}, [])
 
 	const materialBtns = MATERIALS.map(material => {
-		const active = materialUser === material.value ? true : false
+		const active = materialUser === material.value
 
 		return (
 			<TouchableOpacity
@@ -269,9 +269,9 @@ const MaterialScreen = ({ navigation }) => {
 			setUploading(true)
 		}
 
-		const { latitude, longitude, accuracy } = location.coords
+		const { latitude, longitude } = location.coords
 		const { exif } = picture
-		const { uri, width, height, base64 } = pictureResized
+		const { uri } = pictureResized
 
 		const datetime = exif.DateTimeOriginal || exif.DateTimeDigitized || exif.DateTime
 		const uid = uuid()
@@ -295,19 +295,15 @@ const MaterialScreen = ({ navigation }) => {
 		formData.append('comment', commentUser)
 		formData.append('source', 'app')
 
-		// alert(JSON.stringify(formData))
-
-		fetch('http://192.168.0.6:8888/contribute/upload', {
+		fetch('http://coastwards.org/contribute/upload', {
 			method: 'POST',
 			body: formData,
 		})
 			.then(response => response.json())
 			.then(responseJson => {
-				// alert(JSON.stringify(responseJson))
-
 				if (responseJson.status === 'OK') {
-					// setUploading(false)
 					if (isSafe.current) {
+						// setUploading(false)
 						setAlreadyUploaded(true)
 					}
 
@@ -381,13 +377,10 @@ const MaterialScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.safeAreaView}>
-			<StatusBar barStyle="dark-content" />
-
 			<KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 63 : 80} enabled>
 				<ScrollView>
 					<ImageBackground style={styles.picture} source={{ uri: picture.uri }} />
 					<View style={styles.formContainer}>
-						<Text style={styles.hurray}>{I18n.t('hurray')}</Text>
 						<Text style={styles.hurraySubtitle}>{I18n.t('select_material')}</Text>
 
 						<View style={styles.materialBtnsContainer}>{materialBtns}</View>

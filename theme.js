@@ -6,6 +6,7 @@ const theme = {
 	waterMap: '#d0e6f1',
 
 	safePadding: Constants.statusBarHeight + 5,
+	comfiPadding: 70,
 	padding: 15,
 }
 

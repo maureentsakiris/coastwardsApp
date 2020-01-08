@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Text, View, TouchableOpacity, SafeAreaView, StyleSheet, AsyncStorage, Alert, Image, Dimensions, ScrollView, ActivityIndicator, Platform, StatusBar } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, AsyncStorage, Alert, Dimensions, ActivityIndicator, Platform } from 'react-native'
 import { Camera } from 'expo-camera'
 import * as Location from 'expo-location'
 import * as FaceDetector from 'expo-face-detector'
@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		top: 0,
 		left: 0,
-		// flex: 1,
 	},
 	takePic: {
 		flex: 1,
@@ -61,7 +60,6 @@ const styles = StyleSheet.create({
 	},
 	validating: {
 		zIndex: 2,
-		// pointerEvents: 'none',
 	},
 	// https://github.com/facebook/react-native/issues/18415
 	validatingInner: {
@@ -78,7 +76,6 @@ const styles = StyleSheet.create({
 	camera: {
 		width,
 		height: width,
-		// zIndex: 0,
 	},
 	picture: {
 		width,
@@ -104,10 +101,8 @@ const styles = StyleSheet.create({
 		flexWrap: 'wrap',
 	},
 	materialBtn: {
-		// flex: 1,
 		flexDirection: 'row',
 		alignItems: 'center',
-		// justifyContent: 'center',
 		marginBottom: 10,
 		marginRight: 10,
 		paddingTop: 10,
@@ -370,9 +365,22 @@ const CameraScreen = ({ navigation }) => {
 		}
 	}
 
+	const choosePic = () => {
+		Alert.alert(
+			'Choose from library',
+			'Sorry, this feature is not ready yet. Please come back in a few days, we hope to have it ready by then!',
+			[
+				{
+					text: I18n.t('ok'),
+					style: 'cancel',
+				},
+			],
+			{ cancelable: false } // Don't allow to cancel by tapping outside
+		)
+	}
+
 	return (
 		<View style={styles.safeAreaView}>
-			<StatusBar barStyle="dark-content" />
 			<View style={{ ...styles.fullscreen, ...styles.takePic }}>
 				<Camera
 					style={styles.camera}
@@ -404,9 +412,13 @@ const CameraScreen = ({ navigation }) => {
 					autoFocus="on"
 				/>
 				<View style={styles.takePicBtnContainer}>
+					<TouchableOpacity>
+						<MaterialIcons onPress={choosePic} name="photo-library" size={40} color={theme.primary} />
+					</TouchableOpacity>
 					<TouchableOpacity style={{ ...styles.takePicBtn, display: cameraReady ? 'flex' : 'none' }}>
 						<MaterialIcons onPress={takePic} name="photo-camera" size={40} color="white" />
 					</TouchableOpacity>
+					<MaterialIcons name="photo-library" size={40} color="white" />
 				</View>
 			</View>
 

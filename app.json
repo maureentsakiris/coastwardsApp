@@ -1,38 +1,36 @@
 {
-    "expo": {
-        "name": "Coastwards",
-        "slug": "coastwards",
-        "privacy": "public",
-        "sdkVersion": "35.0.0",
-        "platforms": ["ios", "android", "web"],
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/images/icon.png",
-        "splash": {
-            "image": "./assets/images/splash.png",
-            "resizeMode": "cover",
-            "backgroundColor": "#0071bc"
-        },
-        "updates": {
-            "fallbackToCacheTimeout": 0
-        },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": true,
-            "userInterfaceStyle": "automatic"
-        },
-        "description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
-        "locales": {
-            "en": "./i18n/locales/ios/en.json",
-            "de": "./i18n/locales/ios/de.json",
-            "es": "./i18n/locales/ios/es.json",
-            "fr": "./i18n/locales/ios/fr.json",
-            "pt": "./i18n/locales/ios/pt.json",
-            "ar": "./i18n/locales/ios/ar.json",
-            "zh": "./i18n/locales/ios/zh.json",
-            "el": "./i18n/locales/ios/el.json",
-            "hi": "./i18n/locales/ios/hi.json",
-            "it": "./i18n/locales/ios/it.json"
-        }
-    }
+	"expo": {
+		"name": "Coastwards",
+		"slug": "coastwards",
+		"privacy": "public",
+		"sdkVersion": "35.0.0",
+		"platforms": ["ios", "android", "web"],
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"primaryColor": "#0076b7",
+		"icon": "./assets/images/icon.png",
+		"splash": {
+			"image": "./assets/images/splash.png",
+			"resizeMode": "cover",
+			"backgroundColor": "#0076b7"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true,
+			"userInterfaceStyle": "automatic"
+		},
+		"description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
+		"locales": {
+			"en": "./i18n/locales/ios/en.json"
+		},
+		"ios": {
+			"bundleIdentifier": "org.coastwards.app"
+		},
+		"android": {
+			"package": "org.coastwards.app"
+		}
+	}
 }

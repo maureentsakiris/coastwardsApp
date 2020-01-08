@@ -2349,6 +2349,56 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
+
+	// follow_us: {
+	// 	en: 'Follow us on',
+	// 	de: 'Folge uns auf',
+	// 	// "es": "", // !
+	// 	// "ar": "", // !
+	// 	// "pt": "", // !
+	// 	// "zh": "", // !
+	// 	// "el": "", // !
+	// 	// "hi": "", // !
+	// 	// "fr": "" // !
+	// 	// "it": "" // !
+	// },
+
+	map: {
+		en: 'Map',
+		de: 'Weltkarte',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	info_how: {
+		en: 'How does it work?',
+		de: 'Wie funktioniert es?',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	about: {
+		en: 'About us',
+		de: 'Über uns',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
 	settings: {
 		en: 'Settings',
 		de: 'Einstellungen',
@@ -2362,6 +2412,115 @@ module.exports = {
 		// "it": "" // !
 	},
 
+	we_are_app: {
+		en: 'We are the %{crslr} at the University of Kiel in Germany and this project was funded by the %{future_ocean}.',
+		de: 'Wir sind die %{crslr} der Universität in Kiel und dieses Projekt wurde vom %{future_ocean} finanziert. ',
+		es: 'Somos el %{crslr}, dependiente de la universidad de Kiel, Alemania. Y este proyecto está subvencionado por el %{future_ocean}.', // !WAS
+		ar: 'نحن %{crslr} جامعة كييل في ألمانيا ويتم تمويل هذا المشروع من قبل %{future_ocean}.', // !WAS
+		pt: 'Somos o %{crslr} na Universidade de Kiel na Alemanha e este projecto é financiado por %{future_ocean}.', // !WAS
+		zh: '我们是德国基尔大学，这个项目由 %{future_ocean} 赞助', // JING // !WAS
+		el: 'Είμαστε %{crslr} στο Πανεπιστήμιο του Κιέλου στη Γερμανία και το έργο αυτό χρηματοδοτείται από το %{future_ocean}.', // !WAS
+		hi: 'हम जर्मनी में कील विश्वविद्यालय में %{crslr} हैं और इस परियोजना को %{future_ocean} द्वारा वित्त पोषित किया गया है।',
+		fr: 'Nous sommes le %{crslr} à l´Université de Kiel en Allemagne et ce projet est subventionné par le %{future_ocean}.', // !WAS
+	},
+
+	feedback: {
+		en: 'Feedback',
+		de: 'Feedback',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+
+	feedback_title: {
+		en: 'We need your Feedback!',
+		de: 'Wir brauchen euer Feedback!',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	feedback_text: {
+		en: 'This is the first rollout of the App and we know there is much room for improvement. If you have any questions, ideas, suggestions or any other inquiry, please shoot! We will get back to you as soon as possible. Many thanks.',
+		de: 'Dies ist die erste Version der App und wir wissen, dass es viel zu verbessern gibt. Falls Du Fragen, Ideen, Vorschläge oder sonstige Anliegen hast, bitte lass es uns wissen! Wir werden Dir möglichst zügig antworten. Vielen Dank.',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	send_email: {
+		en: 'Send E-mail',
+		de: 'E-mail schreiben',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	nassos_bio: {
+		en: 'Nassos is a professor at the University of Kiel and the group leader of the CRSLR Research Group. He is a father of two little boys.',
+		de: 'Nassos ist Professor in der Christian-Albrecht Universität zu Kiel und Gruppenleiter der CRSLR Research Group. Er ist Vater von zwei kleinen Jungs.',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	claudia_bio: {
+		en: 'Claudia is a PhD student at the University of Kiel. She is interested in the effects of scale and different input data on modelling the potential impacts of sea-level rise in the world’s coastal regions.',
+		de: 'Claudia ist Doktorandin der Christian-Albrecht Universität zu Kiel. Ihre Arbeit fokussiert sich auf die Analyse von Auswirkungen des Meeresspiegelanstiegs auf Küstenregionen auf globaler bis subnationaler Skala.',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	maureen_bio: {
+		en: 'Maureen is a Front-End Developer and Communication Designer. After many years of freelancing, she found her niche and is specialising in Science Communication.',
+		de: 'Maureen ist Front-End Developer und Kommunikationsdesignerin. Nach vielen Jahren als Freiberuflerin, hat sie ihre Nische gefunden und spezalisiert sich auf Wissenschaftskommunikation.',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	featured_by: {
+		en: 'Featured by',
+		de: 'Featured by',
+		// "es": "", // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
 	/*
 	"take_photo": {
 		"en": "Take a picture ...",
