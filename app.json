@@ -30,7 +30,12 @@
 			"bundleIdentifier": "org.coastwards.app"
 		},
 		"android": {
-			"package": "org.coastwards.app"
+			"package": "org.coastwards.app",
+			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA"]
+		},
+		"infoPlist": {
+			"NSCameraUsageDescription": "This app uses the camera to take pictures of coasts.",
+			"NSLocationWhenInUseUsageDescription": "This app uses the location to place the pictures of coasts taken by the user on a map."
 		}
 	}
 }
