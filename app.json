@@ -27,15 +27,15 @@
 			"en": "./i18n/locales/ios/en.json"
 		},
 		"ios": {
-			"bundleIdentifier": "org.coastwards.app"
+			"bundleIdentifier": "org.coastwards.app",
+			"infoPlist": {
+				"NSCameraUsageDescription": "This app uses the camera to take pictures of coasts.",
+				"NSLocationWhenInUseUsageDescription": "This app uses the location to place the pictures of coasts taken by the user on a map."
+			}
 		},
 		"android": {
 			"package": "org.coastwards.app",
 			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA"]
-		},
-		"infoPlist": {
-			"NSCameraUsageDescription": "This app uses the camera to take pictures of coasts.",
-			"NSLocationWhenInUseUsageDescription": "This app uses the location to place the pictures of coasts taken by the user on a map."
 		}
 	}
 }
