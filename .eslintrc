@@ -1,0 +1,121 @@
+/*
+
+Sublime installs: SublimeLinter, ESlint, Babel, JsPrettier
+
+SublimeLinter user settings: 
+{
+	"linters": {
+	  "eslint": {
+	      "env": {"PATH": "/Users/maureen/.nvm/versions/node/v8.11.1/bin/"}
+	  }
+	}
+}
+
+JsPrettier user settings:
+{
+
+	"auto_format_on_save": true,
+	"node_path": "~/.nvm/versions/node/v8.11.1/bin/node"
+
+}
+
+*/
+
+
+// https://medium.appbase.io/part1-getting-started-with-react-and-nextjs-4f28a6a0c38e
+
+{
+
+	"extends": [
+
+		"eslint:recommended",
+		"plugin:prettier/recommended",
+		"airbnb" //includes the below
+		// "plugin:jsx-a11y/recommended", //eslint-plugin-jsx-a11y
+		// "plugin:react/recommended", //eslint-plugin-react
+		// "plugin:import/errors",  //eslint-plugin-import
+		// "plugin:import/warnings" //eslint-plugin-import
+
+	],
+	"plugins": [ 
+
+		"babel", //eslint-plugin-babel
+		"react-hooks" 
+
+	], 
+	"env": {
+	
+		"browser": true,
+		"node": true,
+
+	},
+	"parser": "babel-eslint", //babel-eslint
+	"rules": {
+
+		"react/jsx-filename-extension": [ 1, { "extensions": [ ".js", ".jsx" ] } ],
+		"react/react-in-jsx-scope": 0, // Next.js automatically adds import see: https://spectrum.chat/next-js/general/react-must-be-in-scope-when-using-jsx~6193ef62-4d5e-4681-8f51-8c7bf6b9d56d
+		"react/prefer-stateless-function": [ 2, { "ignorePureComponents": true } ],
+		"react/jsx-one-expression-per-line": 0,
+		"jsx-a11y/label-has-for": [ 2, { "required": { "every": [ "id" ] } }],
+
+		"semi": 0, // No need for semicolon
+		"max-len": 0,
+
+
+		// Interferes with prettier
+		"indent": 0,
+		"comma-dangle": 0,
+		"no-tabs": 0,
+		"implicit-arrow-linebreak": 0,
+		"arrow-parens": 0,
+		"arrow-body-style": 0,
+		"react/jsx-indent": [ 1, "tab" ],
+		"react/jsx-indent-props": [ 1, "tab" ],
+		"object-curly-newline": 0,
+
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn",
+
+		// Interferes with react-navigation
+		"react/prop-types": ["error", { "ignore": ["navigation", "tintColor"] }]
+
+
+	}
+	
+}
+
+
+/*
+
+'eol-last': ['error', 'always'],
+'no-underscore-dangle': 0,
+'react/jsx-indent': 0,
+'react/jsx-indent-props': 0,
+'react/jsx-filename-extension': 0,
+'react/forbid-prop-types': 0,
+'react/require-default-props': 0,
+
+"array-bracket-spacing": [ 2, "always" ],
+"object-curly-spacing": [2, "always"],
+"block-spacing": [2, "always"],
+"space-in-parens": [2, "always"],
+"padded-blocks": [2, "always"],
+"brace-style": [2, "1tbs", { "allowSingleLine": true }],
+"comma-spacing": [2, {"before": false, "after": true}],
+"comma-style": [2, "last"],
+"computed-property-spacing": [2, "always"],
+"indent": [2, "tab"],
+"jsx-quotes": [2, "prefer-double"],
+"no-whitespace-before-property": 2,
+"semi-spacing": [2, {"before": false, "after": true}],
+"space-before-function-paren": [ 2, "always" ],
+"arrow-spacing": [2, { "before": true, "after": true }],
+"arrow-parens": [2, "always"],
+"no-console": 1,
+"no-unused-vars": 1,
+"promise/param-names": 2,
+"promise/always-return": 2,
+"promise/catch-or-return": 2,
+"react/no-unescaped-entities": 0
+
+*/

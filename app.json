@@ -1,0 +1,41 @@
+{
+	"expo": {
+		"name": "Coastwards",
+		"slug": "coastwards",
+		"privacy": "public",
+		"sdkVersion": "35.0.0",
+		"platforms": ["ios", "android", "web"],
+		"version": "1.0.1",
+		"orientation": "portrait",
+		"primaryColor": "#0076b7",
+		"icon": "./assets/images/icon.png",
+		"splash": {
+			"image": "./assets/images/splash.png",
+			"resizeMode": "cover",
+			"backgroundColor": "#0076b7"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true,
+			"userInterfaceStyle": "automatic"
+		},
+		"description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
+		"locales": {
+			"en": "./i18n/locales/ios/en.json"
+		},
+		"ios": {
+			"bundleIdentifier": "org.coastwards.app",
+			"infoPlist": {
+				"NSCameraUsageDescription": "This app uses the camera to take pictures of coasts.",
+				"NSLocationWhenInUseUsageDescription": "This app uses the location to place the pictures of coasts taken by the user on a map."
+			}
+		},
+		"android": {
+			"package": "org.coastwards.app",
+			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA"]
+		}
+	}
+}

@@ -1,0 +1,369 @@
+import React from 'react'
+import { StyleSheet, ScrollView, Image, View, Platform, Text } from 'react-native'
+import { Linking } from 'expo'
+import Constants from 'expo-constants'
+import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer'
+import { createStackNavigator } from 'react-navigation-stack'
+import { Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons'
+
+import I18n from '../i18n/i18n'
+
+import MapScreen from '../screens/MapScreen'
+import CameraScreen from '../screens/CameraScreen'
+import MaterialScreen from '../screens/MaterialScreen'
+import HurrayScreen from '../screens/HurrayScreen'
+import GuidelinesScreen from '../screens/GuidelinesScreen'
+import HowScreen from '../screens/HowScreen'
+import TeamScreen from '../screens/TeamScreen'
+import GuidelinesGalleryScreen from '../screens/GuidelinesGalleryScreen'
+import FeedbackScreen from '../screens/FeedbackScreen'
+import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen'
+
+import theme from '../theme'
+
+const turtleWhite = require('../assets/images/turtleWhite.png')
+const tinyTurtleBlue = require('../assets/images/tinyTurtleBlue.png')
+
+const styles = StyleSheet.create({
+	view: {
+		flex: 1,
+	},
+	scrollView: {
+		flex: 1,
+	},
+	logoView: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		padding: theme.padding,
+		paddingTop: 50,
+		paddingBottom: 30,
+		backgroundColor: theme.primary,
+	},
+	logoImage: {
+		width: 150,
+		height: 89,
+		marginBottom: 15,
+	},
+	headerTxt: {
+		fontWeight: 'bold',
+		fontSize: 16,
+		textAlign: 'center',
+		color: 'white',
+	},
+
+	items: {
+		marginBottom: 40,
+	},
+	socialDrawer: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
+	followUs: {
+		fontSize: 14,
+		color: 'white',
+		marginRight: 20,
+	},
+	bottomDrawer: {
+		backgroundColor: theme.primary,
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.23,
+		shadowRadius: 2.62,
+
+		elevation: 4,
+		padding: theme.padding,
+	},
+	social: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+	},
+	socialIcon: {},
+	version: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderTopWidth: 1,
+		borderTopColor: 'white',
+	},
+	madeWith: {
+		fontSize: 14,
+		color: theme.waterMap,
+		marginRight: 10,
+	},
+})
+
+const Drawer = props => {
+	return (
+		<View style={styles.view}>
+			<ScrollView style={styles.scrollView}>
+				<View style={styles.logoView}>
+					<Image source={turtleWhite} style={styles.logoImage} />
+					<Text style={styles.headerTxt}>
+						{I18n.t('help_science')} {I18n.t('by')}
+					</Text>
+				</View>
+				<DrawerItems style={styles.items} {...props} />
+			</ScrollView>
+			<View style={styles.bottomDrawer}>
+				<View style={styles.social}>
+					<Text style={styles.madeWith}>v{Constants.manifest.version} Made with ❤︎</Text>
+					<Ionicons onPress={() => Linking.openURL('https://www.facebook.com/coastwards/')} style={styles.socialIcon} size={30} name="logo-facebook" color={theme.waterMap} />
+					<Ionicons onPress={() => Linking.openURL('https://twitter.com/gocoastwards')} style={styles.socialIcon} size={30} name="logo-twitter" color={theme.waterMap} />
+				</View>
+			</View>
+		</View>
+	)
+}
+
+const config = {
+	defaultNavigationOptions: ({ navigation }) => ({
+		headerStyle: {
+			backgroundColor: 'white',
+			borderBottomWidth: 0,
+			shadowColor: '#000',
+			shadowOffset: {
+				width: 0,
+				height: 1,
+			},
+			shadowOpacity: 0.22,
+			shadowRadius: 2.22,
+			elevation: 3,
+		},
+		headerTintColor: theme.primary,
+		headerLeft: ({ tintColor }) => {
+			return <MaterialIcons onPress={() => navigation.openDrawer()} style={{ marginLeft: 10 }} size={30} name="menu" color={tintColor} />
+		},
+		headerTitle: () => {
+			return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
+		},
+		headerTitleAlign: 'center',
+	}),
+}
+
+const HowStack = createStackNavigator(
+	{
+		How: HowScreen,
+	},
+	config
+)
+const TeamStack = createStackNavigator(
+	{
+		Team: TeamScreen,
+	},
+	config
+)
+const GuidelinesStack = createStackNavigator(
+	{
+		Guidelines2: GuidelinesGalleryScreen,
+	},
+	config
+)
+const FeedbackStack = createStackNavigator(
+	{
+		Feedback: FeedbackScreen,
+	},
+	config
+)
+const PrivacyPolicyStack = createStackNavigator(
+	{
+		PrivacyPolicy: PrivacyPolicyScreen,
+	},
+	config
+)
+
+const DrawerNavigator = createDrawerNavigator(
+	{
+		Map: {
+			screen: MapScreen,
+			navigationOptions: {
+				drawerLabel: I18n.t('map'),
+				drawerIcon: ({ tintColor }) => {
+					return <Ionicons size={26} name={Platform.OS === 'ios' ? 'ios-globe' : 'md-globe'} color={tintColor} />
+				},
+			},
+		},
+		How: {
+			screen: HowStack,
+			navigationOptions: {
+				drawerLabel: I18n.t('how'),
+				drawerIcon: ({ tintColor }) => {
+					return <FontAwesome size={26} name="question-circle" color={tintColor} />
+				},
+			},
+		},
+		Guidelines2: {
+			screen: GuidelinesStack,
+			navigationOptions: {
+				drawerLabel: I18n.t('any_picture_title'),
+				drawerIcon: ({ tintColor }) => {
+					return <MaterialIcons size={26} name="photo-camera" color={tintColor} />
+				},
+			},
+		},
+		Team: {
+			screen: TeamStack,
+			navigationOptions: {
+				drawerLabel: I18n.t('about'),
+				drawerIcon: ({ tintColor }) => {
+					return <MaterialIcons size={26} name="people" color={tintColor} />
+				},
+			},
+		},
+		Feedback: {
+			screen: FeedbackStack,
+			navigationOptions: {
+				drawerLabel: I18n.t('feedback'),
+				drawerIcon: ({ tintColor }) => {
+					return <MaterialIcons size={26} name="feedback" color={tintColor} />
+				},
+			},
+		},
+		PrivacyPolicy: {
+			screen: PrivacyPolicyStack,
+			navigationOptions: {
+				drawerLabel: I18n.t('privacy_policy'),
+				drawerIcon: ({ tintColor }) => {
+					return <MaterialIcons size={26} name="lock" color={tintColor} />
+				},
+			},
+		},
+	},
+	{
+		drawerType: 'back',
+		drawerWidth: 280,
+		drawerBackgroundColor: theme.primary,
+		contentComponent: Drawer,
+		contentOptions: {
+			inactiveTintColor: theme.waterMap,
+			activeTintColor: 'white',
+			activeBackgroundColor: '#01659c',
+		},
+	}
+)
+
+const ContributeStack = createStackNavigator(
+	{
+		Camera: {
+			screen: CameraScreen,
+			navigationOptions: ({ navigation }) => ({
+				headerStyle: {
+					backgroundColor: 'white',
+					borderBottomWidth: 0,
+					shadowColor: '#000',
+					shadowOffset: {
+						width: 0,
+						height: 1,
+					},
+					shadowOpacity: 0.22,
+					shadowRadius: 2.22,
+					elevation: 3,
+				},
+				headerTintColor: theme.primary,
+				headerLeft: ({ tintColor }) => {
+					return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
+				},
+				headerRight: () => {
+					return (
+						<MaterialIcons
+							onPress={() => {
+								navigation.navigate('Guidelines')
+							}}
+							name="help-outline"
+							size={30}
+							color={theme.primary}
+							style={{ marginRight: 10 }}
+						/>
+					)
+				},
+				headerTitle: () => {
+					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
+				},
+			}),
+		},
+		Material: {
+			screen: MaterialScreen,
+			navigationOptions: () => ({
+				headerStyle: {
+					backgroundColor: 'white',
+					borderBottomWidth: 0,
+					shadowColor: '#000',
+					shadowOffset: {
+						width: 0,
+						height: 3,
+					},
+					shadowOpacity: 0.29,
+					shadowRadius: 4.65,
+
+					elevation: 7,
+				},
+				headerTintColor: theme.primary,
+				headerTransparent: false,
+				headerTitle: () => {
+					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
+				},
+			}),
+		},
+		Hurray: {
+			screen: HurrayScreen,
+
+			navigationOptions: ({ navigation }) => ({
+				headerTintColor: theme.primary,
+				headerLeft: null,
+				headerTransparent: true,
+				headerRight: () => {
+					return (
+						<MaterialIcons
+							onPress={() => {
+								navigation.navigate('Map')
+							}}
+							name="close"
+							size={30}
+							color={theme.primary}
+							style={{ marginRight: 10 }}
+						/>
+					)
+				},
+			}),
+		},
+	},
+	{
+		headerBackTitleVisible: false,
+		headerTransitionPreset: 'fade-in-place',
+		// cardShadowEnabled: false,
+		// cardOverlayEnabled: true,
+		headerLayoutPreset: 'center',
+		defaultNavigationOptions: {
+			gesturesEnabled: false,
+		},
+	}
+)
+
+const MainNavigator = createStackNavigator(
+	{
+		Main: {
+			screen: DrawerNavigator,
+		},
+		Contribute: {
+			screen: ContributeStack,
+		},
+		Guidelines: {
+			screen: GuidelinesScreen,
+		},
+	},
+	{
+		mode: 'modal',
+		headerMode: 'none',
+		// cardOverlayEnabled: true,
+		defaultNavigationOptions: {
+			gesturesEnabled: false,
+		},
+	}
+)
+
+export default MainNavigator
