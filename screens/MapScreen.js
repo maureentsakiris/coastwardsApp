@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Platform, StyleSheet, TouchableOpacity, View, Alert, Linking, Text, Image } from 'react-native'
 
 import WebView from 'react-native-webview'
+import * as WebBrowser from 'expo-web-browser'
 import * as Permissions from 'expo-permissions'
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
@@ -271,7 +272,20 @@ const MapScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.safeAreaView}>
-			<View style={styles.webview}>{counter && <WebView style={styles.webviewInner} source={{ uri: `http://coastwards.org/map?id=${counter}` }} />}</View>
+			<View style={styles.webview}>
+				{counter && (
+					<WebView
+						onShouldStartLoadWithRequest={req => {
+							if (req.url === `http://coastwards.org/map?id=${counter}`) {
+								return true
+							}
+							WebBrowser.openBrowserAsync(req.url)
+						}}
+						style={styles.webviewInner}
+						source={{ uri: `http://coastwards.org/map?id=${counter}` }}
+					/>
+				)}
+			</View>
 			<View style={styles.controlsTop} pointerEvents="box-none">
 				<TouchableOpacity style={styles.menuButton}>
 					<MaterialIcons
@@ -285,7 +299,7 @@ const MapScreen = ({ navigation }) => {
 				</TouchableOpacity>
 				<Image source={turtle} style={styles.logo} />
 			</View>
-			<View style={styles.controlsBottom}>
+			<View style={styles.controlsBottom} pointerEvents="box-none">
 				{counter && (
 					<View style={styles.counterControl}>
 						<TouchableOpacity>
