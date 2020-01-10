@@ -283,6 +283,7 @@ const MapScreen = ({ navigation }) => {
 						}}
 						style={styles.webviewInner}
 						source={{ uri: `http://coastwards.org/map?id=${counter}` }}
+						useWebKit
 					/>
 				)}
 			</View>

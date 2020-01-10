@@ -19,20 +19,13 @@
 		},
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
-			"supportsTablet": true,
-			"userInterfaceStyle": "automatic"
-		},
-		"description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
-		"locales": {
-			"en": "./i18n/locales/ios/en.json"
-		},
-		"ios": {
 			"bundleIdentifier": "org.coastwards.app",
 			"infoPlist": {
 				"NSCameraUsageDescription": "This app uses the camera to take pictures of coasts.",
 				"NSLocationWhenInUseUsageDescription": "This app uses the location to place the pictures of coasts taken by the user on a map."
 			}
 		},
+		"description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
 		"android": {
 			"package": "org.coastwards.app",
 			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA"]
