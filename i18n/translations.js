@@ -1982,18 +1982,21 @@ module.exports = {
 	},
 	easy: {
 		en: "It's easy", // JING, BASSEL, BABA,
+		de: 'Es ist einfach',
 		hi: 'यह आसान है',
 		pt: 'É fácil',
 		fr: "C'est facile",
 	},
 	beautiful: {
 		en: "It's beautiful", // JING, BASSEL, BABA,
+		de: 'Es ist schön',
 		hi: 'यह खूबसूरत है',
 		pt: 'É lindo',
 		fr: "C'est magnifique",
 	},
 	meaningful: {
 		en: 'And it will make a difference!', // JING, BASSEL, BABA
+		de: 'Und es wird einen Unterschied machen!',
 		hi: 'और यह एक अंतर लाएगा!',
 		pt: 'E vai fazer a diferença!',
 		fr: 'Est cela va faire la différence',
