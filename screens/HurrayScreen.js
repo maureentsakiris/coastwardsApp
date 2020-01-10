@@ -35,15 +35,6 @@ const styles = StyleSheet.create({
 		color: theme.primary,
 		textAlign: 'center',
 	},
-	refresh: {
-		marginTop: 20,
-		marginBottom: 5,
-	},
-	wohooWait: {
-		fontSize: 16,
-		color: theme.primary,
-		textAlign: 'center',
-	},
 	okidoke: {
 		backgroundColor: theme.primary,
 		padding: 10,
@@ -75,8 +66,6 @@ const HurrayScreen = ({ navigation }) => {
 			<ImageBackground style={styles.bg} source={wohoo} />
 			<Image style={styles.wohooTurtle} source={wohooTurtle} />
 			<Text style={styles.wohoo}>{I18n.t('upload_ok')}</Text>
-			<MaterialIcons style={styles.refresh} name="refresh" size={40} color={theme.primary} />
-			<Text style={styles.wohooWait}>({I18n.t('refresh_map')})</Text>
 			<TouchableOpacity
 				style={styles.okidoke}
 				onPress={() => {

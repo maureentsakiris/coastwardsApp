@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Platform, StyleSheet, TouchableOpacity, View, Alert, Linking, Text, Image } from 'react-native'
-
+import { Platform, StyleSheet, TouchableOpacity, View, Alert, Linking, Text, Image, ActivityIndicator } from 'react-native'
+import { NavigationEvents } from 'react-navigation'
 import WebView from 'react-native-webview'
 import * as WebBrowser from 'expo-web-browser'
 import * as Permissions from 'expo-permissions'
@@ -90,18 +90,28 @@ const styles = StyleSheet.create({
 		fontSize: 28,
 		color: theme.primary,
 		marginLeft: 5,
+		flex: 1,
 	},
 	bottomLeft: {
 		position: 'absolute',
 		left: theme.padding,
 		bottom: theme.safePadding,
 	},
+	refreshIndicator: {
+		display: 'flex',
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: 40,
+	},
 })
 
 const MapScreen = ({ navigation }) => {
 	const [counter, setCounter] = useState(false)
+	const [refreshing, setRefreshing] = useState(false)
 
-	const refreshMap = () => {
+	const refreshMap = alertUser => {
+		setRefreshing(true)
 		fetch('http://coastwards.org/contribute/count', {
 			method: 'GET',
 		})
@@ -110,7 +120,7 @@ const MapScreen = ({ navigation }) => {
 				const newCount = responseJson.count
 				if (newCount !== counter) {
 					setCounter(responseJson.count)
-				} else {
+				} else if (newCount === responseJson.count && alertUser) {
 					Alert.alert(
 						I18n.t('no_new_contributions_title'),
 						I18n.t('no_new_contributions'),
@@ -123,16 +133,18 @@ const MapScreen = ({ navigation }) => {
 						{ cancelable: false } // Don't allow to cancel by tapping outside
 					)
 				}
+				setRefreshing(false)
 			})
 			.catch(error => {
-				Alert(error)
+				setRefreshing(false)
+				alert(error)
 			})
 	}
 
 	useEffect(() => {
 		// Future proofing for double-invoking
 		// effects in Strict Mode.
-		refreshMap()
+		refreshMap(false)
 	}, [])
 
 	const checkLocationServicesPermission = () => {
@@ -272,6 +284,7 @@ const MapScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.safeAreaView}>
+			<NavigationEvents onWillFocus={() => refreshMap(false)} />
 			<View style={styles.webview}>
 				{counter && (
 					<WebView
@@ -303,19 +316,18 @@ const MapScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.controlsBottom} pointerEvents="box-none">
 				{counter && (
-					<View style={styles.counterControl}>
-						<TouchableOpacity>
-							<MaterialIcons
-								name="refresh"
-								size={40}
-								color={theme.primary}
-								onPress={() => {
-									refreshMap()
-								}}
-							/>
-						</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.counterControl}
+						onPress={() => {
+							refreshMap(true)
+						}}
+					>
+						<View style={styles.refreshIndicator}>
+							{!refreshing && <MaterialIcons name="refresh" size={40} color={theme.primary} />}
+							{refreshing && <ActivityIndicator size="small" color={theme.primary} />}
+						</View>
 						<Text style={styles.counter}>{counter}</Text>
-					</View>
+					</TouchableOpacity>
 				)}
 				<TouchableOpacity style={styles.uploadButton}>
 					<MaterialIcons

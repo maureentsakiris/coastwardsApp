@@ -2305,6 +2305,7 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
+	/*
 	refresh_map: {
 		en: 'Refresh the map to see your contribution',
 		de: 'Lade die Weltkarte neu, um deinen Beitrag zu sehen',
@@ -2317,7 +2318,7 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-	no_new_contributions_title: {
+*/ no_new_contributions_title: {
 		en: 'Map is refreshed',
 		de: 'Weltkarte aktualisiert',
 		// "es": "", // !
