@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 const PrivacyPolicyScreen = () => {
 	return (
 		<View style={styles.safeAreaView}>
-			<WebView style={styles.webviewInner} source={{ uri: 'http://coastwards.org/privacypolicy' }} />
+			<WebView useWebKit style={styles.webviewInner} source={{ uri: 'http://coastwards.org/privacypolicy' }} />
 		</View>
 	)
 }
