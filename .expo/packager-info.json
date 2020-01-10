@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19003,
-  "packagerPid": 98417,
-  "expoServerNgrokUrl": "https://uv-ryr.maureentsakiris.coastwardsapp.exp.direct",
-  "packagerNgrokUrl": "https://packager.uv-ryr.maureentsakiris.coastwardsapp.exp.direct",
-  "ngrokPid": 98437,
+  "packagerPort": 19004,
+  "packagerPid": 4948,
+  "expoServerNgrokUrl": "https://zt-h2h.maureentsakiris.coastwardsapp.exp.direct",
+  "packagerNgrokUrl": "https://packager.zt-h2h.maureentsakiris.coastwardsapp.exp.direct",
+  "ngrokPid": 4964,
   "webpackServerPort": null
 }
