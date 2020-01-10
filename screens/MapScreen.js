@@ -280,6 +280,7 @@ const MapScreen = ({ navigation }) => {
 								return true
 							}
 							WebBrowser.openBrowserAsync(req.url)
+							return false
 						}}
 						style={styles.webviewInner}
 						source={{ uri: `http://coastwards.org/map?id=${counter}` }}
