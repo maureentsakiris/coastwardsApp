@@ -46,6 +46,7 @@ const HowScreen = () => {
 				<Text style={styles.p}>{I18n.t('computer_programs')}</Text>
 				<Text style={styles.p}>{I18n.t('policy_makers')}</Text>
 				<Text style={styles.p}>{I18n.t('best_advice')}</Text>
+				<Text style={styles.p}>{I18n.t('together')}.</Text>
 				<Text style={styles.p}>
 					{I18n.t('easy')}. {I18n.t('beautiful')}. {I18n.t('meaningful')}
 				</Text>

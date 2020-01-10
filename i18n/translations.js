@@ -1976,6 +1976,7 @@ module.exports = {
 	// VIDEO
 	together: {
 		en: 'Together we can create this global map of coasts', // JING, BASSEL, BABA,
+		de: 'Zusammen können wir diese Küstendatenbank erstellen',
 		hi: 'साथ में हम इस मानचित्र को बना सकते हैं!',
 		pt: 'Juntos nós conseguiremos criar esse mapa!',
 		fr: 'Ensemble nous pouvons créer cette carte',
