@@ -1,36 +1,46 @@
 {
-	"expo": {
-		"name": "Coastwards",
-		"slug": "coastwards",
-		"privacy": "public",
-		"sdkVersion": "36.0.0",
-		"platforms": ["ios", "android", "web"],
-		"version": "2.0.2",
-		"orientation": "portrait",
-		"primaryColor": "#0076b7",
-		"icon": "./assets/images/icon.png",
-		"splash": {
-			"image": "./assets/images/splash.png",
-			"resizeMode": "cover",
-			"backgroundColor": "#0076b7"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"bundleIdentifier": "org.coastwards.app",
-			"infoPlist": {
-				"NSCameraUsageDescription": "This app uses the camera to take pictures of coasts.",
-				"NSLocationWhenInUseUsageDescription": "This app uses the location to place the pictures of coasts taken by the user on a map."
-			},
-			"googleServicesFile": "./GoogleService-Info.plist"
-		},
-		"description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
-		"android": {
-			"package": "org.coastwards.app",
-			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA"],
-			"googleServicesFile": "./google-services.json"
-		}
-	}
+  "expo": {
+    "name": "Coastwards",
+    "slug": "coastwards",
+    "privacy": "public",
+    "sdkVersion": "36.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "2.0.2",
+    "orientation": "portrait",
+    "primaryColor": "#0076b7",
+    "icon": "./assets/images/icon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#0076b7"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "org.coastwards.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to take pictures of coasts.",
+        "NSLocationWhenInUseUsageDescription": "This app uses the location to place the pictures of coasts taken by the user on a map."
+      },
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
+    "android": {
+      "package": "org.coastwards.app",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA"
+      ],
+      "googleServicesFile": "./google-services.json"
+    }
+  }
 }
