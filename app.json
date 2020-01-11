@@ -23,12 +23,14 @@
 			"infoPlist": {
 				"NSCameraUsageDescription": "This app uses the camera to take pictures of coasts.",
 				"NSLocationWhenInUseUsageDescription": "This app uses the location to place the pictures of coasts taken by the user on a map."
-			}
+			},
+			"googleServicesFile": "./GoogleService-Info.plist"
 		},
 		"description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
 		"android": {
 			"package": "org.coastwards.app",
-			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA"]
+			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA"],
+			"googleServicesFile": "./google-services.json"
 		}
 	}
 }

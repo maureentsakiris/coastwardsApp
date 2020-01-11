@@ -61,3 +61,7 @@ typings/
 .next
 
 .expo
+
+GoogleService-Info.plist
+
+google-services.json
