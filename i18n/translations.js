@@ -2479,8 +2479,8 @@ module.exports = {
 		// "it": "" // !
 	},
 	nassos_bio: {
-		en: 'Nassos is a professor at the University of Kiel and the group leader of the CRSLR Research Group. He is a father of two little boys.',
-		de: 'Nassos ist Professor in der Christian-Albrecht Universität zu Kiel und Gruppenleiter der CRSLR Research Group. Er ist Vater von zwei kleinen Jungs.',
+		en: 'Nassos is a professor at the University of Kiel and the group leader of the CRSLR Research Group. He is also the father of two little boys. Actually, one of them is not that little anymore.',
+		de: 'Nassos ist Professor an der Christian-Albrecht Universität zu Kiel und Gruppenleiter der CRSLR Research Group. Er ist Vater von zwei kleinen Jungs. Naja, der eine ist gar nicht mehr so klein.',
 		// "es": "", // !
 		// "ar": "", // !
 		// "pt": "", // !
@@ -2503,7 +2503,7 @@ module.exports = {
 		// "it": "" // !
 	},
 	maureen_bio: {
-		en: 'Maureen is a Front-End Developer and Communication Designer. After many years of freelancing, she found her niche and is specialising in Science Communication.',
+		en: 'Maureen is a front-end developer and communication designer. After many years of freelancing, she found her niche and is specialising in science communication.',
 		de: 'Maureen ist Front-End Developer und Kommunikationsdesignerin. Nach vielen Jahren als Freiberuflerin, hat sie ihre Nische gefunden und spezalisiert sich auf Wissenschaftskommunikation.',
 		// "es": "", // !
 		// "ar": "", // !

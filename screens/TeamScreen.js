@@ -103,14 +103,14 @@ const TeamScreen = () => {
 				<View style={styles.member}>
 					<Image style={styles.memberFoto} source={nassos} />
 					<View style={styles.memberText}>
-						<Text style={styles.name}>Prof. Athanasios Vafeidis</Text>
+						<Text style={styles.name}>Athanasios Vafeidis</Text>
 						<Text style={styles.bio}>{I18n.t('nassos_bio')}</Text>
 					</View>
 				</View>
 				<View style={styles.member}>
 					<Image style={styles.memberFoto} source={claudia} />
 					<View style={styles.memberText}>
-						<Text style={styles.name}>PhD Claudia Wolff</Text>
+						<Text style={styles.name}>Claudia Wolff</Text>
 						<Text style={styles.bio}>{I18n.t('claudia_bio')}</Text>
 					</View>
 				</View>
