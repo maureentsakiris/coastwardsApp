@@ -30,7 +30,8 @@
 		"android": {
 			"package": "org.coastwards.app",
 			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA"],
-			"googleServicesFile": "./google-services.json"
+			"googleServicesFile": "./google-services.json",
+			"versionCode": 2
 		}
 	}
 }
