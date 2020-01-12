@@ -1,5 +1,5 @@
-import * as Localization from 'expo-localization';
-import I18n from 'i18n-js';
+import * as Localization from 'expo-localization'
+import I18n from 'i18n-js'
 
 import en from './locales/en'
 import de from './locales/de'
@@ -11,22 +11,20 @@ import hi from './locales/hi'
 import pt from './locales/pt'
 import zh from './locales/zh'
 
-I18n.fallbacks = true;
+I18n.fallbacks = true
 I18n.default_locale = 'en'
 I18n.translations = {
-
 	en,
 	de,
-	es,
-	ar,
-	el,
-	fr,
-	hi,
-	pt,
-	zh
-
+	// es,
+	// ar,
+	// el,
+	// fr,
+	// hi,
+	// pt,
+	// zh,
 }
 
-I18n.locale = Localization.locale.split('-')[0];
+I18n.locale = Localization.locale.split('-')[0]
 
 export default I18n
