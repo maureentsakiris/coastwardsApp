@@ -14,6 +14,8 @@ module.exports = {
 			'हम्म, ऐसा लगता है कि आप पुराने ब्राउज़र (या नहीं तो पुराने इंटरनेट एक्सप्लोरर) का उपयोग कर रहे हैं । यह साइट आपके ब्राउज़र पर काम करेगी लेकिन अगर आप एक आधुनिक ब्राउज़र का उपयोग करते हैं, तो यह अधिक मनोरंजक होगा, इसके अलावा आप इस दुनिया के तटों को नेविगेट कर सकते हैं। क्रोम, फ़ायरफ़ॉक्स या सफ़ारी सुरक्षित विकल्प हैं, खासकर अगर नवीनतम संस्करण में अपडेट किए गए हो।',
 		fr:
 			'Oups, il semblerai que Internet Explorer ou le navigateur que tu utilises est obsolète. Ce site internet fonctionnera avec ton navigateur, mais passer à un navigateur plus récent va rendre la navigation  BEAUCOUP PLUS SYMPA le long des zones côtières dans le monde entier. Chrome, Firefox ou Safari sont des choix sûrs, en particulier si les dernières versions sont mises à jour.',
+		it:
+			"Hmm, sembra tu stia usando un vecchio browser (o un vecchio Internet Explorer). Questo sito continuerà a funzionare con il tuo browser MA E' MOLTO MEGLIO se fai la ricerca con un browser moderno, così puoi vedere le coste del nostro pianeta. Chrome, Firefox o Safari sono delle buone scelte, specialmente se usi le ultime versioni.",
 	},
 	arrow_up_title: {
 		en: 'Show intro',
@@ -25,6 +27,7 @@ module.exports = {
 		el: 'Εμφάνιση intro',
 		hi: 'परिचय दिखाएं',
 		fr: 'Voir l´intro',
+		it: 'Mostra introduzione',
 	},
 	help_science: {
 		en: 'Help Science study the risks of sea-level rise',
@@ -36,6 +39,7 @@ module.exports = {
 		el: 'Βοηθήστε την Επιστήμη να μελετήσει τους κινδύνους από την άνοδο της στάθμης της',
 		hi: 'समुद्र स्तर की वृद्धि के जोखिमों का अध्ययन करने मे विज्ञान की सहायता करें । ',
 		fr: 'Aidez les scientifiques à étudier les risques de la montée du niveau de la mer',
+		it: "Aiuta la Scienza a studiare i rischi dell'innalzamento del livello del mare",
 	},
 	by: {
 		en: 'by uploading pictures of coasts',
@@ -47,6 +51,7 @@ module.exports = {
 		el: 'θάλασσας ανεβάζοντας φωτογραφίες των ακτών',
 		hi: 'तटों की तस्वीरें अपलोड करके',
 		fr: 'en envoyant des photos des côtes du monde entier',
+		it: 'caricando foto della costa',
 	},
 	/*
 	"we_know": {
@@ -57,8 +62,9 @@ module.exports = {
 			"pt": "(acredito que você tenha algum)",
 			"zh": "（ 我们估计您有一些）",
 			"el": "(Υποθέτουμε ότι έχεις κάποιες)",
-			"hi": "(हम मानते हैं कि आपके पास कुछ है)"
-,			"fr": "(Nous supposons que tu en as quelques unes)"
+			"hi": "(हम मानते हैं कि आपके पास कुछ है)",
+,			"fr": "(Nous supposons que tu en as quelques unes)",
+"it": "Immaginiamo che tu ne abbia alcune"
 		},
 		*/
 	no_account: {
@@ -71,18 +77,9 @@ module.exports = {
 		el: 'Δεν χρειάζεται  λογαριασμός. Απλά drag & drop',
 		hi: 'कोई खाता नहीं। बस खींचें और ड्रॉप करें',
 		fr: 'Pas besoin de compte. Simplement envoyer',
+		it: 'Senza indirizzo. Trascinale e rilascia qui.',
 	},
-	no_account_native: {
-		en: '(No account necessary)',
-		de: '(Kein Konto notwendig)',
-		es: '(No necesitas crear una cuenta)',
-		ar: '(لا يوجد تسجيل حساب.)', // Bassel
-		pt: '(Sem conta)',
-		zh: '(无需注册帐户)',
-		el: '(Δεν χρειάζεται  λογαριασμός)',
-		hi: '(कोई खाता नहीं)',
-		fr: '(Pas besoin de compte)',
-	},
+
 	more_info: {
 		en: 'More info',
 		de: 'Weitere Infos',
@@ -93,6 +90,7 @@ module.exports = {
 		el: 'Περισσότερες πληροφορίες',
 		hi: 'और जानकारी',
 		fr: "Plus d'informations",
+		it: 'Più informazioni',
 	},
 	one_more_question: {
 		en: 'Still have a question!',
@@ -104,6 +102,7 @@ module.exports = {
 		el: 'Εξακολουθείς να έχεις ερωτήσεις;',
 		hi: 'अभी भी प्रश्न है?',
 		fr: 'Des questions peut-être ?',
+		it: 'Ancora una domanda!',
 	},
 	one_more_question_title: {
 		en: 'Ask us (in english please)',
@@ -115,6 +114,7 @@ module.exports = {
 		el: 'Ρώτησέ μας (στα αγγλικά παρακαλώ)',
 		hi: 'हमसे पूछें (कृपया अंग्रेजी में)',
 		fr: 'Demandez-nous (en anglais svp)',
+		it: 'Chiedici, se hai bisogno (ma scrivi in inglese, per favore)',
 	},
 	label_email: {
 		en: 'Your email',
@@ -126,6 +126,7 @@ module.exports = {
 		el: 'Η διεύθυνση του ηλεκτρονικού σου ταχυδρομείου',
 		hi: 'आपकी ईमेल',
 		fr: 'Votre adresse mail',
+		it: 'Il tuo indirizzo e-mail',
 	},
 	placeholder_email: {
 		en: 'And your email',
@@ -137,6 +138,7 @@ module.exports = {
 		el: 'Και το email σου',
 		hi: 'और आपकी ईमेल',
 		fr: 'Et votre adresse mail',
+		it: 'E il tuo indirizzo e-mail',
 	},
 	label_question: {
 		en: 'Tell us your question',
@@ -148,6 +150,7 @@ module.exports = {
 		el: 'Πες μας την ερώτησή σου',
 		hi: 'हमें अपना प्रश्न बताएं',
 		fr: 'Pose-nous tes questions',
+		it: 'Ponici la tua domanda',
 	},
 	placeholder_question: {
 		en: 'Tell us your question',
@@ -159,6 +162,7 @@ module.exports = {
 		el: 'Πες μας την ερώτησή σου',
 		hi: 'हमें अपना प्रश्न बताएं',
 		fr: 'Pose-nous tes questions',
+		it: 'Ponici la tua domanda',
 	},
 	label_submit: {
 		en: 'Submit',
@@ -170,6 +174,7 @@ module.exports = {
 		el: 'υπόβαλλε',
 		hi: 'जमा करें',
 		fr: 'Soumettre',
+		it: 'Invia',
 	},
 	sending_mail: {
 		en: 'Just a sec ... sending mail',
@@ -181,6 +186,7 @@ module.exports = {
 		el: 'Μισό λεπτό ... αποστολή μηνυμάτων ηλεκτρονικού ταχυδρομείου',
 		hi: 'बस एक सेकंड ... मेल भेजा जा रहा है',
 		fr: 'Un instant svp ... envoi du mail',
+		it: "Solo un secondo.. stiamo inviando l'e-mail",
 	},
 	mail_ok: {
 		en: 'Email sent, thanks for asking!',
@@ -192,6 +198,7 @@ module.exports = {
 		el: 'Email αποστάλθηκε, ευχαριστώ για την ερώτηση!',
 		hi: 'ईमेल भेजा दिया गया, पूछने के लिए धन्यवाद!',
 		fr: 'Mail envoyé, merci du commentaire !',
+		it: 'E-mail mandata, grazie di averci contattato!',
 	},
 	mail_ko: {
 		en: 'Sorry, there was a problem sending the email. Please try again',
@@ -203,6 +210,7 @@ module.exports = {
 		el: 'Συγνώμη, υπήρχε ένα πρόβλημα με την αποστολή του email. Παρακαλώ προσπάθησε ξανά',
 		hi: 'क्षमा करें, ईमेल भेजने में एक समस्या थी, कृपया पुन: प्रयास करें',
 		fr: 'Petit souci. Merci d´envoyer de nouveau le mail.',
+		it: "Scusa, c'è stato un problema nel mandarti l'e-mail. Prova di nuovo, per favore",
 	},
 	/*
 	"other_questions": {
@@ -215,6 +223,7 @@ module.exports = {
 		"el": "...?",
 		"hi": "... ??",
 		"fr": "... ??"
+		"it": "... ??"
 	},
 	"other_questions_title": {
 		"en": "Read the FAQs",
@@ -225,7 +234,8 @@ module.exports = {
 		"zh": "常见问题",
 		"el": "Διάβασε τις συχνές ερωτήσεις",
 		"hi": "पूछे जाने वाले प्रश्न पढ़ें",
-		"fr": "Lire la rubrique FAQ"
+		"fr": "Lire la rubrique FAQ",
+		"it": "Leggi i FAQs"
 	},
 	*/
 	any_picture: {
@@ -238,6 +248,7 @@ module.exports = {
 		el: 'Απλά κάθε εικόνα;',
 		hi: 'बस कोई भी तस्वीर?',
 		fr: 'N´importe quelle photo ?',
+		it: 'Qualsiasi foto?',
 	},
 	any_picture_title: {
 		en: 'Some quick guidelines',
@@ -249,6 +260,7 @@ module.exports = {
 		el: 'Μερικές γρήγορες κατευθυντήριες γραμμές',
 		hi: ' कुछ शीघ्र दिशानिर्देश ',
 		fr: 'Quelques recommendations rapides',
+		it: 'Alcune semplici linee guida',
 	},
 	any_coast: {
 		en: 'Any coast but not any picture. We need these pictures to get a closer look at coasts (not people) and we need to know where these coasts are. So these are our guidelines:',
@@ -260,6 +272,7 @@ module.exports = {
 		el: 'Κάθε ακτή αλλά όχι κάθε εικόνα. Χρειαζόμαστε αυτές τις εικόνες για να δημιουργήσουμε μια πιο λεπτομερή βάση δεδομένων για τις ακτές (όχι ανθρώπους) και πρέπει να γνωρίζουμε που είναι οι ακτές αυτές. Παρακάτω είναι οι βασικές οδηγίες μας:',
 		hi: 'कोई भी तट, लेकिन कोई तस्वीर नहीं । हमें समुद्र तटों (न कि लोग) पर एक नजदीकी नज़र रखने के लिए इन चित्रों की आवश्यकता है और हमें यह जानने की जरूरत है कि ये  तट कहां हैं। तो ये हमारे दिशानिर्देश हैं: ',
 		fr: 'Peut importe la côte mais pas n´importe quelle photo. Nous avons besoin de photos géolocalisées afin de regarder de plus près des zones côtières. Voici nos recommendations:',
+		it: 'Qualsiasi costa ma non qualsiasi foto. Abbiamo bisogno di queste foto per guardare più da vicino la costa (non le persone) rispetto alle immagini satellitari, e abbiamo bisogno di sapere dove sono localizzate le nostre coste. Quindi, di seguito le nostre linee guida:',
 	},
 	guideline_original_header: {
 		en: 'We need the original image',
@@ -271,6 +284,7 @@ module.exports = {
 		el: 'Χρειαζόμαστε την αρχική εικόνα',
 		hi: 'हमें वास्तविक तस्वीरो की आवश्यकता है',
 		fr: 'Nous avons besoin de la photo originale.',
+		it: "Abbiamo bisogno dell'immagini originale",
 	},
 	guideline_original_text: {
 		en: 'This means: No images from Facebook, Whatsapp or other Social Media and no scans or screenshots.',
@@ -282,6 +296,7 @@ module.exports = {
 		el: 'Αυτό σημαίνει: Όχι εικόνες από το Facebook, Whatsapp ή άλλα Social Media και όχι σαρώσεις ή στιγμιότυπα από οθόνη.',
 		hi: 'इसका मतलब है: फेसबुक, व्हाट्सएप या अन्य सोशल मीडिया से कोई छवि नहीं,और कोई स्कैन या स्क्रीनशॉट भी नहीं।',
 		fr: 'C´est-à-dire : pas de photos provenant de Facebook, Whatsapp ou d´autres réseaux sociaux, pas d´images scannées, ni de captures d´écran.',
+		it: 'Questo vuol dire: No immagini di Facebook, Whatsapp o di altri Social Media e nessuna scansione o screenshot.',
 	},
 	guideline_faces_header: {
 		en: 'No faces',
@@ -293,6 +308,7 @@ module.exports = {
 		el: 'Όχι πρόσωπα',
 		hi: 'कोई चेहरे नहीं',
 		fr: 'Pas de visages',
+		it: 'Nessuna faccia di persona',
 	},
 	guideline_faces_text: {
 		en: "That's a no-go for data privacy reasons.",
@@ -304,6 +320,7 @@ module.exports = {
 		el: 'Αυτός είναι ένας απαράβατος κανόνας  για λόγους προστασίας προσωπικών δεδομένων.',
 		hi: 'यह डाटा गोपनीयता के कारणों के लिए मना है।',
 		fr: 'La raison est due au respect des données confidentielles.',
+		it: 'Questo è un no-go per questioni di privacy.',
 	},
 	guideline_material_header: {
 		en: 'We need to see the coast material',
@@ -315,6 +332,7 @@ module.exports = {
 		el: 'Πρέπει το υλικό της ακτής να είναι ευδιάκριτο.',
 		hi: 'हमें तटो के पदार्थो को देखने की जरूरत है ',
 		fr: 'Nous avons besoin de voir les détails et les matériaux qui constitus la côte.',
+		it: 'Abbiamo bisogno di vedere il materiale di cui è fatta la costa',
 	},
 	guideline_material_help: {
 		en: '(What do you mean by coast material?)',
@@ -326,6 +344,7 @@ module.exports = {
 		el: '(Τι εννοείς με το υλικό της ακτής;)',
 		hi: '(तटो के पदार्थो से आपका क्या मतलब है?)',
 		fr: '(Que signifie les matériaux de la côte?)',
+		it: '(Che cosa si intende per materiale costiero?)',
 	},
 	guideline_material_text: {
 		en: "We honestly don't care about how beautiful (sunsets) or ugly (your toes!) the image is, as long as we can see the coast material.",
@@ -337,6 +356,7 @@ module.exports = {
 		el: 'Εμείς ειλικρινά δεν νοιαζόμαστε για το πόσο όμορφη (ηλιοβασιλέματα) ή άσχημη (δάχτυλα των ποδιών σας!) είναι η εικόνα, εάν μπορούμε να δούμε το υλικό της ακτής.',
 		hi: 'हम ईमानदारी से इस बारे में परवाह नहीं करते हैं कि छवि कितनी खूबसूरत (सूर्यास्त) या बदसूरत (अापके पैर की अंगुली!) है, जब तक हम तट के पदार्थो को देख सकते हैं',
 		fr: "Peu importe si la photo est belle (couché de soleil) ou moche (tes orteils), le plus important pour nous c'est de distinguer les détails et de quoi est contituées la côte.",
+		it: "Sinceramente non ci interessa di quanto bello (tramonti) o brutto (i tuoi piedi!) l'immagine sia, basta che si veda il materiale di cui è fatta la costa.",
 	},
 	guideline_coasts_header: {
 		en: 'Coasts are not only beaches!',
@@ -348,6 +368,7 @@ module.exports = {
 		el: 'Ακτές δεν είναι μόνο παραλίες!',
 		hi: 'तट केवल समुद्र तट नहीं हैं!',
 		fr: 'Les côtes ne se résument pas aux plages !',
+		it: 'Le coste non sono solo le spiagge!',
 	},
 	guideline_coasts_text: {
 		en: 'Harbors, cliffs, promenades alongside the water ... anything that touches the oceans and seas.',
@@ -359,6 +380,7 @@ module.exports = {
 		el: 'Λιμάνια, βράχια, διαβάσεις περιπάτου δίπλα στο νερό ... κάτι που αγγίζει τους ωκεανούς και τις θάλασσες.',
 		hi: 'हार्बर, चट्टानों, पानी के साथ-साथ घूमने फिरने की जगह ... जो भी महासागरों और समुद्रों को छूते हैं',
 		fr: 'Les ports, les falaises, les chemins de promenades le long du littoral...Tout ce qui touche les océans et les mers.',
+		it: 'Porti, scogliere, lungomare che danno sul mare .... qualsiasi cosa che tocca oceani e mari.',
 	},
 	guideline_closer_header: {
 		en: 'The closer, the better!',
@@ -370,6 +392,7 @@ module.exports = {
 		el: 'Όσο πιο κοντά, τόσο το καλύτερο!',
 		hi: 'ज्यादा करीब, ज्यादा बेहतर!',
 		fr: 'Plus c´est proche, mieux c´est !',
+		it: 'Più vicino è, meglio è!',
 	},
 	guideline_closer_text: {
 		en: 'We need close-up pictures of coasts. Basically, the coast you see in the picture should be the same as the coast you stood on when you took the picture.',
@@ -381,6 +404,7 @@ module.exports = {
 		el: '', // !!!
 		hi: 'हमें समुद्र तटों की नज़दीकी तस्वीरों की आवश्यकता है। असल में, तस्वीर में दिखाई देने वाला तटीय किनारा एैसा होना चाहिए, जिस पर खड़े होकर आप तस्वीर लेते हैं।',
 		fr: 'Nous avons besoin de gros plans des côtes. En bref, la côte que tu vois sur la photo doit être la même que celle où tu étais quand tu as prit la photo.',
+		it: 'Abbiamo bisogno di immagini vicino alla costa. Banalmente, la costa che si vede nella foto dovrebbe essere delle stesse dimensioni della tua visione realee al momento dello scatto.',
 	},
 	how: {
 		en: 'How does my picture help?',
@@ -392,6 +416,7 @@ module.exports = {
 		el: 'Πώς θα βοηθήσει η εικόνα μου;',
 		hi: 'मेरी तस्वीर कैसे मदद करती है?',
 		fr: 'En quoi ma photo va t-elle aider ?',
+		it: "Qual'è l'aiuto che da la mia foto?",
 	},
 	/*
 	"how_title": {
@@ -402,8 +427,9 @@ module.exports = {
 			"pt": "Tópicos de 1min de leitura / Veja o vídeo",
 			"zh": "1分钟阅读。置顶",
 			"el": "1min read.Tops",
-			"hi": "एक मिनट में पढ़े / एक वीडियो देखें"
-,			"fr": "1min de lecture. Top / Regarder une vidéo"
+			"hi": "एक मिनट में पढ़े / एक वीडियो देखें",
+,			"fr": "1min de lecture. Top / Regarder une vidéo",
+"it": "1 minuto di lettura. Sopra / Guarda il video"
 		},
 		*/
 	show_transcript: {
@@ -416,6 +442,7 @@ module.exports = {
 		el: 'Εμφάνιση μεταγραφή',
 		hi: 'प्रतिलिपि दिखाएं',
 		fr: 'Afficher la transcription',
+		it: 'Mostra trascrizione',
 	},
 	hide_transcript: {
 		en: 'Hide transcript',
@@ -427,6 +454,7 @@ module.exports = {
 		el: 'Απόκρυψη μεταγραφή',
 		hi: 'प्रतिलिपि छुपाएं',
 		fr: 'Cacher la transcription',
+		it: 'Nascondi trascrizione',
 	},
 	in_a_nutshell: {
 		en: 'In a nutshell, it gives science what satellites cannot: A close-up image of a coast. The possibility to study the bigger picture, in as much detail as possible.',
@@ -438,6 +466,7 @@ module.exports = {
 		el: 'Με λίγα λόγια, δίνει στην επιστήμη ότι οι δορυφόροι δεν μπορούν: Ένα κοντινό πλάνο της εικόνας μιας ακτής. Την δυνατότητα να μελετήσουμε τη μεγαλύτερη εικόνα, με όσο το δυνατόν περισσότερες λεπτομέρειες.',
 		hi: 'संक्षेप में,यह विज्ञान को वह करता है जो उपग्रह नहीं कर सकते:तट की एक करीबी तस्वीर । बड़ी तस्वीर का अध्ययन करने की संभावना, यथासंभव अधिक विस्तार में।',
 		fr: "En un mot, une image 'gros plan de la côte facilite le travail des scientifiques, ce qui n'est pas le cas des images satellites. La photo rend possible l'étude en profondeur et en détail la cote.",
+		it: "In breve, questo da alla Scienza quello che i satelliti non riescono, un'immagine vicina della costa. La possibilità di studiare il contesto più grande ma con alta scala di dettaglio.",
 	},
 	how_it_works: {
 		en: 'Here is how it works.',
@@ -449,6 +478,7 @@ module.exports = {
 		el: 'Ετσι λειτουργεί.',
 		hi: 'यहाँ दिया गया है कि यह कैसे काम करता है।',
 		fr: 'Voilà comment cela fonctionne.',
+		it: 'Qui puoi vedere come funziona.',
 	},
 	place_on_map: {
 		en: 'First, your image will be checked for information on the location it was taken, so we can place it on the map.',
@@ -460,6 +490,7 @@ module.exports = {
 		el: "Κατ 'αρχάς, η εικόνα σου θα πρέπει να ελεγχθεί για πληροφορίες σχετικά με τη θέση που έχει ληφθεί, ώστε να μπορέσουμε να την τοποθετήσουμε στο χάρτη.",
 		hi: 'सबसे पहले, आपकी तस्वीर की उस स्थान के बारे में जानकारी के लिए जांच की जाएगी जहा उसे लिया गया था,ताकि हम इसे एक नक्शे पर रख सकें।',
 		fr: 'Tout d´abord, la géolocalisation de la photo sera vérifiée afin de la situer sur la carte.',
+		it: 'Primo, la tua immagine sarà contrallata con la rispettiva geolocalizzazione, così da poterla posizione nel posto giusto.',
 	},
 	determine_coastal_type: {
 		en: 'Then, it will be analysed by scientists and citizen scientists to determine the coastal type at that location.',
@@ -471,6 +502,7 @@ module.exports = {
 		el: 'Στη συνέχεια, θα αναλυθεί από τους επιστήμονες και τους επιστήμονες των πολιτών για να καθοριστεί το παράκτιο είδος σε αυτή τη θέση.',
 		hi: 'उसके बाद, उस स्थान के तटीय प्रकार का निर्धारण करने के लिए वैज्ञानिकों और नागरिक वैज्ञानिकों द्वारा इसका विश्लेषण किया जाएगा।',
 		fr: 'Ensuite, la côte sera analysée par des scientifiques et des volontaires afin de déterminer le type de côte à cet endroit.',
+		it: 'Dopo sarà analizzata dai ricercatori e altri cittadini scienziati che determineranno il tipo di materiale di cui è fatta quella costa.',
 	},
 	the_more_the_better: {
 		en: 'The more images we analyse, the more detail is added to a global map of what types of coasts exist and where.',
@@ -482,6 +514,7 @@ module.exports = {
 		el: 'Όσο περισσότερες εικόνες αναλύσουμε, τόσο μεγαλύτερη λεπτομέρεια προστίθεται σε ένα παγκόσμιο χάρτη με πληροφορίες για τι τύποι ακτών υπάρχουν και πού.',
 		hi: 'अधिक चित्रों का विश्लेषण किया जाता है, और  एक वैश्विक मानचित्र में उनका अधिक विवरण जोड़ा जाता है कि कहाँ और किस तरह के समुद्र तट मौजूद हैं ',
 		fr: 'Plus il y aura de photos analysées, plus la carte globale des côtes mondiales sera détaillée.',
+		it: 'Più immagini saranno analizzate, più dettagliata può diventare la mappa globale che sarà informativa sulla tipologia di costa e la loro localizzazione.',
 	},
 	computer_programs: {
 		en: 'This map is then fed into computer programs, called integrated assessment models, that help scientists make predictions on how different coasts respond under different circumstances.',
@@ -493,6 +526,7 @@ module.exports = {
 		el: 'Αυτός ο χάρτης στη συνέχεια τροφοδοτείται σε προγράμματα ηλεκτρονικών υπολογιστών, που ονομάζονται ολοκληρωμένα μοντέλα εκτίμησης, ώστε να βοηθήσει τους επιστήμονες να κάνουν προβλέψεις σχετικά με το πώς διαφορετικές ακτές θα ανταποκριθούν κάτω από διαφορετικές συνθήκες.',
 		hi: 'यह नक्शा तब कंप्यूटर प्रोग्राम में डाला जाता है, जिसे एकीकृत आकलन मॉडल कहा जाता है, यह वैज्ञानिको को भविष्यवाणियों मे मदद करता हैं कि अलग-अलग परिस्थितियों में अलग-अलग तट कैसे प्रतिक्रिया करेंगे।',
 		fr: 'Cette carte est ensuite traitée par des logiciels informatiques, appelés modèles d´évaluation intégrés, qui aident les scientifiques à prédire comment chaque côte réagit suivant des circonstances spécifiques.',
+		it: 'Questa mappa è poi scansionata con un programma al computer, chiamato modello di misurazione integrato, che aiuterà gli sceinziati a fare previsioni su come diversi tipi di coste rispondono a diverse circostanze.',
 	},
 	policy_makers: {
 		en: 'These predictions inform policy makers at national and international levels on which actions to take and which countries need international support.',
@@ -504,6 +538,7 @@ module.exports = {
 		el: 'Αυτές οι προβλέψεις ενημερώνουν τους φορείς  χάραξης πολιτικής σε εθνικό και διεθνές επίπεδο και βοηθούν στην επιλογή των ενεργειών που πρέπει να ληφθούν και στον προσδιορισμό των χωρών που χρειάζονται διεθνή υποστήριξη.',
 		hi: 'ये भविष्यवाणियां राष्ट्रीय और अंतरराष्ट्रीय स्तर पर नीति निर्माताओं को यह बताती हैं किन देशों को अंतर्राष्ट्रीय समर्थन की आवश्यकता है और क्या कार्रवाई की जानी चाहिए ',
 		fr: 'Ces prédictions informent les politiques sur le plan national et international des mesures à prendre et des pays qui ont besoin de soutien international.',
+		it: "Queste previsioni aiuteranno i decisori politici a scala nazionale e internazionale sul decidere quali azioni mettere in atto e quali paesi avranno bisogno di un supporto internazionale, a causa dell'innalzamento del livello del mare.",
 	},
 	best_advice: {
 		en: 'So, your images help scientists give their best advice on how to protect ourselves, our children and our grandchildren from sea-level rise.',
@@ -515,6 +550,7 @@ module.exports = {
 		el: 'Έτσι, οι εικόνες σου θα βοηθήσουν τους επιστήμονες να δώσουν καλύτερες συμβουλές για το πώς να προστατεύσουμε τους εαυτούς μας, τα παιδιά μας και τα εγγόνια μας από την άνοδο της στάθμης της θάλασσας.',
 		hi: 'इसलिए, आपकी तस्वीरे वैज्ञानिकों को अपनी सर्वश्रेष्ठ सलाह देती हैं कि ,  हमारे बच्चों और हमारे पोते को समुद्र के स्तर में वृद्धि से  कैसे सुरक्षित रखें',
 		fr: "Ainsi, vos photos aident les scientifiques à donner de meilleurs conseils sur la façon de nous protéger qinsi que nos enfants et nos petits-enfants contre l'élévation du niveau de la mer.",
+		it: "Quindi le tue immagini aiutano gli scienziati a dare i migliori consigli su come proteggere noi, i nostri figli e enipoti all'innalzamento del livello del mare.",
 	},
 	project_by: {
 		en: 'A project by',
@@ -526,6 +562,7 @@ module.exports = {
 		el: 'Ένα έργο από',
 		hi: 'द्वारा एक परियोजना',
 		fr: 'Un projet par',
+		it: 'Un progetto di',
 	},
 	legal_notice: {
 		en: 'Imprint',
@@ -537,6 +574,7 @@ module.exports = {
 		el: 'Αποτύπωμα',
 		hi: 'कानूनी नोटिस',
 		fr: 'Mentions légales',
+		it: 'Note legali',
 	},
 	collaboration_with: {
 		en: 'In collaboration with',
@@ -548,6 +586,7 @@ module.exports = {
 		el: 'Σε συνεργασία με',
 		hi: 'के सहयोग से',
 		fr: 'En collaboration avec',
+		it: 'In collaborazione con',
 	},
 	who_are_you: {
 		en: "Who's Science?",
@@ -559,6 +598,7 @@ module.exports = {
 		el: 'Ποιος είναι “επιστήμη“;',
 		hi: 'कौन विज्ञान है?',
 		fr: 'Les acteurs scientifiques',
+		it: 'Chi è la Scienza?',
 	},
 	who_are_you_title: {
 		en: 'Meet us!',
@@ -570,6 +610,7 @@ module.exports = {
 		el: 'Γνώρισέ μας!',
 		hi: 'हमसे मिलें! ',
 		fr: 'Nous rencontrer',
+		it: 'Incontraci!',
 	},
 	we_are: {
 		en: 'We are the {crslr} at the University of Kiel in Germany and this project is funded by the {future_ocean}.',
@@ -581,6 +622,7 @@ module.exports = {
 		el: 'Είμαστε {crslr} στο Πανεπιστήμιο του Κιέλου στη Γερμανία και το έργο αυτό χρηματοδοτείται από το {future_ocean}.',
 		hi: 'हम जर्मनी में कील विश्वविद्यालय में {crslr} हैं और इस परियोजना को {future_ocean} द्वारा वित्त पोषित किया गया है।',
 		fr: 'Nous sommes le {crslr} à l´Université de Kiel en Allemagne et ce projet est subventionné par le {future_ocean}.',
+		it: "Noi siamo il {crslr} all'Università di Kiel in Germania e questo progetto è finanziato da {future_ocean}",
 	},
 	/*
 	"more": {
@@ -593,6 +635,7 @@ module.exports = {
 			"el": "Περισσότερα",
 			"hi": "अधिक"
 ,			"fr": "Plus"
+"it": "Più"
 		},
 		"contact_here": {
 			"en": "Contact us here",
@@ -603,7 +646,8 @@ module.exports = {
 			"zh": "联系我们",
 			"el": "Επικοινώνησε μαζί μας εδώ",
 			"hi": "हमसे संपर्क करें"
-,			"fr": "Contacte-nous ici"
+,			"fr": "Contacte-nous ici",
+"it": "Contattaci qui"
 		},
 		*/
 	special_thanks: {
@@ -616,6 +660,7 @@ module.exports = {
 		el: 'Ιδιαίτερες ευχαριστίες προς',
 		hi: 'विशेष धन्यवाद',
 		fr: 'Remerciements tout particuliers',
+		it: 'Ringraziamenti speciali vanno a',
 	},
 	claudio: {
 		en: 'For translating this site into Spanish',
@@ -627,6 +672,7 @@ module.exports = {
 		el: 'Για τη μετάφραση αυτού του site στα ισπανικά',
 		hi: 'इस वेबपेज को स्पैनिश में अनुवाद करने के लिए',
 		fr: 'Pour avoir traduit ce site en espagnol',
+		it: 'Per la traduzione di questa pagina in Spagnolo',
 	},
 	bassel: {
 		en: 'For translating this site into Arabic',
@@ -638,6 +684,7 @@ module.exports = {
 		el: 'Για τη μετάφραση αυτού του site σε Αραβικά',
 		hi: 'इस वेबपेज को अरबी में अनुवाद करने के लिए',
 		fr: 'Pour avoir traduit ce site en arabe',
+		it: 'Per la traduzione di questa pagina in Arabo',
 	},
 	jing: {
 		en: 'For translating this site into Chinese',
@@ -649,6 +696,7 @@ module.exports = {
 		el: 'Για τη μετάφραση αυτού του site σε κινέζικα',
 		hi: 'इस वेबपेज को चीनी के लिए अनुवाद करने के लिए',
 		fr: 'Pour avoir traduit ce site en chinois',
+		it: 'Per la traduzione di questa pagina in Cinese',
 	},
 	pholpo: {
 		en: 'For creating the explanatory video and for their moral support',
@@ -660,6 +708,7 @@ module.exports = {
 		el: 'Για τη δημιουργία του επεξηγηματικού βίντεο και για την ηθική υποστήριξή τους',
 		hi: 'व्याख्यात्मक वीडियो बनाने और उनके नैतिक समर्थन के लिए',
 		fr: 'Pour avoir créé la vidéo explicative et leur soutien moral',
+		it: 'Per aver creato il video esplicativo e per il loro supporto morale',
 	},
 	atul: {
 		en: 'For translating this site into Hindi',
@@ -671,6 +720,7 @@ module.exports = {
 		el: 'Για τη μετάφραση αυτού του site σε Χίντι', // Baba
 		hi: 'इस वेबपेज को हिंदी में अनुवाद करने के लिए',
 		fr: 'Pour avoir traduit ce site en hindi',
+		it: 'Per la traduzione di uesta pagina in Indiano',
 	},
 	diana: {
 		en: 'For translating this site into Portuguese',
@@ -682,6 +732,7 @@ module.exports = {
 		el: 'Για τη μετάφραση αυτού του site σε Πορτογαλικά', // Baba
 		hi: 'इस वेबपेज को पुर्तगाली में अनुवाद करने के लिए',
 		fr: 'Pour avoir traduit ce site en portugais',
+		it: 'Per la traduzione di questa pagina in Portoghese',
 	},
 	hugo: {
 		en: 'For translating this site into French',
@@ -693,6 +744,7 @@ module.exports = {
 		el: 'Για τη μετάφραση αυτού του site σε γαλλική γλώσσα', // Baba
 		hi: 'इस वेबपेज को फ्रेंच में अनुवाद करने के लिए',
 		fr: 'Pour avoir traduit ce site en français',
+		it: 'per la traduzione di questa pagina in Francese',
 	},
 	uploadBtn_title: {
 		en: 'Upload an image',
@@ -704,6 +756,7 @@ module.exports = {
 		el: 'Ανέβασε μια εικόνα',
 		hi: 'तस्वीर अपलोड करें',
 		fr: 'Envoyer une photo',
+		it: 'Carica la foto',
 	},
 	uploadBtn_label: {
 		en: 'Upload',
@@ -715,6 +768,7 @@ module.exports = {
 		el: 'Μεταφόρτωση',
 		hi: 'अपलोड',
 		fr: 'Envoyer',
+		it: 'Carica',
 	},
 	browseBtn_title: {
 		en: 'Browse the map',
@@ -726,6 +780,7 @@ module.exports = {
 		el: 'Περιήγηση στο χάρτη',
 		hi: 'नक्शे को ब्राउज़ करें',
 		fr: 'Parcourir la carte',
+		it: 'Naviga nella pagina',
 	},
 	browseBtn_label: {
 		en: 'Browse',
@@ -737,6 +792,7 @@ module.exports = {
 		el: 'Ξεφυλλίζω',
 		hi: 'ब्राउज़ ',
 		fr: 'Naviguer',
+		it: 'Naviga',
 	},
 	shareBtn_title: {
 		en: 'Tell a friend',
@@ -748,6 +804,7 @@ module.exports = {
 		el: 'Πες το σε ένα φίλο',
 		hi: 'मित्र को बताएं',
 		fr: 'Partager à un(e) ami(e)',
+		it: 'Dillo ad un amico',
 	},
 	shareBtn_label: {
 		en: 'Share',
@@ -759,6 +816,7 @@ module.exports = {
 		el: 'Διάδωσε το',
 		hi: 'शेयर',
 		fr: 'Partager',
+		it: 'Condividi',
 	},
 	sign_up: {
 		en: 'Notify me about ...',
@@ -770,6 +828,7 @@ module.exports = {
 		el: 'Ειδοποίησε με σχετικά με ...',
 		hi: 'मुझे इस बारे में सूचित करें ...',
 		fr: 'Me tenir informé...',
+		it: 'Inviami una notifica quando..',
 	},
 	counting: {
 		en: '{count} images uploaded so far',
@@ -781,6 +840,7 @@ module.exports = {
 		el: '{count} εικόνες που έχουν αποσταλεί μέχρι στιγμής',
 		hi: '{count} छवियों को अभी तक अपलोड किया गया',
 		fr: '{count} images déjà envoyées',
+		it: "{count} immagini caricatefin'ora",
 	},
 	error_parsing_geojson: {
 		en: 'Ohno, the pictures are not loading. Try refreshing the page!',
@@ -792,6 +852,7 @@ module.exports = {
 		el: 'Κρίμα, οι εικόνες δεν φορτώνονται. Δοκίμασε να ανανεώσεις τη σελίδα!',
 		hi: 'ओह, तस्वीरें लोड नहीं हो रही हैं पृष्ठ को रीफ्रेश करने का प्रयास करें!',
 		fr: 'Oups, les photos ne se sont pas envoyées. Essaye d’actualiser la page!',
+		it: 'Oh no. le foto non riescono a essere caricate. Prova a ricaricare la pagina!',
 	},
 	error_loading_mapbox: {
 		en: 'Ohno, the map is not loading. Try refreshing the page!',
@@ -803,6 +864,7 @@ module.exports = {
 		el: 'Κρίμα, ο χάρτης δεν φορτώνεται. Δοκίμασε να ανανεώσεις τη σελίδα!',
 		hi: 'ओह, नक्शा लोड नहीं हो रहा है पृष्ठ को रीफ्रेश करने का प्रयास करें!',
 		fr: 'Oups, la carte ne se charge pas. Essaye d’actualiser la page!',
+		it: 'Oh no. la mappa non si carica. Prova a ricaricare la pagina',
 	},
 	files_undefined: {
 		en: 'No files were selected.',
@@ -814,6 +876,7 @@ module.exports = {
 		el: 'Δεν επιλέχθηκαν αρχεία.',
 		hi: 'कोई भी फाइल नहीं चुनी गई थी',
 		fr: 'Aucun(s) fichier(s) sélectionné(s).',
+		it: 'Nessun file selezionato',
 	},
 	wrong_filetype: {
 		en: 'The file you selected is not an image. It should have one of the following extensions: jpg, jpeg, tif, tiff, gif or png',
@@ -825,6 +888,7 @@ module.exports = {
 		el: 'Το αρχείο που επέλεξες δεν είναι μια εικόνα. Θα πρέπει να έχει μία από τις ακόλουθες επεκτάσεις: jpg, jpeg, tif, tiff, gif ή png',
 		hi: 'आपके द्वारा चुनी गई फ़ाइल एक तस्वीर नहीं है इसमें निम्नलिखित एक्सटेंशन होना चाहिए: जेपीजी, जेपीजी, टीआईएफ, टाफ, जीआईएफ या पीएनजी',
 		fr: 'Le fichier sélectionné n´est pas une image. Il doit avoir l´une de ces extensions : jpg, jpeg, tif, tiff, gif ou png.',
+		it: "Il file che hai selezionato non è un'immagine. I formati accettati sono: jpg, jpeg, tif, tiff, gif oppure png",
 	},
 	exifdata_empty: {
 		en: "We couldn't find any metadata in your image. Our best guess is that it was sent through social media, like Facebook or Whatsapp, or, it might be a scan or a screenshot. Do you have the original image? Try that one!",
@@ -836,6 +900,7 @@ module.exports = {
 		el: 'Δεν μπόρεσα να βρω κανένα από τα αναγκαία μεταδεδομένα στην εικόνα σου. Υποπτεύομαι ότι εστάλη μέσω των κοινωνικών μέσων μαζικής ενημέρωσης, όπως το Facebook ή το Whatsapp, ή, θα μπορούσε να είναι μια σάρωση ή ένα στιγμιότυπο οθόνης. Έχεις την αρχική εικόνα; Δοκίμασε αυτήν!',
 		hi: 'हम आपकी छवि में कोई मेटाडेटा नहीं ढूंढ सके। हमारा सबसे अच्छा अनुमान यह है कि इसे फेसबुक या व्हाट्सएप जैसे सोशल मीडिया के माध्यम से भेजा गया था, या यह स्कैन या स्क्रीनशॉट हो सकता है। क्या आपके पास वास्तविक तस्वीर है? उससे कोशिश करो!',
 		fr: "Nous n'avons trouvé aucunes metadonnées dans votre photo. Il est fort probable que celle-ci fut envoyée via les réseaux sociaux, comme Facebook ou Whatsapp, ou que ce soit une image scanée ou une capture d'écran. Merci d'utiliser l'image originale.",
+		it: "Non siamo riusciti a trovare nessun dato nella tua immagine. Pensiamo che la foto sia stata inviata tramite social network, come Facebook o WhatsApp, oppure è una scansione o uno screenshot. Hai l'immagine originale? Prova con quella!",
 	},
 	image_too_small: {
 		en: 'Your image is too small for us to analyse (Minimum width 800px). Do you have the original file somewhere? Try that one!',
@@ -847,6 +912,7 @@ module.exports = {
 		el: 'Η εικόνα σου είναι πολύ μικρή για εμάς να την αναλύσουμε (Ελάχιστο 800px πλάτος). Έχεις το αρχικό αρχείο κάπου; Δοκίμασε αυτό!',
 		hi: 'आपकी तस्वीर विश्लेषण करने के लिए बहुत छोटाी है (न्यूनतम चौड़ाई 800 पिक्स) क्या आपके पास वास्तविक फ़ाइल कहीं और है? उससे कोशिश करो!',
 		fr: "L'image est trop petite pour être analysée (minimum 800 pixels). Merci d´utiliser le fichier original.",
+		it: "La tua immagine è troppo piccola per l'analisi (la minima larghezza è 800 pixels). Hai la foto originale? Prova con quella!",
 	},
 	orientation_undefined: {
 		en: 'The metadata is not complete. Did you maybe apply a filter? Try the original one!',
@@ -858,6 +924,7 @@ module.exports = {
 		el: 'Τα μεταδεδομένα δεν είναι πλήρη. Μήπως έχεις εφαρμόσει κάποιο φίλτρο; Δοκίμασε το πρωτότυπο αρχείο!',
 		hi: 'मेटाडेटा पूर्ण नहीं है। क्या आपने फिल्टर प्रयोग किया हैं? वास्तविक तस्वीर से कोशिश करो!',
 		fr: "Les métadonnées ne sont pas complètes. Peut-être qu'un filtre a été appliqué? Merci d´utiliser la photo originale.",
+		it: "I dati associati all'immagine non sono completi. Hai per caso applicato un filtro? Prova con l'immagine originale!",
 	},
 	faces_detected: {
 		en: 'Sorry, for privacy concerns we have to reject images with faces',
@@ -869,6 +936,7 @@ module.exports = {
 		el: 'Συγγνώμη, για την προστασία της ιδιωτικής ζωής θα πρέπει να απορρίψουμε τις εικόνες με τα πρόσωπά',
 		hi: 'क्षमा करें, गोपनीयता संबंधी चिंताओं के लिए हमें चेहरों के साथ छवियों को अस्वीकार करना होगा',
 		fr: 'Désolé, pour des raisons liées à la confidentialité, nous ne pouvons pas accepter les photos avec des visages.',
+		it: 'Scusaci, per questione di privacy dobbiamo rifiutare immagini in cui i volti sono visibili',
 	},
 	spam_detected: {
 		en: "You sure that's a picture of a coast? We have our doubts...",
@@ -880,6 +948,7 @@ module.exports = {
 		el: 'Είσαι σίγουρος ότι είναι μια εικόνα ακτής; Έχουμε τις αμφιβολίες μας ...',
 		hi: 'आपको यकीन है कि एक तट की तस्वीर है? हमें संदेह है ...',
 		fr: 'Est-ce bien une image de côte ? Nous avons des doutes.',
+		it: 'Sei sicuro che è la foto di una costa? Abbiamo dei dubbi...',
 	},
 	not_a_coast: {
 		en: "This doesn't look like a coast. Or at least the image annotation software doesn't think so. Sorry, try another one!",
@@ -891,6 +960,7 @@ module.exports = {
 		el: 'Αυτό δεν μοιάζει σαν ακτή. Ή τουλάχιστον το λογισμικό ελέγχου εικόνας δεν καταλαβαίνει. Συγνώμη, δοκίμασε μια άλλη!',
 		hi: 'यह एक तट की तरह नहीं दिखता है।या कम से कम छवि एनोटेशन सॉफ्टवेयर को ऐसा नहीं लगता है। क्षमा करें, कोई दूसरा प्रयास करें!',
 		fr: "Cela ne ressemble pas à une côte. Notre logiciel ne reconnait pas l'image comme telle. Merci de réessayer une autre image.",
+		it: "Questa immagini non sembra di una costa. Almeno, il riconoscimento telematico non la riconosce. Prova, con un'altra immagine!",
 	},
 	location_undefined: {
 		en:
@@ -908,6 +978,8 @@ module.exports = {
 			'यह बहुत बुरा है। हमें पता होना चाहिए कि तट कहाँ स्थित है लेकिन हम उस जानकारी को मेटाडेटा में नहीं खोज सके। हमारे लिए तट का पता लगाने के लिए एक आधुनिक ब्राउज़र पर स्विच करें (दुर्भाग्य से आपका ब्राउज़र ऐसा करने के लिए आवश्यक कुछ सुविधाओं का समर्थन नहीं करता है) या मोबाइल या डिजिटल कैमरा के साथ लिया गया एक छवि अपलोड करने का प्रयास करें।',
 		fr:
 			"Quel dommage. Nous avons besoin de savoir ou la côte est située mais il nous est impossible de trouver l'information dans les métadonnées. Utilise un logiciel plus récent pour localiser la côte pour nous (malheureusement ton logiciel ne le permet pas actuellement...) ou essaye d'envoyer une image prise avec un smartphone ou un appareil photo digital.",
+		it:
+			"Non va bene! Dobbiamo sapere dove la costa è localizzata e non siamo riusciti a risalirci dai dati della foto che hai caricato. Cambia il browser per permetterci la geolocalizzazione dell'immagine (sfortunatamente il tuo browser non supporta alcune caratteristiche necessarie per geolocalizzare la foto) oppure prova a caricare un immagine che è stata fatto con un cellulare o una fotocamera digitale.",
 	},
 	problems_connecting: {
 		en: 'We could not connect to the image annotation service. Please try again!',
@@ -919,6 +991,7 @@ module.exports = {
 		el: 'Εμείς δεν μπορέσαμε να συνδεθούμε με την υπηρεσία έλεγχου εικόνας. Παρακαλώ προσπάθησε ξανά!',
 		hi: 'हम छवि एनोटेशन सेवा से कनेक्ट नहीं हो सके। कृपया पुन: प्रयास करें!',
 		fr: "Nous n'avons pas réussi à nous connecter au service d'annotation des images. Merci de réessayer",
+		it: "Non siamo riusciti a connettere l'immagine con il software. Per favore, ricaricala!",
 	},
 	problems_from_google: {
 		en: 'The image annotation software returned an error. Please try again!',
@@ -930,6 +1003,7 @@ module.exports = {
 		el: 'Το λογισμικό έλεγχου εικόνας επέστρεψε ένα σφάλμα. Παρακαλώ προσπάθησε ξανά!',
 		hi: 'छवि एनोटेशन सॉफ़्टवेयर ने एक त्रुटि लौटा दी। कृपया पुन: प्रयास करें!',
 		fr: "Le logiciel d'annotation d'image a détecté une erreur. Merci de réessayer",
+		it: 'Il software ha dato un errore, Per favore, riprova!',
 	},
 	upload_error: {
 		en: 'Oh no, something went wrong during upload. Try again?',
@@ -941,6 +1015,7 @@ module.exports = {
 		el: 'Κρίμα, κάτι πήγε στραβά κατά τη διάρκεια της αποστολής. Προσπάθησε ξανά?',
 		hi: 'ओह नहीं, अपलोड के दौरान कुछ गलत हो गया। मुझे यकीन है कि यह मेरी गलती है (या शायद आपका कनेक्शन खराब है)। पुनः प्रयास करें?',
 		fr: "Oh non. Une erreur s'est produite durant l'envoi. Un autre essai ?",
+		it: 'Oh no, qualcosa è andato storto durante il caricamento della foto. Per favore, prova di nuovo.',
 	},
 	make_blacklisted: {
 		en: 'Hm, looks like the image was taken with an App that uses color filters, e.g. Hipstamatic. Sorry, try another one!',
@@ -952,6 +1027,7 @@ module.exports = {
 		el: 'Χμ, μοιάζει ότι η εικόνα λήφθηκε με μια εφαρμογή που χρησιμοποιεί φίλτρα χρώματος, π.χ. Hipstamatic. Συγνώμη, δοκίμασε μία άλλη!',
 		hi: 'हमम, ऐसा लगता है कि छवि को एप के साथ लिया गया था जो रंग फ़िल्टर का उपयोग करता है, उदाहरण हिप्स्टेमेटिक। क्षमा करें, कोई दूसरा प्रयास करें!',
 		fr: 'On dirai que la photo a été prise avec une application qui utilise des filtres. Vraiment désolé, merci de réessayer.',
+		it: "Hm, sembra che l'immagine è stata fatta con un'applicazione che usa dei filtri di colore (esempio: Hipstamatic). Scusaci, prova con un altro!",
 	},
 	img_alt: {
 		en: 'Your image',
@@ -963,6 +1039,7 @@ module.exports = {
 		el: 'Η εικόνα σου',
 		hi: 'आपकी तस्वीर',
 		fr: 'Ton image',
+		it: 'La tua foto',
 	},
 	hurray: {
 		en: 'Your image is ready for upload! Just one more question ...',
@@ -974,6 +1051,7 @@ module.exports = {
 		el: 'Η εικόνα σου είναι έτοιμη για αποστολή! Μόνο ένα ακόμα ερώτημα ...',
 		hi: 'आपकी तस्वीर अपलोड करने के लिए तैयार है! बस एक और सवाल ...',
 		fr: "L'image est prète à être envoyée. Juste une dernière question ...",
+		it: "La tua foto è pronta per essere caricata. Ancora un'altra domanda ...",
 	},
 	select_material: {
 		en: 'How would you describe the coast material?',
@@ -985,6 +1063,7 @@ module.exports = {
 		el: 'Πώς θα περιέγραφες το υλικό της ακτής;',
 		hi: 'आप तट के पदार्थ का वर्णन कैसे करेंगे? ',
 		fr: 'Comment décrirais-tu la côte et ses matériaux?',
+		it: 'Come descriveresti il materiale costiero?',
 	},
 	define_material: {
 		en: '(What do you mean by coast material?)',
@@ -996,6 +1075,7 @@ module.exports = {
 		el: '(Τι εννοείς με το υλικό της ακτής;)',
 		hi: '(तट के पदार्थ से क्या मतलब है?)',
 		fr: '(Que signifie les matériaux de la côte ?)',
+		it: '(Che cosa intendi per materiale costiero?)',
 	},
 	sand: {
 		en: 'Sand',
@@ -1007,6 +1087,7 @@ module.exports = {
 		el: 'Άμμος',
 		hi: 'रेत',
 		fr: 'Sable',
+		it: 'Sabbia',
 	},
 	pebble: {
 		en: 'Pebble',
@@ -1018,6 +1099,7 @@ module.exports = {
 		el: 'Χαλίκι - Βότσαλα',
 		hi: 'कंकड़',
 		fr: 'Galet, cailloux',
+		it: 'Ciotolato',
 	},
 	rock: {
 		en: 'Rock',
@@ -1029,6 +1111,7 @@ module.exports = {
 		el: 'Βράχος',
 		hi: 'चट्टान',
 		fr: 'Roche',
+		it: 'Roccia',
 	},
 	mud: {
 		en: 'Mud',
@@ -1040,6 +1123,7 @@ module.exports = {
 		el: 'Λάσπη',
 		hi: 'कीचड़',
 		fr: 'Boue',
+		it: 'Fango',
 	},
 	manmade: {
 		en: 'Man-made',
@@ -1051,6 +1135,7 @@ module.exports = {
 		el: 'Τεχνητή παραλία',
 		hi: 'कृत्रिम',
 		fr: "Création de l'Homme",
+		it: "Fatto dall'uomo",
 	},
 	ice: {
 		en: 'Ice',
@@ -1062,6 +1147,7 @@ module.exports = {
 		el: 'Πάγος',
 		hi: 'बर्फ',
 		fr: 'Glace',
+		it: 'Ghiacci',
 	},
 	notsure: {
 		en: 'Not sure',
@@ -1073,6 +1159,7 @@ module.exports = {
 		el: 'δεν είμαι σίγουρος',
 		hi: 'निश्चित नहीं',
 		fr: 'Incertain',
+		it: 'Non sono sicuro',
 	},
 	notclose: {
 		en: 'Not close enough',
@@ -1084,6 +1171,7 @@ module.exports = {
 		el: 'Δεν υπάρχουν αρκετά κοντά', // Baba,
 		hi: 'पर्याप्त नहीं',
 		fr: 'Trop loin',
+		it: 'Non vicino abbastanza',
 	},
 	notset: {
 		en: 'Undefined',
@@ -1095,6 +1183,7 @@ module.exports = {
 		el: 'Απροσδιόριστο',
 		hi: 'अपरिभाषित',
 		fr: 'Pas defini',
+		it: 'Indefinito',
 	},
 	comment: {
 		en: 'Leave us a comment!',
@@ -1106,6 +1195,7 @@ module.exports = {
 		el: 'Άφησε μας ένα σχόλιο!',
 		hi: 'हमारे लिए एक टिप्पणी छोड़ दें!',
 		fr: 'Laissez-nous un commentaire',
+		it: 'Lasciaci un commento!',
 	},
 	comment_placeholder: {
 		en: 'Tell us something about this coast ...',
@@ -1117,6 +1207,7 @@ module.exports = {
 		el: 'Πες μας κάτι για αυτήν την ακτή ...',
 		hi: 'हमें इस तट के बारे में और बताएं ...',
 		fr: 'Autre chose à ajouter sur cette côte ?',
+		it: 'Dicci di più rispetto a questa costa ...',
 	},
 	upload_image: {
 		en: 'UPLOAD',
@@ -1128,6 +1219,7 @@ module.exports = {
 		el: 'Μεταφόρτωση',
 		hi: 'अपलोड',
 		fr: 'Envoyer',
+		it: 'Carica',
 	},
 	cancel: {
 		en: 'Cancel',
@@ -1139,6 +1231,7 @@ module.exports = {
 		el: 'Ματαίωση',
 		hi: 'रद्द करे',
 		fr: 'Annuler',
+		it: 'Cancella',
 	},
 	accept_terms: {
 		en: 'I have read and accept the {terms}',
@@ -1150,6 +1243,7 @@ module.exports = {
 		el: 'Έχω διαβάσει και αποδέχομαι τους {terms}',
 		hi: '{terms} को पढ़ और स्वीकार कर लिया है',
 		fr: "J'ai lu et j'accepte les {terms}",
+		it: 'Ho letto e accetto le {terms}',
 	},
 	terms: {
 		en: 'Terms',
@@ -1161,6 +1255,7 @@ module.exports = {
 		el: 'Όροι',
 		hi: 'शर्तें',
 		fr: 'termes',
+		it: 'condizioni',
 	},
 	data_privacy: {
 		en: 'What other information do you collect?',
@@ -1172,6 +1267,7 @@ module.exports = {
 		el: 'Ποιες άλλες πληροφορίες έχεις συγκεντρώσει;',
 		hi: 'आप कौन सी अन्य जानकारी एकत्र करते हैं?',
 		fr: "Y a-t-il d'autres informations que tu as collecté ?",
+		it: 'Quali hai informazioni hai ricavato?',
 	},
 	thats_it: {
 		en: "That's it. I swear. No cookies, not even Google Analytics, just what you see above.",
@@ -1183,6 +1279,7 @@ module.exports = {
 		el: 'Αυτό είναι. Το διαβεβαιώνω. Όχι cookies, δεν είναι καν το Google Analytics, ακριβώς αυτό που βλέπεις παραπάνω.',
 		hi: 'बस। में कसम खाता हूँ। कोई कुकी नहीं, यहां तक कि गूगल एनालिटिक्स भी नहीं, जो आपको ऊपर दिखाई देता है।',
 		fr: "C'est tout, promis. Pas de cookies, même pas d'analyse Google, seulement le contenu ci-dessus.",
+		it: 'Questo è tutto. Lo prometto. No cookies, nemmeno Google Analytics, solo quello che vedi sopra.',
 	},
 	ip_address: {
 		en: 'IP Address',
@@ -1194,6 +1291,7 @@ module.exports = {
 		el: 'Διεύθυνση IP',
 		hi: 'आईपी पता',
 		fr: 'Addresse IP',
+		it: 'Indirizzo IP',
 	},
 	save_ip: {
 		en: 'We will save your IP Address upon upload',
@@ -1205,6 +1303,7 @@ module.exports = {
 		el: 'Θα διαφυλάξουμε τη IP διεύθυνση σου κατά τη μεταφόρτωση',
 		hi: 'हम आपके आईपी पते को अपलोड करने पर सुरक्षित रखेंगे',
 		fr: "Nous allons sauvegarder votre addresse IP après l'envoi",
+		it: 'Salveremo il tuo indirizzo IP al momento del carimento',
 	},
 	save_ip_why: {
 		en: 'WHY?',
@@ -1216,6 +1315,7 @@ module.exports = {
 		el: 'ΓΙΑΤΙ?',
 		hi: 'क्यों?',
 		fr: 'POURQUOI?',
+		it: "PERCHE'?",
 	},
 	image: {
 		en: 'Image',
@@ -1227,6 +1327,7 @@ module.exports = {
 		el: 'Εικόνα',
 		hi: 'तस्वीर',
 		fr: 'Image',
+		it: 'Immagine',
 	},
 	save_image: {
 		en: 'We save the image at {imageWidth} pixels width and strip the metadata',
@@ -1238,6 +1339,7 @@ module.exports = {
 		el: 'Εμείς αποθηκεύουμε την εικόνα σε πλάτος {imageWidth} pixels και αφαιρούμε τα μεταδεδομένα',
 		hi: 'हम छवि को पिक्सेल की चौड़ाई {imageWidth} में सहेजते हैं और मेटाडाटा को अलग करते हैं',
 		fr: "Nous sauvegardons l'image à la bonne taille {imageWidth} et en séparons les métadonnées",
+		it: "Salviamo l'immagine a {imageWidth} pixels in larghezza e scarica i metadati.",
 	},
 	uid: {
 		en: 'Unique identifier',
@@ -1249,6 +1351,7 @@ module.exports = {
 		el: 'Μοναδικό αναγνωριστικό',
 		hi: 'अद्वितीय पहचानकर्ता',
 		fr: 'Identificateur unique',
+		it: 'Identificatore unico',
 	},
 	latitude: {
 		en: 'Latitude',
@@ -1260,6 +1363,7 @@ module.exports = {
 		el: 'Γεωγραφικό πλάτος',
 		hi: 'अक्षांश',
 		fr: 'Latitude',
+		it: 'Latitudine',
 	},
 	longitude: {
 		en: 'Longitude',
@@ -1271,6 +1375,7 @@ module.exports = {
 		el: 'Γεωγραφικό μήκος',
 		hi: 'देशान्तर',
 		fr: 'Longitude',
+		it: 'Longitudine',
 	},
 	location_manual: {
 		en: 'Location manual',
@@ -1282,6 +1387,7 @@ module.exports = {
 		el: 'Χειρονακτική Τοποθέτηση',
 		hi: 'लोकेशन गाइड',
 		fr: 'Localisation manuelle',
+		it: 'Posizione manuale',
 	},
 	location_corrected: {
 		en: 'Location corrected',
@@ -1293,6 +1399,7 @@ module.exports = {
 		el: 'Τοποθεσία διορθωθεί', // BABA,
 		hi: 'स्थान सही है',
 		fr: 'Localisation corrigée',
+		it: 'Posizione corretta',
 	},
 	date_time: {
 		en: 'Date/Time',
@@ -1304,6 +1411,7 @@ module.exports = {
 		el: 'Ημερομηνία - ώρα',
 		hi: 'दिनांक / समय',
 		fr: 'Date/Heure',
+		it: 'Data/Ora',
 	},
 	annotations: {
 		en: 'Annotations',
@@ -1315,6 +1423,7 @@ module.exports = {
 		el: 'Σχόλια',
 		hi: 'टिप्पणी',
 		fr: 'Annotations',
+		it: 'Note',
 	},
 	score: {
 		en: 'Score',
@@ -1326,6 +1435,7 @@ module.exports = {
 		el: 'Σκορ',
 		hi: 'गणना ',
 		fr: 'Résultat',
+		it: 'Punteggio',
 	},
 	exifdata: {
 		en: 'Exifdata',
@@ -1337,6 +1447,7 @@ module.exports = {
 		el: 'Exifdata',
 		hi: 'Exifdata',
 		fr: 'Données EXIF',
+		it: 'Exifdata',
 	},
 	value: {
 		en: 'Value',
@@ -1348,6 +1459,7 @@ module.exports = {
 		el: 'Τιμή',
 		hi: 'क़ीमत',
 		fr: 'Valeur',
+		it: 'Valore',
 	},
 	can_you_locate: {
 		en: "We couldn't find the location in the metadata. Do you remember exactly where you took this picture?",
@@ -1359,6 +1471,7 @@ module.exports = {
 		el: 'Δεν μπορέσαμε να βρούμε τη τοποθεσία στα μεταδεδομένα. Θυμάσαι ακριβώς που πήρες αυτήν την φωτογραφία;',
 		hi: 'हम मेटाडेटा में स्थान नहीं ढूंढ सके क्या आपको याद है कि आपने यह तस्वीर कब ली है?',
 		fr: "Nous n'avons pas pu trouver la localisation dans les métadonnées. Te souviens-tu exactement de l'endroit où tu as prit cette photo ?",
+		it: "Non siamo riusciti a trovare la posizione nei dati associati all'immagine. Ti ricordi esattamente dove questa foto è stata fatta?",
 	},
 	yes_location_known: {
 		en: 'Yes, I can locate this coast',
@@ -1370,6 +1483,7 @@ module.exports = {
 		el: 'Ναι, μπορώ να εντοπίσω αυτήν την ακτή',
 		hi: 'हाँ, मैं इस तट का पता लगा सकता हूँ',
 		fr: 'Oui, je peux localiser cette image',
+		it: 'Si, posso localizzare la foto',
 	},
 	no_location_unknown: {
 		en: "No, I don't remember",
@@ -1381,6 +1495,7 @@ module.exports = {
 		el: 'Όχι, δεν θυμάμαι',
 		hi: 'नहीं, मुझे याद नहीं है',
 		fr: 'Non, je ne me souviens pas',
+		it: 'No, non me lo ricordo',
 	},
 	unsupported: {
 		en: "Oops nope ... looks like you're browser is even older than we thought. Sorry, you'll have to switch to a more modern browser to continue.",
@@ -1392,6 +1507,7 @@ module.exports = {
 		el: 'Ωχ ... μοιάζει ότι το πρόγραμμα περιήγησης είναι ακόμη παλαιότερο από ό, τι νομίζαμε. Λυπούμαστε, αλλά θα πρέπει να μεταβείς σε ένα πιο σύγχρονο πρόγραμμα περιήγησης για να συνεχίσεις.',
 		hi: 'अरे नहीं ... ऐसा लगता है कि आपका ब्राउज़र उससे भी ज्यादा पुराना है जितना हमने सोचा था। क्षमा करें, आपको जारी रखने के लिए अधिक आधुनिक ब्राउज़र पर स्विच करना होगा।',
 		fr: 'Oups... Il semble que ton navigateur est plus vieux que nous le pensions. Désolé, il faut absolument passer à un navigateur plus récent pour continuer.',
+		it: 'Ops.. sembra che il tuo browser è più vecchio di quello che pensavamo. Scusa, devi cambiare il browser in uno più moderno per continuare',
 	},
 	/*
 	"switch_to_satellite": {
@@ -1404,6 +1520,7 @@ module.exports = {
 			"el": "Αλλαγή σε δορυφορική προβολή",
 			"hi": "उपग्रह दृश्य पर स्विच करें"
 ,			"fr": "Passer à la vue satellite"
+"it": "Cambia a visualizzazione satellitare"
 		},
 		"switch_to_vector": {
 			"en": "Switch to vector view",
@@ -1415,6 +1532,7 @@ module.exports = {
 			"el": "Αλλαγή σε διανυσματική προβολή ",
 			"hi": "सदिश दृश्य पर स्विच करें"
 ,			"fr": "Passer à la vue vectorielle"
+"it": "Cambia a visualizzazione vettoriale"
 		},
 		*/
 	cancel_upload: {
@@ -1427,6 +1545,7 @@ module.exports = {
 		el: 'Ακύρωση μεταφόρτωσης',
 		hi: 'अपलोड रद्द करें',
 		fr: "Annuler l'envoi",
+		it: 'Cancella il caricamento',
 	},
 	continue_upload: {
 		en: 'Place image',
@@ -1438,6 +1557,7 @@ module.exports = {
 		el: 'Συνέχισε', // BABA Συνέχισε (continue upload),
 		hi: 'तस्वीर रखें',
 		fr: "Placer l'image",
+		it: "Posizione l'immagine",
 	},
 	notdefined: {
 		en: 'Not set yet',
@@ -1449,6 +1569,7 @@ module.exports = {
 		el: 'Δεν έχει οριστεί ακόμη',
 		hi: 'अभी तक सेट नहीं है',
 		fr: 'Pas encore prèt',
+		it: 'Non ancora deciso',
 	},
 	close_popup: {
 		en: 'Close popup',
@@ -1460,6 +1581,7 @@ module.exports = {
 		el: 'Κλείσιμο παραθύρου',
 		hi: 'पॉपअप बंद करें',
 		fr: 'Fermer pop-up',
+		it: 'Chiudi il popup',
 	},
 	report_image: {
 		en: 'Report image',
@@ -1471,6 +1593,7 @@ module.exports = {
 		el: 'Αναφορά εικόνας',
 		hi: 'तस्वीर रिपोर्ट करे',
 		fr: 'Signaler image',
+		it: "Riporta l'immagine",
 	},
 	toggle_comment: {
 		en: 'Toggle comment',
@@ -1482,6 +1605,7 @@ module.exports = {
 		el: 'Εναλλαγή σχόλιο',
 		hi: 'टिप्पणी टॉगल करें',
 		fr: 'Afficher/cacher commentaires',
+		it: 'Commento scomodo',
 	},
 	select_file: {
 		en: 'Have any pictures of coasts?',
@@ -1494,6 +1618,7 @@ module.exports = {
 		el: 'Έχεις κάποιες εικόνες από ακτές;', // Γιατί να μην τις φορτώσεις τώρα;,
 		hi: 'समुद्र तटों की कोई तस्वीर है?', // उन्हें अब क्यों नहीं अपलोड करें?,
 		fr: 'As-tu des images de côtes ?', // Pourquoi ne pas les envoyer maintenant ?
+		it: 'Hai foto della costa?', // Perchè non le carichi ora?
 	},
 	upload_ok: {
 		en: 'WOHOO! Nice one! Your image was uploaded. Next one! :)',
@@ -1505,6 +1630,7 @@ module.exports = {
 		el: 'Μπράβο! Πολύ ωραία! Η εικόνα σου έχει φορτωθεί επιτυχώς. Επόμενη! :)',
 		hi: 'वूहू! अच्छा है! आपकी छवि अपलोड की गई थी। अगला! :)',
 		fr: 'WOHOU ! Bien joué ! Ton image a été envoyée ! Passe à la suivante :)',
+		it: 'WOW! Carina questa! La tua immagine è stata caricata. Passa alla prossima!',
 	},
 	status_validating: {
 		en: 'Validating your image .. (just a few seconds)',
@@ -1516,6 +1642,7 @@ module.exports = {
 		el: 'Επικύρωση της εικόνα σου .. (μόλις λίγα δευτερόλεπτα)',
 		hi: 'आपकी तस्वीर का सत्यापन कर रहे ... (केवल कुछ सेकंड्स)',
 		fr: 'Image en cours de validation... (cela prend quelques secondes)',
+		it: 'Valida la tua immagine.. (servono pochi secondi)',
 	},
 	status_uploading: {
 		en: 'Uploading... {progress}%',
@@ -1527,6 +1654,7 @@ module.exports = {
 		el: 'Ανέβασμα ... {progress}%',
 		hi: 'अपलोड हो रहा है ... {progress}%',
 		fr: 'Envoi ... {progress}%',
+		it: 'In caricamento {progress}%',
 	},
 	loader: {
 		en: 'Progress spinner',
@@ -1538,6 +1666,7 @@ module.exports = {
 		el: 'Kλώστης προόδου',
 		hi: 'प्रगति स्पिनर',
 		fr: 'Chargement ',
+		it: 'Progresso',
 	},
 	close_dialog: {
 		en: 'Close dialog',
@@ -1549,6 +1678,7 @@ module.exports = {
 		el: 'Κλείσε τον διάλογο',
 		hi: 'संवाद बंद करें',
 		fr: 'Fermer la conversation',
+		it: 'Chiudi il dialogo',
 	},
 	the_obvious_header: {
 		en: 'The stuff the coast is made of.',
@@ -1560,6 +1690,7 @@ module.exports = {
 		el: 'Το υλικό που αποτελείται  η ακτή.',
 		hi: 'पदार्थ जिससे तट का निर्माण हुआ है ',
 		fr: 'La côte est composée de :',
+		it: 'Il amteriale della costa è.',
 	},
 	the_obvious_text: {
 		en: 'If you were water from the ocean or sea, which material would you first encounter? Hard rock from a cliff or a sand from a beach? Or maybe something man-made like a concrete wall? The coast material is the stuff you find in the first meters of land.',
@@ -1572,6 +1703,7 @@ module.exports = {
 		el: 'Το νερό από τον ωκεανό ή θάλασσα, με ποιο υλικό θα ερχόταν πρώτα σε επαφή; Βράχο σε ένα γκρεμνό ή άμμο από την παραλία; Ή ίσως κάτι ανθρωπογενές σαν ένα τσιμεντένιο τοίχο; Το υλικό της ακτής είναι τα αυτό που βρίσκεται στα πρώτα μέτρα γης.',
 		hi: 'यदि आप महासागर या समुद्र के पानी थे, तो आप पहली बार किस पदार्थ का सामना करेंगे? एक कठोर चट्टान या समुद्र तट की रेत? या शायद आदमी का बनाया कंक्रीट की ठोस दीवार की तरह कुछ ? तटीय पदार्थ वह चीज है जिसे आप जमीन के पहले मीटर में ढूंढ सकते हैं।',
 		fr: "Si tu étais de l'eau de mer ou des océans, quel matériau tu rencontrerais en premier ? De la roche solide des falaises ou du sable des plages ? Ou peut être un mur crée par l'Homme? Les matériaux de la côtes sont trouvés dans les premiers mêtres de terre en contact avec l'eau.",
+		it: "Se tu fossi acqua dell'oceano o del mare, quale materiale incontreresti per primo? Roccia dura oppure sabbia di spiaggia? Qualcosa costruito dall'uomo come un muro di cemento? Il materiale costiero è quello che si trova nei primi metri di costa arrivando dal mare.",
 	},
 	multiple_materials_header: {
 		en: 'What if the coast is made of more than just one material?',
@@ -1583,6 +1715,7 @@ module.exports = {
 		el: 'Τι θα συμβεί αν η ακτή συνίσταται από περισσότερα από ένα υλικά;',
 		hi: 'क्या होगा अगर तट एक से अधिक पदार्थ का बना है? ',
 		fr: "Et si la côte est faite de plus d'un matériau ?",
+		it: 'Se la costa fosse fatta di più che un solo materiale?',
 	},
 	multiple_materials_text: {
 		en: "In that case, it's the material that predominates.",
@@ -1594,6 +1727,7 @@ module.exports = {
 		el: 'Σε αυτή την περίπτωση, είναι το υλικό που είναι σε αφθονία.',
 		hi: 'उस स्थिति में, यह वह पदार्थ है जो मुख्यता है',
 		fr: 'Dans ce cas, choisi le matériau prédominant.',
+		it: 'In questo caso, è il materiale predominante.',
 	},
 	material_examples_header: {
 		en: 'Show me some examples!',
@@ -1605,6 +1739,7 @@ module.exports = {
 		el: 'Δείξε μου μερικά παραδείγματα!',
 		hi: 'मुझे कुछ उदाहरण दिखाओ!',
 		fr: 'Montre moi quelques examples !',
+		it: 'Fammi vedere alcuni esempi!',
 	},
 	imprint: {
 		en: 'Imprint',
@@ -1616,6 +1751,7 @@ module.exports = {
 		el: 'Αποτύπωμα',
 		hi: 'चिह्न',
 		fr: 'Impression',
+		it: 'Impronta',
 	},
 	disclaimer: {
 		en: 'Disclaimer',
@@ -1627,6 +1763,7 @@ module.exports = {
 		el: 'Αποποίηση ευθυνών',
 		hi: 'अस्वीकरण',
 		fr: 'Avertissement',
+		it: 'Disconoscimento',
 	},
 	privacy_policy: {
 		en: 'Privacy Policy',
@@ -1638,6 +1775,7 @@ module.exports = {
 		el: 'Πολιτική Προστασίας Προσωπικών Δεδομένων',
 		hi: 'गोपनीयता नीति',
 		fr: 'Politique de confidentialité',
+		it: 'Politica della Privacy',
 	},
 	report_header: {
 		en: 'Report this image',
@@ -1649,6 +1787,7 @@ module.exports = {
 		el: 'Αναφορά μιας εικόνας',
 		hi: 'इस तस्वीर की रिपोर्ट करें',
 		fr: 'Signaler cette image',
+		it: 'Riporta questa immagine',
 	},
 	report_text: {
 		en: 'Here you have the possibility to report an image you think should not be published on the website.',
@@ -1660,6 +1799,7 @@ module.exports = {
 		el: 'Εδώ έχεις τη δυνατότητα να υποδείξεις μια εικόνα που νομίζεις ότι δεν θα πρέπει να δημοσιευτεί στην ιστοσελίδα αυτή.',
 		hi: 'यहां आपको एक ऐसी तस्वीर की रिपोर्ट करने की संभावना है जो आपको लगता है कि वेबसाइट पर प्रकाशित नहीं किया जाना चाहिए।',
 		fr: 'Ici tu as la possibilité de signaler une image qui ne devrait pas être publiée sur ce site.',
+		it: "Qui hai la possibilità di riportare l'immagine che tu pensi non dovrebbere essere pubblicata sul sito web.",
 	},
 	label_report_comment: {
 		en: 'Your comment',
@@ -1671,6 +1811,7 @@ module.exports = {
 		el: 'Το σχόλιό σου',
 		hi: 'आपकी टिप्पणी',
 		fr: 'Ton commentaire',
+		it: 'Il tuo commento',
 	},
 	placeholder_report_comment: {
 		en: 'Tell us why you are reporting this image...',
@@ -1682,6 +1823,7 @@ module.exports = {
 		el: 'Πες μας γιατί υποδεικνύεις αυτή την εικόνα ...',
 		hi: 'हमें बताएं कि आप इस तस्वीर को क्यों रिपोर्ट कर रहे हैं ...',
 		fr: 'Pourquoi signales-tu cette image ...',
+		it: 'Dicci come mai ci stai riportando questa immagine...',
 	},
 	report_ok: {
 		en: 'Your report has been sent!',
@@ -1693,6 +1835,7 @@ module.exports = {
 		el: 'Η αναφορά σου εστάλη!',
 		hi: 'आपकी रिपोर्ट भेज दी गई है!',
 		fr: 'Ton rapport a été envoyé !',
+		it: 'Il tuo report è stato mandato!',
 	},
 	share_header: {
 		en: 'Share with friends and family.',
@@ -1704,6 +1847,7 @@ module.exports = {
 		el: 'Διάνεμε  στους φίλους και την οικογένεια.',
 		hi: 'दोस्तों और परिवार के साथ साझा करें',
 		fr: 'Partager avec les amis et la famille.',
+		it: 'Condividi con amici e parenti.',
 	},
 	share_text_intro: {
 		en: "There are many ways to share. Of course, there is {facebook} and {twitter}. If you are the next generation you might prefer {whatsapp} or some other programm I don't know about because I'm too old or not familiar with the platforms you use in your country.",
@@ -1717,6 +1861,7 @@ module.exports = {
 		hi: 'शेयर करने के कई तरीके हैं बेशक, {facebook} और {twitter}। आप अगली पीढ़ी हैं तो आप {whatsapp} या किसी अन्य प्रोग्राम को पसंद कर सकते हैं। मुझे इसके बारे में पता नहीं है क्योंकि मैं बहुत बूढ़ा हूं या अापके देश में उपयोग किए जाने वाले प्लेटफार्मों से परिचित नहीं हूं।',
 		fr:
 			"Il y a pleusieurs moyens de partager. Bien sûr, il y a {facebook} et {twitter}. Si tu es de la nouvelle génération, tu préfères peut être {whatsapp} ou d'autres applications que nous ne connaissons pas car nous sommes trop vieux ou que la platforme que tu utilises dans ton pays nous est inconnue.",
+		it: "Ci sono tanti modi per condividere. Certamente, c'è {facebook} e {twitter}. Se sei della nuova generazione e preferisci {whatsapp} o qualsiasi altro programma usi nel tuo paese, va benissimo.",
 	},
 	share_text_but: {
 		en: 'But we all know how social media works. If you really want to reach someone, talking to that person still is the most effective.',
@@ -1728,6 +1873,7 @@ module.exports = {
 		el: 'Αλλά όλοι ξέρουμε πώς λειτουργούν τα κοινωνική μέσα ενημέρωσης. Αν θέλεις όμως πραγματικά να πλησιάσεις κάποιον, μιλώντας του κατά πρόσωπο αυτό εξακολουθεί να είναι η πιο αποτελεσματική μέθοδος.',
 		hi: 'लेकिन हम सभी जानते हैं कि सोशल मीडिया कैसे काम करता है। अगर आप वाकई किसी तक पहुंचना चाहते हैं, तो उस व्यक्ति से बात करना अभी भी सबसे प्रभावी है',
 		fr: "Mais nous savons tous comment les réseaux sociaux fonctionnent. Si tu veux vraiment partager à quelqu'un, lui en parler est la manière la plus efficace.",
+		it: 'Tutti noi conosciamo come il social media funzionano. Se vuoi davvero raggiungere qualcuno, parlare con una persona è ancora il modo più efficace.',
 	},
 	know_anyone: {
 		en: 'Know anyone who lives at the coast?',
@@ -1739,6 +1885,7 @@ module.exports = {
 		el: 'Ξέρεις κανέναν που ζει στην ακτή;',
 		hi: 'किसी तट पर रहने वाले को जानते हैं?',
 		fr: "Connais-tu quelqu'un qui vit sur la côte ? ",
+		it: 'Conosci qualcuno che vive sulla costa?',
 	},
 	terms_header: {
 		en: 'Terms',
@@ -1750,6 +1897,7 @@ module.exports = {
 		el: 'Όροι',
 		hi: 'शर्तें',
 		fr: 'Termes',
+		it: 'Termini',
 	},
 	terms_author: {
 		en: 'By uploading this image you confirm that you own the copyright of this image.',
@@ -1761,6 +1909,7 @@ module.exports = {
 		el: 'Με τη μεταφόρτωση αυτής της εικόνας επιβεβαιώνεις ότι είσαι κάτοχος των πνευματικών δικαιωμάτων της εικόνας αυτής.',
 		hi: 'इस तस्वीर को अपलोड करके आप पुष्टि करते हैं कि आप इस तस्वीर के कॉपीराइट के स्वामी हैं।',
 		fr: "Par l'envoi de cette image, tu confirmes que les droits d'auteurs de cette image t'appariennent.",
+		it: "Caricando questa immagine confermi che tu hai i diritti d'immagine di questa foto.",
 	},
 	terms_cc0: {
 		en: 'By uploading this image you agree to waive your copyright and place the image in the public domain under the {license}.',
@@ -1772,6 +1921,7 @@ module.exports = {
 		el: 'Με τη μεταφόρτωση αυτής της εικόνας  συμφωνείς και παραιτείσαι από τα δικαιώματα πνευματικής ιδιοκτησίας και τοποθετείς την εικόνα αυτή στον δημόσιο τομέα υπό την {license}.',
 		hi: 'इस छवि को अपलोड करके आप अपने कॉपीराइट को छोड़ने और सार्वजनिक डोमेन में छवि को स्थान देने के लिए सहमत हैं। ({license})',
 		fr: "Par l'envoi de cette image, tu confirmes que tu renonces à ces droits d'auteurs et que tu places cette image dans le domaine publique sous la {licence}",
+		it: "Caricando questa immagine sei d'accordo con le regole di copyright e di mettere l'immagine a disposizione del pubblico sotto la {license}.",
 	},
 
 	license: {
@@ -1784,6 +1934,7 @@ module.exports = {
 		el: 'Creative Commons CC0 1.0 Παγκόσμια (CC0 1.0) Εκχώρηση ως Κοινό Κτήμα',
 		hi: 'Creative Commons CC0 1.0 Universal (CC0 1.0) Public Domain Dedication license',
 		fr: 'Creative Commons CC0 1.0 universel (CC0 1.0) Transfert dans le Domaine Public',
+		it: 'Creative Commons CC0 1.0 Universal (CC0 1.0) Donazione al Pubblico Dominio',
 	},
 	http_license: {
 		en: 'https://creativecommons.org/publicdomain/zero/1.0/',
@@ -1795,6 +1946,7 @@ module.exports = {
 		el: 'https://creativecommons.org/publicdomain/zero/1.0/deed.el',
 		hi: 'https://creativecommons.org/publicdomain/zero/1.0/',
 		fr: 'https://creativecommons.org/publicdomain/zero/1.0/deed.fr',
+		it: 'https://creativecommons.org/publicdomain/zero/1.0/deed.it',
 	},
 	honor_privacy: {
 		en: 'By uploading this image you confirm that it does not contain any personal data.',
@@ -1806,6 +1958,7 @@ module.exports = {
 		el: 'Με τη μεταφόρτωση αυτής της εικόνας επιβεβαιώνεις ότι δεν περιέχει προσωπικά δεδομένα.',
 		hi: 'इस तस्वीर को अपलोड करके आप पुष्टि करते हैं कि इसमें कोई भी व्यक्तिगत डेटा नहीं है',
 		fr: "Par l'envoi de cette image, tu confirmes qu'elle ne contient pas de données personnelles",
+		it: 'Caricando questa foto confermi che non contiene nessun dato personale',
 	},
 	whyIP_header: {
 		en: 'Why do you need my IP Address?',
@@ -1817,6 +1970,7 @@ module.exports = {
 		el: 'Γιατί χρειάζεστε τη διεύθυνση IP μου;',
 		hi: 'आपको मेरे आईपी पता की आवश्यकता क्यों है?',
 		fr: 'Pourquoi avez vous besoin de mon adresse IP',
+		it: 'Perchè hai bisogno del mio indirizzo IP?',
 	},
 	whyIP_text: {
 		en: 'We need to be able to prove that we are not the source of the image. Basically, we are covering our own back BUT we can only point to your IP Address, not to you.',
@@ -1828,6 +1982,7 @@ module.exports = {
 		el: 'Πρέπει να είμαστε σε θέση να αποδείξουμε ότι δεν είμαστε η πηγή της εικόνας. Βασικά, καλύπτουμε τους εαυτούς μας, αν και μπορούμε να επισημάνουμε μόνο την IP διεύθυνση σου και όχι προσωπικά εσένα. ',
 		hi: 'हमें यह साबित करने में सक्षम होना चाहिए कि हम छवि का स्रोत नहीं हैं। असल में, हम अपने को कवर कर रहे हैं, लेकिन हम केवल आपके आईपी पते पर इंगित कर सकते हैं, न कि आपको।',
 		fr: "Nous avons besoin de l'adresse IP pour prouver que nous ne sommes pas la source de cette image. En fait, cela permet de nous couvrir, mais l'adresse IP n'est pas VOUS-MÊME !",
+		it: "Abbiamo bisogno di provare che noi non siamo la fonte dell'immagine. Banalmente, noi ci tuteliamo ma comunque non associamo alla foto il tuo indirizzo IP non il tuo nome.",
 	},
 	ip_address_learn_more: {
 		en: 'Read more about IP Addresses and the information they contain',
@@ -1839,6 +1994,7 @@ module.exports = {
 		el: 'Διάβασε περισσότερα σχετικά με τις IP διευθύνσεις και τις πληροφορίες που περιέχουν',
 		hi: 'आईपी पते और उनमे शामिल जानकाोरी के बारे में अधिक पढ़ें',
 		fr: "En savoir plus sur les adresses IP et les informations qu'elles contiennent",
+		it: 'Leggi di più riguardo gli indirizzi IP e le informazioni che contengono',
 	},
 	ip_address_learn_more_href: {
 		en: 'https://en.wikipedia.org/wiki/IP_address',
@@ -1850,6 +2006,7 @@ module.exports = {
 		el: 'https://el.wikipedia.org/wiki/%CE%94%CE%B9%CE%B5%CF%8D%CE%B8%CF%85%CE%BD%CF%83%CE%B7_IP',
 		hi: 'https://hi.wikipedia.org/wiki/%E0%A4%87%E0%A4%82%E0%A4%9F%E0%A4%B0%E0%A4%A8%E0%A5%87%E0%A4%9F_%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A5%8B%E0%A4%9F%E0%A5%8B%E0%A4%95%E0%A5%89%E0%A4%B2',
 		fr: 'https://fr.wikipedia.org/wiki/Adresse_IP',
+		it: 'https://it.wikipedia.org/wiki/Indirizzo_IP',
 	},
 	selected_truncated: {
 		en: 'Sorry, at the moment we can only process one image at a time!',
@@ -1861,6 +2018,7 @@ module.exports = {
 		el: 'Λυπούμαστε, αλλά αυτή τη στιγμή μπορούμε να επεξεργαστούμε μόνο μία εικόνα κάθε φορά!',
 		hi: 'क्षमा करें, इस समय मे हम केवल एक तस्वीर को संसाधित कर सकते हैं!',
 		fr: "Désolé, pour le moment nous ne pouvons traiter qu'une seule image à la fois",
+		it: 'Scusa, al momento possiamo processare una sola immagine alla volta!',
 	},
 	here_we_go: {
 		en: 'Found the location!! Here we go!',
@@ -1872,6 +2030,7 @@ module.exports = {
 		el: 'Βρέθηκε η τοποθεσία !! Ορίστε!',
 		hi: 'स्थान मिल गया,ये रहा!',
 		fr: "Localisation trouvée ! C'est parti !",
+		it: 'Trovata la localizzazione!! Eccoci!',
 	},
 	zoom_until: {
 		en: 'Zoom until the marker turns green and points to the location you took this picture!',
@@ -1883,6 +2042,7 @@ module.exports = {
 		el: 'Μεγέθυνε  μέχρι ο δείκτης να γίνει πράσινος και δείχνει την θέση που ελήφθη αυτή η φωτογραφία!',
 		hi: 'ज़ूम करें जब तक कि मार्कर हरा न हो जाए और उस स्थान को इंगित करे जहां आपने यह तस्वीर लिया!',
 		fr: "Zoom jusqu'a ce que le marker devienne vert, puis pointe la localisation où la photo a été prise.",
+		it: 'Zoomma finchè il marcatore diventa verde e indica la posizione di questa costa!',
 	},
 	zoom_closer: {
 		en: 'You have to zoom until the marker turns green!',
@@ -1894,6 +2054,7 @@ module.exports = {
 		el: 'Πρέπει να μεγεθύνεις μέχρι ο δείκτης να γίνει πράσινος!',
 		hi: 'जब तक कि मार्कर हरे रंग में बदल जाए, आपको ज़ूम करना होगा!',
 		fr: "Tu dois zoomer jusqu'à ce que le marker soit vert !",
+		it: 'Devi zoommare finchè il marcatore diventa verde!',
 	},
 	two_fingers: {
 		en: 'Use two fingers to zoom',
@@ -1905,6 +2066,7 @@ module.exports = {
 		el: 'Χρησιμοποίησε δύο δάχτυλα για να μεγεθύνεις',
 		hi: 'ज़ूम करने के लिए दो उंगलियों का उपयोग करें',
 		fr: 'Utilise 2 doigts pour zoomer',
+		it: 'Usa due dita per zoomare',
 	},
 	accept_terms_first: {
 		en: 'You still have to accept the terms!',
@@ -1916,6 +2078,7 @@ module.exports = {
 		el: 'Πρέπει ακόμα να αποδεχτείς τους όρους!',
 		hi: 'आपको अभी भी शर्तों को स्वीकार करना है!',
 		fr: 'Tu dois encore accepter les termes !',
+		it: 'Devi ancora accettare i termini e condizioni',
 	},
 	location_right: {
 		en: 'Does the location look right?',
@@ -1927,6 +2090,7 @@ module.exports = {
 		el: 'Είναι σωστή η θέση;', // BABA
 		hi: 'क्या स्थान सही दिखता है?',
 		fr: 'La localisation est-elle correcte ?',
+		it: 'La geolocalizzazione è giusta?',
 	},
 	yes: {
 		en: 'Yes',
@@ -1938,6 +2102,7 @@ module.exports = {
 		el: 'Ναί',
 		hi: 'हाँ',
 		fr: 'Oui',
+		it: 'Si',
 	},
 	no: {
 		en: 'No',
@@ -1949,6 +2114,7 @@ module.exports = {
 		el: 'Οχι',
 		hi: 'नहीं',
 		fr: 'Non',
+		it: 'No',
 	},
 	ok: {
 		en: 'OK',
@@ -1960,6 +2126,7 @@ module.exports = {
 		el: 'Εντάξει',
 		hi: 'ठीक',
 		fr: 'OK',
+		it: 'Ok',
 	},
 	show_your_love: {
 		en: 'Show your love.',
@@ -1971,6 +2138,7 @@ module.exports = {
 		el: 'Show your love.',
 		hi: 'अपना प्यार दिखाएं',
 		fr: 'Montre ton amour',
+		it: 'Mostra il tuo amore',
 	},
 
 	// VIDEO
@@ -1980,6 +2148,7 @@ module.exports = {
 		hi: 'साथ में हम इस मानचित्र को बना सकते हैं!',
 		pt: 'Juntos nós conseguiremos criar esse mapa!',
 		fr: 'Ensemble nous pouvons créer cette carte',
+		it: 'Insieme possiamo creare questa mappa',
 	},
 	easy: {
 		en: "It's easy", // JING, BASSEL, BABA,
@@ -1987,6 +2156,7 @@ module.exports = {
 		hi: 'यह आसान है',
 		pt: 'É fácil',
 		fr: "C'est facile",
+		it: "E' facile",
 	},
 	beautiful: {
 		en: "It's beautiful", // JING, BASSEL, BABA,
@@ -1994,6 +2164,7 @@ module.exports = {
 		hi: 'यह खूबसूरत है',
 		pt: 'É lindo',
 		fr: "C'est magnifique",
+		it: "E' bellissimo",
 	},
 	meaningful: {
 		en: 'And it will make a difference!', // JING, BASSEL, BABA
@@ -2001,9 +2172,22 @@ module.exports = {
 		hi: 'और यह एक अंतर लाएगा!',
 		pt: 'E vai fazer a diferença!',
 		fr: 'Est cela va faire la différence',
+		it: 'Questo farà la differenza',
 	},
 
 	// NATIVE
+	no_account_native: {
+		en: '(No account necessary)',
+		de: '(Kein Konto notwendig)',
+		es: '(No necesitas crear una cuenta)',
+		ar: '(لا يوجد تسجيل حساب.)', // Bassel
+		pt: '(Sem conta)',
+		zh: '(无需注册帐户)',
+		el: '(Δεν χρειάζεται  λογαριασμός)',
+		hi: '(कोई खाता नहीं)',
+		fr: '(Pas besoin de compte)',
+		it: '(Senza indirizzo)',
+	},
 	locationservices_denied_title: {
 		en: 'Location Services are disabled',
 		de: 'Standortermittlung ist deaktiviert',
@@ -2245,6 +2429,7 @@ module.exports = {
 		el: 'Τι εννοείς με το υλικό της ακτής;',
 		hi: 'तटो के पदार्थो से आपका क्या मतलब है?',
 		fr: 'Que signifie les matériaux de la côte?',
+		it: 'Che cosa si intende per materiale costiero?',
 	},
 	terms_cc0_app: {
 		en: 'By uploading this image you agree to waive your copyright and place the image in the public domain under the %{license}.',
@@ -2256,6 +2441,7 @@ module.exports = {
 		el: 'Με τη μεταφόρτωση αυτής της εικόνας  συμφωνείς και παραιτείσαι από τα δικαιώματα πνευματικής ιδιοκτησίας και τοποθετείς την εικόνα αυτή στον δημόσιο τομέα υπό την %{license}.',
 		hi: 'इस छवि को अपलोड करके आप अपने कॉपीराइट को छोड़ने और सार्वजनिक डोमेन में छवि को स्थान देने के लिए सहमत हैं। (%{license})',
 		fr: "Par l'envoi de cette image, tu confirmes que tu renonces à ces droits d'auteurs et que tu places cette image dans le domaine publique sous la %{license}",
+		it: "Caricando questa immagine sei d'accordo con le regole di copyright e di mettere l'immagine a disposizione del pubblico sotto la %{license}.",
 	},
 	accept_once: {
 		en: 'Accept',
@@ -2427,6 +2613,7 @@ module.exports = {
 		el: 'Είμαστε %{crslr} στο Πανεπιστήμιο του Κιέλου στη Γερμανία και το έργο αυτό χρηματοδοτείται από το %{future_ocean}.', // !WAS
 		hi: 'हम जर्मनी में कील विश्वविद्यालय में %{crslr} हैं और इस परियोजना को %{future_ocean} द्वारा वित्त पोषित किया गया है।',
 		fr: 'Nous sommes le %{crslr} à l´Université de Kiel en Allemagne et ce projet est subventionné par le %{future_ocean}.', // !WAS
+		it: "Noi siamo il %{crslr} all'Università di Kiel in Germania e questo progetto è finanziato da %{future_ocean}",
 	},
 
 	feedback: {

@@ -10,19 +10,21 @@ import fr from './locales/fr'
 import hi from './locales/hi'
 import pt from './locales/pt'
 import zh from './locales/zh'
+import it from './locales/it'
 
 I18n.fallbacks = true
 I18n.default_locale = 'en'
 I18n.translations = {
 	en,
 	de,
-	// es,
-	// ar,
-	// el,
-	// fr,
-	// hi,
-	// pt,
-	// zh,
+	es,
+	ar,
+	el,
+	fr,
+	hi,
+	pt,
+	zh,
+	it,
 }
 
 I18n.locale = Localization.locale.split('-')[0]
