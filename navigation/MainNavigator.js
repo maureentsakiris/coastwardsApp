@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
 		paddingTop: 50,
 		paddingBottom: 30,
 		backgroundColor: theme.primary,
+		flex: 1,
 	},
 	logoImage: {
 		width: 150,
@@ -53,6 +54,17 @@ const styles = StyleSheet.create({
 
 	items: {
 		marginBottom: 40,
+		flex: 1,
+	},
+	itemStyle: {
+		// margin: 0,
+	},
+	iconContainerStyle: {
+		// flex: 1,
+		flexShrink: 1,
+	},
+	labelStyle: {
+		flex: 1,
 	},
 	socialDrawer: {
 		display: 'flex',
@@ -108,7 +120,7 @@ const Drawer = props => {
 						{I18n.t('help_science')} {I18n.t('by')}
 					</Text>
 				</View>
-				<DrawerItems style={styles.items} {...props} />
+				<DrawerItems itemsContainerStyle={styles.items} itemStyle={styles.itemStyle} iconContainerStyle={styles.iconContainerStyle} labelStyle={styles.labelStyle} {...props} />
 			</ScrollView>
 			<View style={styles.bottomDrawer}>
 				<View style={styles.social}>
@@ -236,7 +248,7 @@ const DrawerNavigator = createDrawerNavigator(
 	},
 	{
 		drawerType: 'back',
-		drawerWidth: 280,
+		// drawerWidth: 280,
 		drawerBackgroundColor: theme.primary,
 		contentComponent: Drawer,
 		contentOptions: {
