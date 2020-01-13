@@ -56,15 +56,14 @@ const styles = StyleSheet.create({
 		marginBottom: 40,
 		flex: 1,
 	},
-	itemStyle: {
-		// margin: 0,
-	},
+	itemStyle: {},
 	iconContainerStyle: {
-		// flex: 1,
 		flexShrink: 1,
 	},
 	labelStyle: {
 		flex: 1,
+		flexGrow: 1,
+		marginLeft: 0,
 	},
 	socialDrawer: {
 		display: 'flex',
