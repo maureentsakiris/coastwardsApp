@@ -83,17 +83,23 @@ const styles = StyleSheet.create({
 		},
 		shadowOpacity: 0.23,
 		shadowRadius: 2.62,
-
 		elevation: 4,
 		padding: theme.padding,
-	},
-	social: {
+
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
-	socialIcon: {},
+	social: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'flex-end',
+	},
+	socialIcon: {
+		marginLeft: theme.padding,
+	},
 	version: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -101,11 +107,12 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		borderTopWidth: 1,
 		borderTopColor: 'white',
+		alignSelf: 'flex-start',
 	},
 	madeWith: {
 		fontSize: 14,
 		color: theme.waterMap,
-		marginRight: 10,
+		// marginRight: 20,
 	},
 })
 
@@ -122,8 +129,8 @@ const Drawer = props => {
 				<DrawerItems itemsContainerStyle={styles.items} itemStyle={styles.itemStyle} iconContainerStyle={styles.iconContainerStyle} labelStyle={styles.labelStyle} {...props} />
 			</ScrollView>
 			<View style={styles.bottomDrawer}>
+				<Text style={styles.madeWith}>v{Constants.manifest.version} Made with ❤︎</Text>
 				<View style={styles.social}>
-					<Text style={styles.madeWith}>v{Constants.manifest.version} Made with ❤︎</Text>
 					<Ionicons onPress={() => Linking.openURL('https://www.facebook.com/coastwards/')} style={styles.socialIcon} size={30} name="logo-facebook" color={theme.waterMap} />
 					<Ionicons onPress={() => Linking.openURL('https://twitter.com/gocoastwards')} style={styles.socialIcon} size={30} name="logo-twitter" color={theme.waterMap} />
 				</View>
