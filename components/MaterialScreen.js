@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import { Text, View, TouchableOpacity, StyleSheet, AsyncStorage, Alert, Dimensions, ScrollView, ActivityIndicator, Platform, TextInput, KeyboardAvoidingView, ImageBackground, Keyboard } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
 	},
 	picture: {
 		width,
-		height: 150,
+		height: (width / 3) * 1.7,
 	},
 	formContainer: {
 		padding: theme.padding,
@@ -76,10 +77,8 @@ const styles = StyleSheet.create({
 		marginBottom: 30,
 	},
 	materialBtn: {
-		// width: '45%',
 		flexDirection: 'row',
 		alignItems: 'center',
-		// justifyContent: 'center',
 		marginBottom: 10,
 		marginRight: 10,
 		paddingTop: 10,
@@ -107,11 +106,6 @@ const styles = StyleSheet.create({
 	},
 
 	uploadNow: {
-		// position: 'absolute',
-		// left: 0,
-		// bottom: 0,
-		// height: 200,
-
 		padding: theme.padding,
 		paddingBottom: 20,
 		width: '100%',
@@ -137,7 +131,6 @@ const styles = StyleSheet.create({
 		paddingBottom: 10,
 		paddingLeft: 15,
 		paddingRight: 15,
-		// backgroundColor: theme.primary,
 		color: theme.primary,
 		borderRadius: 30,
 		marginRight: 10,
@@ -166,13 +159,10 @@ const styles = StyleSheet.create({
 		height,
 		position: 'absolute',
 		top: 0,
-
 		left: 0,
 		zIndex: 3,
 		display: 'flex',
 		flexDirection: 'row',
-
-		// pointerEvents: 'none',
 	},
 	// https://github.com/facebook/react-native/issues/18415
 	uploadingInner: {
@@ -188,7 +178,7 @@ const styles = StyleSheet.create({
 	},
 })
 
-const MaterialScreen = ({ navigation }) => {
+const MaterialScreen = ({ navigation, uri, location, exif, landingSheet, libraryId }) => {
 	const [materialUser, setMaterialUser] = useState('notset')
 	const [commentUser, setCommentUser] = useState('')
 	const [uploading, setUploading] = useState(false)
@@ -256,22 +246,12 @@ const MaterialScreen = ({ navigation }) => {
 		)
 	})
 
-	// <Image style={styles.picture} source={{ uri: picture.uri }} />
-	// alert(JSON.stringify(navigation.state.params))
-	const picture = navigation.getParam('picture')
-	const pictureResized = navigation.getParam('pictureResized')
-	const location = navigation.getParam('location')
-
-	// https://ovpv.me/keyboardavoidingview-rn-expo/
-
 	const uploadPicture = () => {
 		if (isSafe.current) {
 			setUploading(true)
 		}
 
-		const { latitude, longitude } = location.coords
-		const { exif } = picture
-		const { uri } = pictureResized
+		const { latitude, longitude } = location
 
 		const datetime = exif.DateTimeOriginal || exif.DateTimeDigitized || exif.DateTime
 		const uid = uuid()
@@ -301,38 +281,31 @@ const MaterialScreen = ({ navigation }) => {
 		})
 			.then(response => response.json())
 			.then(responseJson => {
-				if (responseJson.status === 'OK') {
-					if (isSafe.current) {
-						// setUploading(false)
+				if (isSafe.current) {
+					if (responseJson.status === 'OK') {
 						setAlreadyUploaded(true)
-					}
-
-					// const params = {
-					// 	reload: true,
-					// }
-					// navigation.navigate({ routeName: 'Main', params })
-					navigation.navigate('Hurray')
-				} else {
-					const { message } = responseJson
-					const translatedErrors = ['spam_detected']
-
-					if (translatedErrors.includes(message)) {
-						alert(I18n.t(message))
+						if (libraryId) {
+							AsyncStorage.setItem(libraryId, 'true')
+						}
+						navigation.navigate(landingSheet)
 					} else {
-						alert(I18n.t('upload_error') + '\n\nError: ' + message)
-					}
+						const { message } = responseJson
+						const translatedErrors = ['spam_detected']
 
-					if (isSafe.current) {
+						if (translatedErrors.includes(message)) {
+							alert(I18n.t(message))
+						} else {
+							alert(I18n.t('upload_error') + '\n\nError: ' + message)
+						}
+
 						setUploading(false)
 					}
 				}
-
-				// return responseJson.movies
 			})
 			.catch(error => {
-				alert(I18n.t('upload_error' + '\n\nError: ' + error))
 				if (isSafe.current) {
 					setUploading(false)
+					alert('upload_error' + '\n\nError: ' + error)
 				}
 			})
 	}
@@ -379,7 +352,7 @@ const MaterialScreen = ({ navigation }) => {
 		<View style={styles.safeAreaView}>
 			<KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 63 : 80} enabled>
 				<ScrollView>
-					<ImageBackground style={styles.picture} source={{ uri: picture.uri }} />
+					<ImageBackground style={styles.picture} source={{ uri }} />
 					<View style={styles.formContainer}>
 						<Text style={styles.hurraySubtitle}>{I18n.t('select_material')}</Text>
 
@@ -428,6 +401,19 @@ const MaterialScreen = ({ navigation }) => {
 			</View>
 		</View>
 	)
+}
+
+MaterialScreen.defaultProps = {
+	libraryId: null,
+}
+
+MaterialScreen.propTypes = {
+	navigation: PropTypes.object.isRequired,
+	uri: PropTypes.string.isRequired,
+	location: PropTypes.object.isRequired,
+	exif: PropTypes.object.isRequired,
+	landingSheet: PropTypes.string.isRequired,
+	libraryId: PropTypes.string,
 }
 
 export default MaterialScreen

@@ -70,11 +70,11 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	memberFoto: {
-		flex: 1,
 		width: 100,
 		height: 100,
 		borderRadius: 50,
 		marginRight: 30,
+		flexShrink: 1,
 	},
 	memberText: {
 		flex: 2,

@@ -2191,7 +2191,7 @@ module.exports = {
 	locationservices_denied_title: {
 		en: 'Location Services are disabled',
 		de: 'Standortermittlung ist deaktiviert',
-		// "es": "", // !
+		es: 'El servicio de localización está desactivado', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2203,7 +2203,7 @@ module.exports = {
 	locationservices_denied_msg: {
 		en: 'Please enable Location Services, so we can geolocate the image. Thank you.',
 		de: 'Bitte aktiviere die Standortermittlung, damit wir das Foto lokalisieren können. Vielen Dank.',
-		// "es": "", // !
+		es: 'Por favor, activen el servicio de localización para poder geolocalizar la foto. Muchas gracias.', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2215,7 +2215,7 @@ module.exports = {
 	location_denied_title: {
 		en: 'Permission to access your location',
 		de: 'Zugriff auf Standort erlauben',
-		// "es": "", // !
+		es: 'Permitir el acceso al servicio de localización', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2227,7 +2227,7 @@ module.exports = {
 	location_denied_msg: {
 		en: 'Coastwards needs access to your location, so we can geolocate the image.',
 		de: 'Coastwards braucht den Zugriff auf Deinen Standort, um das Foto platzieren zu können.',
-		// "es": "", // !
+		es: 'Coastwards necesita acceso al servicio de localización para poder geolocalizar la foto', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2239,7 +2239,7 @@ module.exports = {
 	camera_denied_title: {
 		en: 'Permission to access your camera',
 		de: 'Zugriff auf Kamera eralauben',
-		// "es": "", // !
+		es: 'Permitir acceso a la cámara', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2251,7 +2251,7 @@ module.exports = {
 	camera_denied_msg: {
 		en: 'Coastwards needs access to your camera to continue.',
 		de: 'Coastwards braucht den Zugriff auf Deine Kamera, um fortzufahren.',
-		// "es": "", // !
+		es: 'Coastwards necesita el acceso a tu cámara para seguir.', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2263,7 +2263,7 @@ module.exports = {
 	open_settings: {
 		en: 'Open Settings',
 		de: 'Einstellungen öffnen',
-		// "es": "", // !
+		es: 'Abrir ajustes', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2273,9 +2273,9 @@ module.exports = {
 		// "it": "" // !
 	},
 	permissions_missing_title: {
-		en: 'Some permissions are missing :/',
-		de: 'Es fehlen Berechtigungen :/',
-		// "es": "", // !
+		en: 'Some permissions are missing',
+		de: 'Es fehlen Berechtigungen',
+		es: 'Faltan permisos', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2284,10 +2284,70 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-	permissions_missing_msg: {
-		en: 'Please give Coastwards the permission to access your location and camera. Also, make sure location services is generally turned on. Then come back to the App and try again.\n\nThese are the missing permissions:',
-		de: 'Bitte erteile Coastwards die Berechtigung Deinen Standort zu ermitteln und auf Deine Kamera zuzugreifen. Stelle auch sicher, dass allgemein die Standortermittlung aktiviert ist. Komm dann zur App zurück und versuche es erneut.\n\nDie folgenden Berechtigungen fehlen:',
-		// "es": "", // !
+	permissions_take_photo_missing_msg: {
+		en: 'Please give Coastwards the permission to access your location and camera.\n\nAlso, make sure your location service (GPS) is generally turned on.\n\nThen come back to the App and try again.\n\nThese are the missing permissions:',
+		de: 'Bitte erteile Coastwards die Berechtigung Deinen Standort zu ermitteln und auf Deine Kamera zuzugreifen.\n\nStelle auch sicher, dass die Standortermittlung (GPS) allgemein aktiviert ist.\n\nKomm dann zur App zurück und versuche es erneut.\n\nDie folgenden Berechtigungen fehlen:',
+		es: 'Por favor, permiten el acceso al servicio de localización y cámara.\n\nAsegúranse también que el servicio de localización (GPS) esté activado.\n\nVuelan a la app e inténtenlo de nuevo.\n\nLos siguientes permisos faltan:', // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	permission_location_services: {
+		en: 'Location Services / GPS (general)',
+		de: 'Standortermittlung / GPS (allgemein)',
+		es: 'Localización / GPS (general)', // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	permission_location: {
+		en: 'Location (App)',
+		de: 'Standortermittlung (App)',
+		es: 'Localización (App)', // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	permission_camera: {
+		en: 'Camera (App)',
+		de: 'Kamera (App)',
+		es: 'Cámara (App)', // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	permissions_photo_library_missing_msg: {
+		en: 'Please give Coastwards the permission to access your Photo Library.\n\nThen come back to the App and try again.\n\nThese are the missing permissions:',
+		de: 'Bitte erteile Coastwards die Berechtigung auf Deine Fotomediathek zuzugreifen.\n\nKomm dann zur App zurück und versuche es erneut.\n\nDie folgenden Berechtigungen fehlen:',
+		es: 'Por favor, permiten el acceso a la fototeca.\n\nVuelan a la app e inténtenlo de nuevo.\n\nLos siguientes permisos faltan:', // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	permission_camera_roll: {
+		en: 'Photo Library (App)',
+		de: 'Fotomediathek (App)',
+		es: 'Fototeca (App)', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2299,7 +2359,7 @@ module.exports = {
 	got_it: {
 		en: 'Got it!',
 		de: 'Verstanden!',
-		// "es": "", // !
+		es: 'Entendido!', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2311,7 +2371,7 @@ module.exports = {
 	do_not_show_again: {
 		en: "Don't show again",
 		de: 'Nicht mehr anzeigen',
-		// "es": "", // !
+		es: 'No volver a mostar', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2324,7 +2384,7 @@ module.exports = {
 	validating_picture: {
 		en: 'Validating picture',
 		de: 'Foto wird validiert',
-		// "es": "", // !
+		es: 'Validando la foto', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2337,7 +2397,7 @@ module.exports = {
 	saving_picture: {
 		en: 'Saving picture',
 		de: 'Foto wird gespeichert',
-		// "es": "", // !
+		es: 'Guardando la foto', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2349,7 +2409,7 @@ module.exports = {
 	processing_picture: {
 		en: 'Processing picture',
 		de: 'Foto wird bearbeitet',
-		// "es": "", // !
+		es: 'Procesando la foto', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2361,7 +2421,7 @@ module.exports = {
 	checking_for_faces: {
 		en: 'Running face detection',
 		de: 'Gesichtserkennung läuft',
-		// "es": "", // !
+		es: 'Detección de caras en marcha', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2374,7 +2434,7 @@ module.exports = {
 	getting_location: {
 		en: 'Getting your location',
 		de: 'Standort wird ermittelt',
-		// "es": "", // !
+		es: 'Localizando la foto', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2386,7 +2446,7 @@ module.exports = {
 	something_went_wrong: {
 		en: 'Something went wrong',
 		de: 'Irgendetwas ist schiefgelaufen',
-		// "es": "", // !
+		es: 'Algo ha ido mal', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2398,7 +2458,7 @@ module.exports = {
 	oops: {
 		en: 'Oops!',
 		de: 'Ups!',
-		// "es": "", // !
+		es: '¡Ups!', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2410,7 +2470,7 @@ module.exports = {
 	try_again: {
 		en: 'Try again',
 		de: 'Erneut versuchen',
-		// "es": "", // !
+		es: 'Inténtalo de nuevo', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2446,7 +2506,7 @@ module.exports = {
 	accept_once: {
 		en: 'Accept',
 		de: 'Akzeptieren',
-		// "es": "", // !
+		es: 'Acceptar', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2458,7 +2518,7 @@ module.exports = {
 	accept_always: {
 		en: 'Always accept',
 		de: 'Immer akzeptieren',
-		// "es": "", // !
+		es: 'Siempre acceptar', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2470,7 +2530,7 @@ module.exports = {
 	status_uploading_app: {
 		en: 'Uploading image ...',
 		de: 'Foto wird hochgeladen ...',
-		// "es": "", // !
+		es: 'Subiendo la foto ...', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2479,18 +2539,18 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-	image_will_appear: {
-		en: 'Your image will appear on the map shortly',
-		de: 'Dein Foto wird bald auf der Karte zu sehen sein',
-		// "es": "", // !
-		// "ar": "", // !
-		// "pt": "", // !
-		// "zh": "", // !
-		// "el": "", // !
-		// "hi": "", // !
-		// "fr": "" // !
-		// "it": "" // !
-	},
+	// image_will_appear: {
+	// 	en: 'Your image will appear on the map shortly',
+	// 	de: 'Dein Foto wird bald auf der Karte zu sehen sein',
+	// 	// "es": "", // !
+	// 	// "ar": "", // !
+	// 	// "pt": "", // !
+	// 	// "zh": "", // !
+	// 	// "el": "", // !
+	// 	// "hi": "", // !
+	// 	// "fr": "" // !
+	// 	// "it": "" // !
+	// },
 	/*
 	refresh_map: {
 		en: 'Refresh the map to see your contribution',
@@ -2507,7 +2567,7 @@ module.exports = {
 */ no_new_contributions_title: {
 		en: 'Map is refreshed',
 		de: 'Weltkarte aktualisiert',
-		// "es": "", // !
+		es: 'Mapa actualizado', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2519,19 +2579,7 @@ module.exports = {
 	no_new_contributions: {
 		en: 'The map is up-to-date',
 		de: 'Die Weltkarte zeigt den letzten Stand',
-		// "es": "", // !
-		// "ar": "", // !
-		// "pt": "", // !
-		// "zh": "", // !
-		// "el": "", // !
-		// "hi": "", // !
-		// "fr": "" // !
-		// "it": "" // !
-	},
-	already_uploaded: {
-		en: 'This picture was uploaded',
-		de: 'Dieses Foto wurde hochgeladen',
-		// "es": "", // !
+		es: 'El mapa está actualizado', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2557,7 +2605,7 @@ module.exports = {
 	map: {
 		en: 'Map',
 		de: 'Weltkarte',
-		// "es": "", // !
+		es: 'Mapa', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2569,7 +2617,7 @@ module.exports = {
 	info_how: {
 		en: 'How does it work?',
 		de: 'Wie funktioniert es?',
-		// "es": "", // !
+		es: 'Cómo funciona', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2581,7 +2629,7 @@ module.exports = {
 	about: {
 		en: 'About us',
 		de: 'Über uns',
-		// "es": "", // !
+		es: 'Sobre nosotros', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2619,7 +2667,7 @@ module.exports = {
 	feedback: {
 		en: 'Feedback',
 		de: 'Feedback',
-		// "es": "", // !
+		es: 'Contactar', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2632,7 +2680,7 @@ module.exports = {
 	feedback_title: {
 		en: 'We need your Feedback!',
 		de: 'Wir brauchen euer Feedback!',
-		// "es": "", // !
+		es: 'Necesitamos saber de ti!', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2644,7 +2692,7 @@ module.exports = {
 	feedback_text: {
 		en: 'This is the first rollout of the App and we know there is much room for improvement. If you have any questions, ideas, suggestions or any other inquiry, please shoot! We will get back to you as soon as possible. Many thanks.',
 		de: 'Dies ist die erste Version der App und wir wissen, dass es viel zu verbessern gibt. Falls Du Fragen, Ideen, Vorschläge oder sonstige Anliegen hast, bitte lass es uns wissen! Wir werden Dir möglichst zügig antworten. Vielen Dank.',
-		// "es": "", // !
+		es: 'Es la primera versión de la app y sabemos que se puede mejorar mucho. Si tienes preguntas, ideas, propuestas o cualquier otra duda, por favor, dínoslo! Te responderemos cuanto antes. Muchas gracias.', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2656,7 +2704,7 @@ module.exports = {
 	send_email: {
 		en: 'Send E-mail',
 		de: 'E-mail schreiben',
-		// "es": "", // !
+		es: 'Escribir correo electrónico', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2668,7 +2716,7 @@ module.exports = {
 	nassos_bio: {
 		en: 'Nassos is a professor at the University of Kiel and the group leader of the CRSLR Research Group. He is also the father of two little boys. Actually, one of them is not that little anymore.',
 		de: 'Nassos ist Professor an der Christian-Albrecht Universität zu Kiel und Gruppenleiter der CRSLR Research Group. Er ist Vater von zwei kleinen Jungs. Naja, der eine ist gar nicht mehr so klein.',
-		// "es": "", // !
+		es: 'Nassos es profesor en la Universidad de Kiel y líder del grupo CRSLR Research Group. Es padre de dos niños pequeños. Bueno, uno ya no es tan pequeño.', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2680,7 +2728,7 @@ module.exports = {
 	claudia_bio: {
 		en: 'Claudia is a PhD student at the University of Kiel. She is interested in the effects of scale and different input data on modelling the potential impacts of sea-level rise in the world’s coastal regions.',
 		de: 'Claudia ist Doktorandin der Christian-Albrecht Universität zu Kiel. Ihre Arbeit fokussiert sich auf die Analyse von Auswirkungen des Meeresspiegelanstiegs auf Küstenregionen auf globaler bis subnationaler Skala.',
-		// "es": "", // !
+		es: 'Claudia es estudiante de doctorado en la Universidad de Kiel. Su trabajo se enfoca en las consequencias de la subida de mar sobre las regiones costeras en una scala nacional e internacional.', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2692,7 +2740,7 @@ module.exports = {
 	maureen_bio: {
 		en: 'Maureen is a front-end developer and communication designer. After many years of freelancing, she found her niche and is specialising in science communication.',
 		de: 'Maureen ist Front-End Developer und Kommunikationsdesignerin. Nach vielen Jahren als Freiberuflerin, hat sie ihre Nische gefunden und spezalisiert sich auf Wissenschaftskommunikation.',
-		// "es": "", // !
+		es: 'Maureen es desarolladora y diseñador de comunicación. Trás muchos años trabajando de autónoma, encontró su nicho y ahora se enfoca en la comunicación de ciencia', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2703,8 +2751,8 @@ module.exports = {
 	},
 	featured_by: {
 		en: 'Featured by',
-		de: 'Featured by',
-		// "es": "", // !
+		de: 'Präsentiert von',
+		es: 'Presentado por', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2713,31 +2761,95 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
+	take_photo: {
+		en: 'Take a picture',
+		de: 'Ein Foto machen',
+		es: 'Tomar una foto',
+		ar: 'التقاط صورة',
+		pt: 'Tirar foto',
+		zh: '拍个照',
+		el: 'Βγάλε μια φωτογραφία',
+		hi: 'एक तस्वीर लें',
+		fr: 'Prendre une photo',
+		// "it": "" // !
+	},
+
+	open_photo_library: {
+		en: 'Open Photo Library',
+		de: 'Fotomediathek öffnen',
+		es: 'Abrir fototeca',
+		ar: 'مكتبة الصور',
+		pt: 'Fototeca',
+		zh: '照片库',
+		el: 'Βιβλιοθήκη φωτογραφιών',
+		hi: 'चित्र पुस्तकालय',
+		fr: 'Galerie de photos',
+		// "it": "" // !
+	},
+
+	image_not_valid: {
+		en: 'Sorry, this image is not valid',
+		de: 'Tut uns leid, dieses Foto kommt nicht in Frage',
+		es: 'Lo sentimos, ésta foto no es válida', // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	location_undefined_app: {
+		en: 'Unfortunately, there is no GPS data embedded in this image. If you remember where you took it, you can upload it on our website (coastwards.org) which allows you to locate the image manually.',
+		de: 'Leider konnten wir den Standort dieses Fotos nicht ermitteln. Wenn Du Dich noch daran erinnerst wo Du dieses Foto gemacht hast, kannst Du es auf unserer Webseite (coastwards.org) hochladen und es dort für uns platzieren.',
+		es: 'Desafortunadamente, no pudimos encontrar la localización de la foto. Si aún te recuerdas del lugar, puedes subirla en la página web (coastwards.org) y localizarla manualmente.', // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	continue: {
+		en: 'Continue',
+		de: 'Fortfahren',
+		es: 'Seguir', // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	localUri_undefined: {
+		en: 'We cannot find the original file for this picture.',
+		de: 'Wir können die Originaldatei für dieses Foto nicht finden.',
+		es: 'No podemos encontrar el archivo original de ésta foto.', // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+	already_uploaded: {
+		en: 'You have already uploaded this picture ;)',
+		de: 'Du hast dieses Foto bereits hochgeladen ;)',
+		es: 'Ya subiste ésta foto ;)', // !
+		// "ar": "", // !
+		// "pt": "", // !
+		// "zh": "", // !
+		// "el": "", // !
+		// "hi": "", // !
+		// "fr": "" // !
+		// "it": "" // !
+	},
+
 	/*
-	"take_photo": {
-		"en": "Take a picture ...",
-		"de": "Mach ein Foto ...",
-		"es": "Tomar foto ...",
-		"ar": "التقاط صورة ...",
-		"pt": "Tirar foto ...",
-		"zh": "拍个照",
-		"el": "Βγάλε μια φωτογραφία ...",
-		"hi": "एक तस्वीर लें ...",
-		"fr": "Prendre une photo ..."
-		// "it": "" // !
-	},
-	"photo_library": {
-		"en": "Photo Library",
-		"de": "Fotomediathek",
-		"es": "Fototeca",
-		"ar": "مكتبة الصور",
-		"pt": "Fototeca",
-		"zh": "照片库",
-		"el": "Βιβλιοθήκη φωτογραφιών",
-		"hi": "चित्र पुस्तकालय",
-		"fr": "Galerie de photos"
-		// "it": "" // !
-	},
+	
 	"permission_denied": {
 		"en": "Permission denied",
 		"de": "Erlaubnis verweigert",

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, Image, Dimensions, ImageBackground } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons'
 
 import I18n from '../i18n/i18n'
 import theme from '../theme'
@@ -34,6 +33,7 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		color: theme.primary,
 		textAlign: 'center',
+		maxWidth: 400,
 	},
 	okidoke: {
 		backgroundColor: theme.primary,

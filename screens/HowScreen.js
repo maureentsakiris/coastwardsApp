@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	video: {
-		// aspectRatio: 1,
 		width,
 		height: width * 0.56,
 		backgroundColor: 'white',

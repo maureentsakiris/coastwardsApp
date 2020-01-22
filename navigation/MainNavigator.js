@@ -10,7 +10,9 @@ import I18n from '../i18n/i18n'
 
 import MapScreen from '../screens/MapScreen'
 import CameraScreen from '../screens/CameraScreen'
-import MaterialScreen from '../screens/MaterialScreen'
+import LibraryScreen from '../screens/LibraryScreen'
+import MaterialLibraryScreen from '../screens/MaterialLibraryScreen'
+import MaterialCameraScreen from '../screens/MaterialCameraScreen'
 import HurrayScreen from '../screens/HurrayScreen'
 import GuidelinesScreen from '../screens/GuidelinesScreen'
 import HowScreen from '../screens/HowScreen'
@@ -51,7 +53,6 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: 'white',
 	},
-
 	items: {
 		marginBottom: 40,
 		flex: 1,
@@ -83,17 +84,23 @@ const styles = StyleSheet.create({
 		},
 		shadowOpacity: 0.23,
 		shadowRadius: 2.62,
-
 		elevation: 4,
 		padding: theme.padding,
-	},
-	social: {
+
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
-	socialIcon: {},
+	social: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'flex-end',
+	},
+	socialIcon: {
+		marginLeft: theme.padding,
+	},
 	version: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -101,11 +108,11 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		borderTopWidth: 1,
 		borderTopColor: 'white',
+		alignSelf: 'flex-start',
 	},
 	madeWith: {
 		fontSize: 14,
 		color: theme.waterMap,
-		marginRight: 10,
 	},
 })
 
@@ -122,8 +129,8 @@ const Drawer = props => {
 				<DrawerItems itemsContainerStyle={styles.items} itemStyle={styles.itemStyle} iconContainerStyle={styles.iconContainerStyle} labelStyle={styles.labelStyle} {...props} />
 			</ScrollView>
 			<View style={styles.bottomDrawer}>
+				<Text style={styles.madeWith}>v{Constants.manifest.version} Made with ❤︎</Text>
 				<View style={styles.social}>
-					<Text style={styles.madeWith}>v{Constants.manifest.version} Made with ❤︎</Text>
 					<Ionicons onPress={() => Linking.openURL('https://www.facebook.com/coastwards/')} style={styles.socialIcon} size={30} name="logo-facebook" color={theme.waterMap} />
 					<Ionicons onPress={() => Linking.openURL('https://twitter.com/gocoastwards')} style={styles.socialIcon} size={30} name="logo-twitter" color={theme.waterMap} />
 				</View>
@@ -247,7 +254,6 @@ const DrawerNavigator = createDrawerNavigator(
 	},
 	{
 		drawerType: 'back',
-		// drawerWidth: 280,
 		drawerBackgroundColor: theme.primary,
 		contentComponent: Drawer,
 		contentOptions: {
@@ -297,8 +303,8 @@ const ContributeStack = createStackNavigator(
 				},
 			}),
 		},
-		Material: {
-			screen: MaterialScreen,
+		MaterialCamera: {
+			screen: MaterialCameraScreen,
 			navigationOptions: () => ({
 				headerStyle: {
 					backgroundColor: 'white',
@@ -320,7 +326,7 @@ const ContributeStack = createStackNavigator(
 				},
 			}),
 		},
-		Hurray: {
+		HurrayCamera: {
 			screen: HurrayScreen,
 
 			navigationOptions: ({ navigation }) => ({
@@ -346,8 +352,101 @@ const ContributeStack = createStackNavigator(
 	{
 		headerBackTitleVisible: false,
 		headerTransitionPreset: 'fade-in-place',
-		// cardShadowEnabled: false,
-		// cardOverlayEnabled: true,
+		headerLayoutPreset: 'center',
+		defaultNavigationOptions: {
+			gesturesEnabled: false,
+		},
+	}
+)
+
+const ContributeLibraryStack = createStackNavigator(
+	{
+		Library: {
+			screen: LibraryScreen,
+			navigationOptions: ({ navigation }) => ({
+				headerStyle: {
+					backgroundColor: 'white',
+					borderBottomWidth: 0,
+					shadowColor: '#000',
+					shadowOffset: {
+						width: 0,
+						height: 1,
+					},
+					shadowOpacity: 0.22,
+					shadowRadius: 2.22,
+					elevation: 3,
+				},
+				headerTintColor: theme.primary,
+				headerLeft: ({ tintColor }) => {
+					return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
+				},
+				headerRight: () => {
+					return (
+						<MaterialIcons
+							onPress={() => {
+								navigation.navigate('Guidelines')
+							}}
+							name="help-outline"
+							size={30}
+							color={theme.primary}
+							style={{ marginRight: 10 }}
+						/>
+					)
+				},
+				headerTitle: () => {
+					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
+				},
+			}),
+		},
+		MaterialLibrary: {
+			screen: MaterialLibraryScreen,
+			navigationOptions: () => ({
+				headerStyle: {
+					backgroundColor: 'white',
+					borderBottomWidth: 0,
+					shadowColor: '#000',
+					shadowOffset: {
+						width: 0,
+						height: 3,
+					},
+					shadowOpacity: 0.29,
+					shadowRadius: 4.65,
+
+					elevation: 7,
+				},
+				headerTintColor: theme.primary,
+				headerTransparent: false,
+				headerTitle: () => {
+					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
+				},
+			}),
+		},
+		HurrayLibrary: {
+			screen: HurrayScreen,
+
+			navigationOptions: ({ navigation }) => ({
+				headerTintColor: theme.primary,
+				headerLeft: null,
+				headerTransparent: true,
+				headerRight: () => {
+					return (
+						<MaterialIcons
+							onPress={() => {
+								navigation.navigate('Map')
+							}}
+							name="close"
+							size={30}
+							color={theme.primary}
+							style={{ marginRight: 10 }}
+						/>
+					)
+				},
+			}),
+		},
+	},
+	{
+		headerBackTitleVisible: false,
+		headerTransitionPreset: 'fade-in-place',
 		headerLayoutPreset: 'center',
 		defaultNavigationOptions: {
 			gesturesEnabled: false,
@@ -363,6 +462,9 @@ const MainNavigator = createStackNavigator(
 		Contribute: {
 			screen: ContributeStack,
 		},
+		ContributeLibrary: {
+			screen: ContributeLibraryStack,
+		},
 		Guidelines: {
 			screen: GuidelinesScreen,
 		},
@@ -370,7 +472,6 @@ const MainNavigator = createStackNavigator(
 	{
 		mode: 'modal',
 		headerMode: 'none',
-		// cardOverlayEnabled: true,
 		defaultNavigationOptions: {
 			gesturesEnabled: false,
 		},
