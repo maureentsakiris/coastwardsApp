@@ -7,10 +7,15 @@ import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-nativ
 
 import { createAppContainer } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons'
+import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 import MainNavigator from './navigation/MainNavigator'
 
 const icon = require('./assets/images/icon.png')
 const anyCoast = require('./assets/guidelines/anycoast.png')
+const closeup = require('./assets/guidelines/closeup.png')
+const nofaces = require('./assets/guidelines/nofaces.png')
+const coastmaterial = require('./assets/guidelines/coastmaterial.png')
+const notonlybeaches = require('./assets/guidelines/notonlybeaches.png')
 const tinyTurtleBlue = require('./assets/images/tinyTurtleBlue.png')
 const turtleWhite = require('./assets/images/turtleWhite.png')
 
@@ -26,7 +31,7 @@ const AppNavigator = createAppContainer(MainNavigator)
 async function loadResourcesAsync() {
 	await Promise.all([
 		// AsyncStorage.clear(),
-		Asset.loadAsync([icon, anyCoast, tinyTurtleBlue, turtleWhite]),
+		Asset.loadAsync([icon, anyCoast, closeup, nofaces, coastmaterial, notonlybeaches, tinyTurtleBlue, turtleWhite]),
 		Font.loadAsync({
 			// This is the font that we are using for our tab bar
 			...Ionicons.font,
@@ -56,10 +61,12 @@ const App = props => {
 	}
 
 	return (
-		<View style={styles.container}>
-			{Platform.OS === 'ios' && <StatusBar barStyle="default" hidden={false} />}
-			<AppNavigator />
-		</View>
+		<ActionSheetProvider>
+			<View style={styles.container}>
+				{Platform.OS === 'ios' && <StatusBar barStyle="default" hidden={false} />}
+				<AppNavigator />
+			</View>
+		</ActionSheetProvider>
 	)
 }
 

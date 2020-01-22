@@ -4,9 +4,11 @@ import { NavigationEvents } from 'react-navigation'
 import WebView from 'react-native-webview'
 import * as WebBrowser from 'expo-web-browser'
 import * as Permissions from 'expo-permissions'
+
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useActionSheet } from '@expo/react-native-action-sheet'
 import I18n from '../i18n/i18n'
 import theme from '../theme'
 
@@ -107,8 +109,11 @@ const styles = StyleSheet.create({
 })
 
 const MapScreen = ({ navigation }) => {
+	const { showActionSheetWithOptions } = useActionSheet()
+
 	const [counter, setCounter] = useState(false)
 	const [refreshing, setRefreshing] = useState(false)
+	const [showingActionSheet, setShowingActionSheet] = useState(false)
 
 	const refreshMap = alertUser => {
 		setRefreshing(true)
@@ -168,6 +173,7 @@ const MapScreen = ({ navigation }) => {
 				})
 		})
 	}
+
 	const checkLocationPermission = () => {
 		return new Promise((resolve, reject) => {
 			const askLocationPermission = async () => {
@@ -197,6 +203,7 @@ const MapScreen = ({ navigation }) => {
 				})
 		})
 	}
+
 	const checkCameraPermission = () => {
 		return new Promise((resolve, reject) => {
 			const askCameraPermission = async () => {
@@ -227,7 +234,7 @@ const MapScreen = ({ navigation }) => {
 		})
 	}
 
-	const checkPermissions = () => {
+	const checkPermissionsTakePhoto = () => {
 		const results = []
 		// Only breacking permissions
 		checkLocationServicesPermission()
@@ -244,14 +251,14 @@ const MapScreen = ({ navigation }) => {
 
 				// const resultsMsg = `Location Services are on: ${results[0]}\nPermission to access location: ${results[1]}\nPermission to use camera: ${results[2]}`
 
-				let resultsMsg = results[0] ? '' : 'Location Services\n'
-				resultsMsg += results[1] === 'granted' ? '' : 'Location\n'
-				resultsMsg += results[2] === 'granted' ? '' : 'Camera\n'
+				let resultsMsg = results[0] ? '' : `❌ ${I18n.t('permission_location_services')}\n`
+				resultsMsg += results[1] === 'granted' ? '' : `❌ ${I18n.t('permission_location')}\n`
+				resultsMsg += results[2] === 'granted' ? '' : `❌ ${I18n.t('permission_camera')}\n`
 
 				if (results.includes(false) || results.includes('denied')) {
 					Alert.alert(
 						I18n.t('permissions_missing_title'),
-						`\n${I18n.t('permissions_missing_msg')}\n\n${resultsMsg}\n`,
+						`\n${I18n.t('permissions_take_photo_missing_msg')}\n\n${resultsMsg}\n`,
 						[
 							{
 								text: I18n.t('ok'),
@@ -273,6 +280,8 @@ const MapScreen = ({ navigation }) => {
 						{ cancelable: false } // Don't allow to cancel by tapping outside
 					)
 				} else {
+					// launchCamera()
+
 					navigation.navigate('Contribute')
 				}
 				return true
@@ -280,6 +289,97 @@ const MapScreen = ({ navigation }) => {
 			.catch(error => {
 				alert(error)
 			})
+	}
+
+	const checkCameraRollPermission = () => {
+		return new Promise((resolve, reject) => {
+			const askCameraRollPermission = async () => {
+				const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+				return status
+			}
+
+			askCameraRollPermission()
+				.then(status => {
+					switch (status) {
+						case 'granted':
+							resolve(status)
+							break
+						case 'denied':
+							resolve(status)
+							break
+						case 'undetermined':
+							resolve(status)
+							break
+						default:
+							reject(status)
+							break
+					}
+				})
+				.catch(error => {
+					reject(error)
+				})
+		})
+	}
+
+	const checkPermissionsPhotoLibrary = () => {
+		checkCameraRollPermission()
+			.then(result => {
+				if (result === 'granted') {
+					navigation.navigate('ContributeLibrary')
+				} else {
+					const resultsMsg = `❌ ${I18n.t('permission_camera_roll')}\n`
+
+					Alert.alert(
+						I18n.t('permissions_missing_title'),
+						`\n${I18n.t('permissions_photo_library_missing_msg')}\n\n${resultsMsg}\n`,
+						[
+							{
+								text: I18n.t('ok'),
+								style: 'cancel',
+							},
+							{
+								text: I18n.t('open_settings'),
+								onPress: () => {
+									if (Platform.OS === 'ios') {
+										Linking.openURL('app-settings:')
+									} else {
+										// IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS)
+										IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_SETTINGS)
+									}
+								},
+								style: 'cancel',
+							},
+						],
+						{ cancelable: false } // Don't allow to cancel by tapping outside
+					)
+				}
+
+				return true
+			})
+			.catch(error => {
+				alert(error)
+			})
+	}
+
+	const showActionSheet = () => {
+		setShowingActionSheet(true)
+
+		const options = {
+			options: [I18n.t('take_photo'), I18n.t('open_photo_library'), I18n.t('cancel')],
+			cancelButtonIndex: 2,
+			tintColor: theme.primary,
+		}
+
+		showActionSheetWithOptions(options, index => {
+			setShowingActionSheet(false)
+			if (index === 0) {
+				// CAMERA
+				checkPermissionsTakePhoto()
+			} else if (index === 1) {
+				// PHOTO LIBRARY
+				checkPermissionsPhotoLibrary()
+			}
+		})
 	}
 
 	return (
@@ -329,13 +429,13 @@ const MapScreen = ({ navigation }) => {
 						<Text style={styles.counter}>{counter}</Text>
 					</TouchableOpacity>
 				)}
-				<TouchableOpacity style={styles.uploadButton}>
+				<TouchableOpacity style={styles.uploadButton} disabled={showingActionSheet}>
 					<MaterialIcons
 						name="add-a-photo"
 						size={30}
 						color="white"
 						onPress={() => {
-							checkPermissions()
+							showActionSheet()
 						}}
 					/>
 				</TouchableOpacity>

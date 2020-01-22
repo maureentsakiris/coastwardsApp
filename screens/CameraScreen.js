@@ -4,6 +4,8 @@ import { Camera } from 'expo-camera'
 import * as Location from 'expo-location'
 import * as FaceDetector from 'expo-face-detector'
 import * as ImageManipulator from 'expo-image-manipulator'
+// import { ScreenOrientation } from 'expo'
+
 import { MaterialIcons } from '@expo/vector-icons'
 
 import I18n from '../i18n/i18n'
@@ -32,7 +34,6 @@ const styles = StyleSheet.create({
 		alignItems: 'flex-start',
 		backgroundColor: 'white',
 	},
-
 	takePicBtnContainer: {
 		flex: 1,
 		width,
@@ -42,7 +43,6 @@ const styles = StyleSheet.create({
 	},
 	takePicBtn: {
 		backgroundColor: theme.primary,
-
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: 80,
@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
 		},
 		shadowOpacity: 0.25,
 		shadowRadius: 3.84,
-
 		elevation: 5,
 	},
 	validating: {
@@ -156,10 +155,7 @@ const CameraScreen = ({ navigation }) => {
 	// const [pictureSize, setPictureSize] = useState(null)
 	const [validating, setValidating] = useState(false)
 	const [validatingMsg, setValidatingMsg] = useState(false)
-
-	const [picture, setPicture] = useState(null)
-	const [pictureResized, setPictureResized] = useState(null)
-	const [location, setLocation] = useState(null)
+	// const [currentOrientation, setCurrentOrientation] = useState(null)
 
 	const isSafe = useRef(true)
 
@@ -174,13 +170,25 @@ const CameraScreen = ({ navigation }) => {
 		}
 	}, [])
 
+	// useEffect(() => {
+	// 	const handleOrientationChange = listener => {
+	// 		const { orientation } = listener
+	// 		alert(JSON.stringify(listener))
+	// 		setCurrentOrientation(orientation)
+	// 	}
+
+	// 	const subscription = ScreenOrientation.addOrientationChangeListener(handleOrientationChange)
+
+	// 	// Specify how to clean up after this effect:
+	// 	return function cleanup() {
+	// 		ScreenOrientation.removeOrientationChangeListeners(subscription)
+	// 	}
+	// }, [])
+
 	const resetContribute = () => {
 		if (isSafe.current) {
 			setValidating(false)
 			setValidatingMsg(false)
-			setPicture(null)
-			setPictureResized(null)
-			setLocation(null)
 		}
 	}
 
@@ -209,11 +217,6 @@ const CameraScreen = ({ navigation }) => {
 		const pictureOptions = {
 			exif: true,
 			quality: 1,
-			// base64: true,
-			// skipProcessing: true,
-			// onPictureSaved: () => {
-
-			// },
 		}
 
 		if (isSafe.current) {
@@ -227,72 +230,75 @@ const CameraScreen = ({ navigation }) => {
 			.takePictureAsync(pictureOptions)
 			.then(pic => {
 				if (isSafe.current) {
-					setPicture(pic)
+					const { exif } = pic
+					params.exif = exif
+					return pic
 				}
-				params.picture = pic
-				return pic
 			})
 			.then(pic => {
 				if (isSafe.current) {
 					setValidatingMsg(I18n.t('processing_picture'))
+					return ImageManipulator.manipulateAsync(pic.uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPG, base64: false })
 				}
-				return ImageManipulator.manipulateAsync(pic.uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPG, base64: true })
 			})
 			.then(picResized => {
-				params.pictureResized = picResized
-				return picResized
+				if (isSafe.current) {
+					const { uri } = picResized
+					params.uri = uri
+					return picResized
+				}
 			})
 			.then(picResized => {
 				if (isSafe.current) {
 					setValidatingMsg(I18n.t('checking_for_faces'))
+					return checkForFaces(picResized)
 				}
-				return checkForFaces(picResized)
 			})
 
 			.then(() => {
 				if (isSafe.current) {
 					setValidatingMsg(I18n.t('getting_location'))
+					return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
 				}
-				// return true
-				return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
 			})
 			.then(loc => {
-				params.location = loc
 				if (isSafe.current) {
-					setLocation(loc)
+					const { coords } = loc
+					params.location = coords
+					// setLocation(loc)
 					setValidating(false)
 					setValidatingMsg(false)
 
-					navigation.navigate({ routeName: 'Material', params })
+					navigation.navigate({ routeName: 'MaterialCamera', params })
 				}
 			})
 			.catch(error => {
-				const translatedErrorMessages = ['faces_detected']
-				const msg = translatedErrorMessages.includes(error.message) ? I18n.t(error.message) : error.message
 				if (isSafe.current) {
+					const translatedErrorMessages = ['faces_detected']
+					const msg = translatedErrorMessages.includes(error.message) ? I18n.t(error.message) : error.message
 					setValidating(false)
-				}
-				Alert.alert(
-					I18n.t('oops'),
-					msg,
-					[
-						{
-							text: I18n.t('try_again'),
-							style: 'cancel',
-							onPress: () => {
-								resetContribute()
+					Alert.alert(
+						I18n.t('oops'),
+						msg,
+						[
+							{
+								text: I18n.t('try_again'),
+								style: 'cancel',
+								onPress: () => {
+									resetContribute()
+								},
 							},
-						},
-						{
-							text: I18n.t('cancel'),
-							onPress: () => {
-								navigation.navigate('Main')
+							{
+								text: I18n.t('cancel'),
+								onPress: () => {
+									navigation.navigate('Main')
+								},
 							},
-						},
-					],
+						],
 
-					{ cancelable: false } // Don't allow to cancel by tapping outside
-				)
+						{ cancelable: false } // Don't allow to cancel by tapping outside
+					)
+				}
 			})
 
 		// const asset = await MediaLibrary.createAssetAsync(uri)
@@ -303,18 +309,20 @@ const CameraScreen = ({ navigation }) => {
 			cameraRef
 				.getSupportedRatiosAsync()
 				.then(value => {
-					if (value.includes(RATIO)) {
-						if (isSafe.current) {
-							setRatio(RATIO)
-							setCameraReady(true)
-						}
-						return RATIO
-					}
 					if (isSafe.current) {
+						if (value.includes(RATIO)) {
+							if (isSafe.current) {
+								setRatio(RATIO)
+								setCameraReady(true)
+							}
+							return RATIO
+						}
+
 						setRatio('4:3')
 						setCameraReady(true)
+
+						return '4:3'
 					}
-					return '4:3'
 				})
 				/*
 				.then(availableRatio => {
@@ -328,22 +336,24 @@ const CameraScreen = ({ navigation }) => {
 				})
 				*/
 				.catch(error => {
-					Alert.alert(
-						I18n.t('something_went_wrong'),
-						error.message,
-						[
-							{
-								text: I18n.t('cancel'),
-								style: 'cancel',
-								onPress: () => {
-									navigation.navigate('Main')
+					if (isSafe.current) {
+						Alert.alert(
+							I18n.t('something_went_wrong'),
+							error.message,
+							[
+								{
+									text: I18n.t('cancel'),
+									style: 'cancel',
+									onPress: () => {
+										navigation.navigate('Main')
+									},
 								},
-							},
-						],
-						{ cancelable: false } // Don't allow to cancel by tapping outside
-					)
+							],
+							{ cancelable: false } // Don't allow to cancel by tapping outside
+						)
 
-					resetContribute()
+						resetContribute()
+					}
 				})
 		} else {
 			if (isSafe.current) {
@@ -363,20 +373,6 @@ const CameraScreen = ({ navigation }) => {
 				})
 				*/
 		}
-	}
-
-	const choosePic = () => {
-		Alert.alert(
-			'Choose from library',
-			'Sorry, this feature is not ready yet. Please come back in a few days, we hope to have it ready by then!',
-			[
-				{
-					text: I18n.t('ok'),
-					style: 'cancel',
-				},
-			],
-			{ cancelable: false } // Don't allow to cancel by tapping outside
-		)
 	}
 
 	return (
@@ -412,13 +408,9 @@ const CameraScreen = ({ navigation }) => {
 					autoFocus="on"
 				/>
 				<View style={styles.takePicBtnContainer}>
-					<TouchableOpacity>
-						<MaterialIcons onPress={choosePic} name="photo-library" size={40} color={theme.primary} />
-					</TouchableOpacity>
 					<TouchableOpacity style={{ ...styles.takePicBtn, display: cameraReady ? 'flex' : 'none' }}>
 						<MaterialIcons onPress={takePic} name="photo-camera" size={40} color="white" />
 					</TouchableOpacity>
-					<MaterialIcons name="photo-library" size={40} color="white" />
 				</View>
 			</View>
 

@@ -8,6 +8,8 @@ const theme = {
 	safePadding: Constants.statusBarHeight + 5,
 	comfiPadding: 70,
 	padding: 15,
+
+	columnsLibrary: 3,
 }
 
 export default theme

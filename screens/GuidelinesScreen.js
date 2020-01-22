@@ -80,10 +80,10 @@ const GuidelinesScreen = ({ navigation }) => {
 	const gotIt = () => {
 		AsyncStorage.setItem('GOTIT', String(isChecked))
 			.then(() => {
-				navigation.navigate('Contribute')
+				navigation.goBack()
 			})
 			.catch(error => {
-				Alert.alert(error)
+				alert(error)
 			})
 	}
 

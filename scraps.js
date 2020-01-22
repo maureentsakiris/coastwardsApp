@@ -1,3 +1,535 @@
+{
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+        "start": "expo start",
+        "android": "expo start --android",
+        "ios": "expo start --ios",
+        "web": "expo start --web",
+        "eject": "expo eject",
+        "test": "jest --watchAll"
+    },
+    "jest": {
+        "preset": "jest-expo"
+    },
+    "dependencies": {
+        "@expo/react-native-action-sheet": "^3.4.1",
+        "@expo/samples": "~3.0.3",
+        "@expo/vector-icons": "^10.0.0",
+        "@react-native-community/netinfo": "4.6.0",
+        "@react-navigation/web": "^1.0.0-alpha.9",
+        "expo": "^36.0.0",
+        "expo-asset": "~8.0.0",
+        "expo-av": "~8.0.0",
+        "expo-blur": "~8.0.0",
+        "expo-camera": "~8.0.0",
+        "expo-constants": "~8.0.0",
+        "expo-face-detector": "~8.0.0",
+        "expo-font": "~8.0.0",
+        "expo-image-manipulator": "~8.0.0",
+        "expo-image-picker": "~8.0.1",
+        "expo-intent-launcher": "~8.0.0",
+        "expo-localization": "~8.0.0",
+        "expo-location": "~8.0.0",
+        "expo-media-library": "~8.0.0",
+        "expo-permissions": "~8.0.0",
+        "expo-web-browser": "~8.0.0",
+        "i18n-js": "^3.5.0",
+        "prop-types": "^15.7.2",
+        "react": "16.9.0",
+        "react-dom": "16.9.0",
+        "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz",
+        "react-native-gesture-handler": "~1.5.0",
+        "react-native-reanimated": "~1.4.0",
+        "react-native-safe-area-context": "0.6.0",
+        "react-native-screens": "2.0.0-alpha.12",
+        "react-native-swiper": "nightly",
+        "react-native-web": "^0.11.7",
+        "react-native-webview": "7.4.3",
+        "react-navigation": "^4.0.10",
+        "react-navigation-animated-switch": "^0.4.0",
+        "react-navigation-backhandler": "^1.3.2",
+        "react-navigation-drawer": "^2.3.3",
+        "react-navigation-stack": "^1.10.3",
+        "react-navigation-tabs": "^2.6.0",
+        "uuid": "^3.3.3",
+        "expo-sensors": "~8.0.0"
+    },
+    "devDependencies": {
+        "babel-preset-expo": "^8.0.0",
+        "eslint-plugin-prettier": "^3.1.0",
+        "jest-expo": "^36.0.0",
+        "babel-eslint": "^10.0.2",
+        "eslint": "^6.1.0",
+        "eslint-config-airbnb": "^17.1.1",
+        "eslint-config-prettier": "^6.0.0",
+        "eslint-plugin-babel": "^5.3.0",
+        "eslint-plugin-import": "^2.18.2",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-react": "^7.14.3",
+        "eslint-plugin-react-hooks": "^1.6.1",
+        "prettier": "1.18.2"
+    },
+    "private": true
+}
+
+
+selectMe = () => {
+    const { asset, onSelect } = this.props
+    const { selected, fetched, assetLocation, assetExif } = this.state
+
+    if (!fetched) {
+      this.setState({ fetching: true })
+      MediaLibrary.getAssetInfoAsync(asset)
+
+        .then(result => {
+          this.setState({ fetched: true })
+
+          const { location, exif } = result
+          if (!location) {
+            this.setState({ blocked: true })
+          } else {
+            this.setState({ selected: !selected, assetLocation: location, assetExif: exif })
+            onSelect({ asset, location, exif })
+          }
+          this.setState({ fetching: false })
+        })
+        .catch(error => {
+          alert(error)
+        })
+    } else {
+      this.setState({ selected: !selected })
+      onSelect({ asset, assetLocation, assetExif })
+    }
+  }
+
+
+
+  // const getAssetInfo = asset => {
+  //  return new Promise((resolve, reject) => {
+  //    const { id } = asset
+
+  //    const newSelected = new Map(selected)
+  //    newSelected.set(id, 'fetching')
+  //    // setSelected(newSelected)
+
+  //    MediaLibrary.getAssetInfoAsync(asset)
+  //      .then(result => {
+  //        const { location, exif } = result
+  //        if (location) {
+  //          resolve(result)
+  //        } else {
+  //          resolve(false)
+  //        }
+  //      })
+  //      .catch(error => {
+  //        reject(error)
+  //      })
+  //  })
+  // }
+
+  // const onSelect = useCallback(asset => {
+  //  const { id } = asset
+  //  const newSelected = new Map(selected)
+  //  const info = newSelected.get(id)
+
+  //  if (!info) {
+  //    // newSelected.set(id, 'fetching')
+  //    getAssetInfo(asset)
+  //      .then(assetInfo => {
+  //        if (assetInfo) {
+  //          const { uri, exif, location } = assetInfo
+  //          // newSelected.clear() // <--- Remove when implementing multiple selects
+  //          newSelected.set(id, { status: 'selected', id, uri, exif, location })
+  //        } else {
+  //          newSelected.set(id, 'blocked')
+  //        }
+
+  //        // setSelected(newSelected)
+  //      })
+  //      .catch(error => alert(error))
+  //  } else {
+  //    const { status } = info
+  //    if (status === 'selected') {
+  //      newSelected.set(id, { status: 'deselected' })
+  //    } else {
+  //      const { uri, exif, location } = info
+  //      newSelected.set(id, { status: 'selected', id, uri, exif, location })
+  //    }
+  //    // setSelected(newSelected)
+  //  }
+  // })
+
+
+
+
+
+
+
+
+
+
+
+const { width } = Dimensions.get('window')
+const THIRD = width / 4 - 4
+
+const styles = StyleSheet.create({
+  view: {
+    backgroundColor: 'white',
+    borderWidth: 2,
+    borderColor: 'white',
+  },
+  image: {
+    width: THIRD,
+    height: THIRD,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  block: {
+    opacity: 0.05,
+  },
+  activityView: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    flex: 1,
+    width: THIRD,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkView: {
+    backgroundColor: 'white',
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 50,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+  },
+  check: {
+    opacity: 1,
+  },
+})
+
+const Asset = ({ asset, onSelect }) => {
+  const { uri, id } = asset
+  const [showAssetAlert, setShowAssetAlert] = useState(true)
+  const [selected, setSelected] = useState(false)
+
+  const isSafe = useRef(true)
+
+  // setting states after asynchronous calls was causing memory leak. calls cannot be wrapped into an effect because they are not called onMount but when user clicks btn
+  // https://jeffchheng.github.io/brains-base/2019-08-02-usestatesafely/?utm_campaign=Week%20of%20React&utm_medium=email&utm_source=Revue%20newsletter
+  useEffect(() => {
+    // Future proofing for double-invoking
+    // effects in Strict Mode.
+    isSafe.current = true
+    return () => {
+      isSafe.current = false
+    }
+  }, [])
+
+  const [fetching, setFetching] = useState(null)
+  const [valid, setValid] = useState(null)
+  const [fetched, setFetched] = useState(false)
+
+  const selectMe = () => {
+    if (!fetched) {
+      setFetching(true)
+      // alert(JSON.stringify(asset))
+      MediaLibrary.getAssetInfoAsync(asset)
+
+        .then(result => {
+          const { location } = result
+
+          if (isSafe.current) {
+            setFetching(false)
+            setFetched(true)
+
+            if (location) {
+              setValid(true)
+              setSelected(true)
+              onSelect(id)
+            } else {
+              setValid(false)
+
+              if (showAssetAlert) {
+                Alert.alert(
+                  I18n.t('image_not_valid'),
+                  I18n.t('location_undefined_app'),
+                  [
+                    {
+                      text: I18n.t('ok'),
+                      style: 'cancel',
+                    },
+                  ],
+                  { cancelable: false } // Don't allow to cancel by tapping outside
+                )
+              }
+            }
+          }
+        })
+        .catch(error => {
+          alert(error)
+        })
+    } else if (valid) {
+      onSelect(id)
+      setSelected(!selected)
+    }
+  }
+
+  return (
+    <TouchableOpacity
+      style={styles.view}
+      onPress={() => {
+        selectMe()
+      }}
+      activeOpacity={1}
+      disabled={fetching}
+    >
+      <ImageBackground source={{ uri }} style={styles.image} imageStyle={{ opacity: !valid && fetched ? 0.1 : 1 }}>
+        {fetching && (
+          <View style={styles.activityView} pointerEvents="none">
+            <ActivityIndicator style={styles.activity} size="large" color="white" />
+          </View>
+        )}
+        {valid === false && <MaterialIcons name="block" size={40} color="black" style={styles.block} />}
+        {selected && (
+          <View style={styles.checkView} pointerEvents="none">
+            <MaterialIcons name="check-circle" size={40} color={theme.primary} style={styles.check} />
+          </View>
+        )}
+      </ImageBackground>
+    </TouchableOpacity>
+  )
+}
+
+Asset.defaultProps = {
+  selected: false,
+}
+
+Asset.propTypes = {
+  asset: PropTypes.object.isRequired,
+  onSelect: PropTypes.func.isRequired,
+}
+
+export default Asset
+
+
+
+<Asset asset={item} onSelect={onSelect} selected={isSelected} />
+
+
+<ScrollView style={styles.safeAreaView} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} persistentScrollbar inverted />}>
+        <View style={styles.thumbs}>{thumbs}</View>
+      </ScrollView>
+
+const thumbs = assetsToShow.map(asset => {
+    const { id } = asset
+    return <Asset key={id} asset={asset} />
+  })
+
+
+MediaLibrary.getAssetInfoAsync(asset)
+      .then(result => {
+        alert(JSON.stringify(result))
+      })
+      .catch(error => {
+        alert(error)
+      })
+
+
+
+const openImagePicker = () => {
+    const options = {}
+
+    ImagePicker.launchImageLibraryAsync(options)
+      .then(result => {
+        alert(JSON.stringify(result))
+        return result
+      })
+      .catch(error => {
+        alert(error)
+      })
+  }
+
+  const checkLocationServicesPermission = () => {
+    return new Promise((resolve, reject) => {
+      Location.hasServicesEnabledAsync()
+        .then(status => {
+          switch (status) {
+            case true:
+              resolve(status)
+              break
+            case false:
+              resolve(status)
+              break
+            default:
+              reject(status)
+              break
+          }
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  }
+  const checkLocationPermission = () => {
+    return new Promise((resolve, reject) => {
+      const askLocationPermission = async () => {
+        const { status } = await Permissions.askAsync(Permissions.LOCATION)
+        return status
+      }
+
+      askLocationPermission()
+        .then(status => {
+          switch (status) {
+            case 'granted':
+              resolve(status)
+              break
+            case 'denied':
+              resolve(status)
+              break
+            case 'undetermined':
+              resolve(status)
+              break
+            default:
+              reject(status)
+              break
+          }
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  }
+  const checkCameraPermission = () => {
+    return new Promise((resolve, reject) => {
+      const askCameraPermission = async () => {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA)
+        return status
+      }
+
+      askCameraPermission()
+        .then(status => {
+          switch (status) {
+            case 'granted':
+              resolve(status)
+              break
+            case 'denied':
+              resolve(status)
+              break
+            case 'undetermined':
+              resolve(status)
+              break
+            default:
+              reject(status)
+              break
+          }
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  }
+
+  const checkPermissionsCamera = () => {
+    const results = []
+    // Only breacking permissions
+    checkLocationServicesPermission()
+      .then(val => {
+        results[0] = val
+        return checkLocationPermission()
+      })
+      .then(val => {
+        results[1] = val
+        return checkCameraPermission()
+      })
+      .then(val => {
+        results[2] = val
+
+        // const resultsMsg = `Location Services are on: ${results[0]}\nPermission to access location: ${results[1]}\nPermission to use camera: ${results[2]}`
+
+        let resultsMsg = results[0] ? '' : 'Location Services\n'
+        resultsMsg += results[1] === 'granted' ? '' : 'Location\n'
+        resultsMsg += results[2] === 'granted' ? '' : 'Camera\n'
+
+        if (results.includes(false) || results.includes('denied')) {
+          Alert.alert(
+            I18n.t('permissions_missing_title'),
+            `\n${I18n.t('permissions_missing_msg')}\n\n${resultsMsg}\n`,
+            [
+              {
+                text: I18n.t('ok'),
+                style: 'cancel',
+              },
+              {
+                text: I18n.t('open_settings'),
+                onPress: () => {
+                  if (Platform.OS === 'ios') {
+                    Linking.openURL('app-settings:')
+                  } else {
+                    // IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_SETTINGS)
+                  }
+                },
+                style: 'cancel',
+              },
+            ],
+            { cancelable: false } // Don't allow to cancel by tapping outside
+          )
+        } else {
+          alert('Permissions in order: get location, take picture and proceed to contribute screen')
+          // navigation.navigate('Contribute')
+        }
+        return true
+      })
+      .catch(error => {
+        alert(error)
+      })
+  }
+
+  const checkPermissionsPhotoLibrary = () => {
+    ImagePicker.getCameraRollPermissionsAsync()
+      .then(result => {
+        const { status, canAskAgain, expires, granted } = result
+        switch (status) {
+          case 'granted':
+            alert('granted: move on')
+            break
+          case 'denied':
+            alert('denied: ask again')
+            break
+          case 'undetermined':
+            alert('undetermined: ask')
+            break
+          default:
+            alert('default: ask')
+            break
+        }
+      })
+      .catch(error => {
+        alert(error)
+      })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <Ionicons onPress={() => Linking.openURL('https://www.facebook.com/coastwards/')} style={styles.socialIcon} size={30} name="logo-instagram" color={theme.waterMap} />
 
 

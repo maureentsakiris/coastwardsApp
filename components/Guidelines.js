@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
 	},
 	slideText: {
 		textAlign: 'center',
+		maxWidth: 400,
 	},
 })
 

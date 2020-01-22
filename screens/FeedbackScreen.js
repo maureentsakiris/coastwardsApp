@@ -37,8 +37,6 @@ const styles = StyleSheet.create({
 	},
 })
 
-// <Text style={styles.header}>{I18n.t('any_picture_title')}</Text>
-
 const FeedbackScreen = () => {
 	return (
 		<View style={styles.safeAreaView}>
