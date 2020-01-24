@@ -5,7 +5,7 @@
 		"privacy": "public",
 		"sdkVersion": "36.0.0",
 		"platforms": ["ios", "android", "web"],
-		"version": "2.1.0",
+		"version": "2.1.1",
 		"orientation": "portrait",
 		"primaryColor": "#0076b7",
 		"icon": "./assets/images/icon.png",
@@ -31,7 +31,7 @@
 		"description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
 		"android": {
 			"package": "org.coastwards.app",
-			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA", "READ_EXTERNAL_STORAGE"],
+			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA", "CAMERA_ROLL"],
 			"googleServicesFile": "./google-services.json",
 			"versionCode": 3
 		}
