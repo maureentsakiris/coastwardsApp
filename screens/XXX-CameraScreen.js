@@ -145,7 +145,7 @@ const CameraScreen = ({ navigation }) => {
 				return val
 			})
 			.catch(error => {
-				Alert.alert(error)
+				alert(error)
 			})
 	}, [])
 

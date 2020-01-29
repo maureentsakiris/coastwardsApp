@@ -3,7 +3,7 @@ import { Asset } from 'expo-asset'
 import * as Font from 'expo-font'
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native'
+import { Platform, StatusBar, StyleSheet, View } from 'react-native'
 
 import { createAppContainer } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons'
@@ -17,7 +17,7 @@ const nofaces = require('./assets/guidelines/nofaces.png')
 const coastmaterial = require('./assets/guidelines/coastmaterial.png')
 const notonlybeaches = require('./assets/guidelines/notonlybeaches.png')
 const tinyTurtleBlue = require('./assets/images/tinyTurtleBlue.png')
-const turtleWhite = require('./assets/images/turtleWhite.png')
+const logoWhite = require('./assets/images/logoWhite.png')
 
 const styles = StyleSheet.create({
 	container: {
@@ -31,7 +31,7 @@ const AppNavigator = createAppContainer(MainNavigator)
 async function loadResourcesAsync() {
 	await Promise.all([
 		// AsyncStorage.clear(),
-		Asset.loadAsync([icon, anyCoast, closeup, nofaces, coastmaterial, notonlybeaches, tinyTurtleBlue, turtleWhite]),
+		Asset.loadAsync([icon, anyCoast, closeup, nofaces, coastmaterial, notonlybeaches, tinyTurtleBlue, logoWhite]),
 		Font.loadAsync({
 			// This is the font that we are using for our tab bar
 			...Ionicons.font,

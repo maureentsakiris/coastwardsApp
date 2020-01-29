@@ -9,21 +9,23 @@ import { Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons'
 import I18n from '../i18n/i18n'
 
 import MapScreen from '../screens/MapScreen'
-import CameraScreen from '../screens/CameraScreen'
-import LibraryScreen from '../screens/LibraryScreen'
-import MaterialLibraryScreen from '../screens/MaterialLibraryScreen'
-import MaterialCameraScreen from '../screens/MaterialCameraScreen'
+// import CameraScreen from '../screens/CameraScreen'
+// import ImagePickerScreen from '../screens/ImagePickerScreen'
+// import MediaLibraryScreen from '../screens/MediaLibraryScreen'
+// import MaterialLibraryScreen from '../screens/MaterialLibraryScreen'
+// import MaterialCameraScreen from '../screens/MaterialCameraScreen'
+import UploadScreen from '../screens/UploadScreen'
 import HurrayScreen from '../screens/HurrayScreen'
-import GuidelinesScreen from '../screens/GuidelinesScreen'
+import GuidelinesModalScreen from '../screens/GuidelinesModalScreen'
 import HowScreen from '../screens/HowScreen'
 import TeamScreen from '../screens/TeamScreen'
-import GuidelinesGalleryScreen from '../screens/GuidelinesGalleryScreen'
+import GuidelinesScreen from '../screens/GuidelinesScreen'
 import FeedbackScreen from '../screens/FeedbackScreen'
 import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen'
 
 import theme from '../theme'
 
-const turtleWhite = require('../assets/images/turtleWhite.png')
+const logoWhite = require('../assets/images/logoWhite.png')
 const tinyTurtleBlue = require('../assets/images/tinyTurtleBlue.png')
 
 const styles = StyleSheet.create({
@@ -121,7 +123,7 @@ const Drawer = props => {
 		<View style={styles.view}>
 			<ScrollView style={styles.scrollView}>
 				<View style={styles.logoView}>
-					<Image source={turtleWhite} style={styles.logoImage} />
+					<Image source={logoWhite} style={styles.logoImage} />
 					<Text style={styles.headerTxt}>
 						{I18n.t('help_science')} {I18n.t('by')}
 					</Text>
@@ -178,7 +180,7 @@ const TeamStack = createStackNavigator(
 )
 const GuidelinesStack = createStackNavigator(
 	{
-		Guidelines2: GuidelinesGalleryScreen,
+		Guidelines: GuidelinesScreen,
 	},
 	config
 )
@@ -215,7 +217,7 @@ const DrawerNavigator = createDrawerNavigator(
 				},
 			},
 		},
-		Guidelines2: {
+		Guidelines: {
 			screen: GuidelinesStack,
 			navigationOptions: {
 				drawerLabel: I18n.t('any_picture_title'),
@@ -264,48 +266,238 @@ const DrawerNavigator = createDrawerNavigator(
 	}
 )
 
-const ContributeStack = createStackNavigator(
+// const ContributeStack = createStackNavigator(
+// 	{
+// 		Camera: {
+// 			screen: CameraScreen,
+// 			navigationOptions: ({ navigation }) => ({
+// 				headerStyle: {
+// 					backgroundColor: 'white',
+// 					borderBottomWidth: 0,
+// 					shadowColor: '#000',
+// 					shadowOffset: {
+// 						width: 0,
+// 						height: 1,
+// 					},
+// 					shadowOpacity: 0.22,
+// 					shadowRadius: 2.22,
+// 					elevation: 3,
+// 				},
+// 				headerTintColor: theme.primary,
+// 				headerLeft: ({ tintColor }) => {
+// 					return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
+// 				},
+// 				headerRight: () => {
+// 					return (
+// 						<MaterialIcons
+// 							onPress={() => {
+// 								navigation.navigate('Guidelines')
+// 							}}
+// 							name="help-outline"
+// 							size={30}
+// 							color={theme.primary}
+// 							style={{ marginRight: 10 }}
+// 						/>
+// 					)
+// 				},
+// 				headerTitle: () => {
+// 					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
+// 				},
+// 			}),
+// 		},
+// 		MaterialCamera: {
+// 			screen: MaterialCameraScreen,
+// 			navigationOptions: () => ({
+// 				headerStyle: {
+// 					backgroundColor: 'white',
+// 					borderBottomWidth: 0,
+// 					shadowColor: '#000',
+// 					shadowOffset: {
+// 						width: 0,
+// 						height: 3,
+// 					},
+// 					shadowOpacity: 0.29,
+// 					shadowRadius: 4.65,
+
+// 					elevation: 7,
+// 				},
+// 				headerTintColor: theme.primary,
+// 				headerTransparent: false,
+// 				headerTitle: () => {
+// 					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
+// 				},
+// 			}),
+// 		},
+// 		HurrayCamera: {
+// 			screen: HurrayScreen,
+
+// 			navigationOptions: ({ navigation }) => ({
+// 				headerTintColor: theme.primary,
+// 				headerLeft: null,
+// 				headerTransparent: true,
+// 				headerRight: () => {
+// 					return (
+// 						<MaterialIcons
+// 							onPress={() => {
+// 								navigation.navigate('Map')
+// 							}}
+// 							name="close"
+// 							size={30}
+// 							color={theme.primary}
+// 							style={{ marginRight: 10 }}
+// 						/>
+// 					)
+// 				},
+// 			}),
+// 		},
+// 	},
+// 	{
+// 		headerBackTitleVisible: false,
+// 		headerTransitionPreset: 'fade-in-place',
+// 		headerLayoutPreset: 'center',
+// 		defaultNavigationOptions: {
+// 			gesturesEnabled: false,
+// 		},
+// 	}
+// )
+
+// const ContributeLibraryStack = createStackNavigator(
+// 	{
+// 		ImagePicker: {
+// 			screen: ImagePickerScreen,
+// 			navigationOptions: ({ navigation }) => ({
+// 				headerStyle: {
+// 					backgroundColor: 'white',
+// 					borderBottomWidth: 0,
+// 					shadowColor: '#000',
+// 					shadowOffset: {
+// 						width: 0,
+// 						height: 1,
+// 					},
+// 					shadowOpacity: 0.22,
+// 					shadowRadius: 2.22,
+// 					elevation: 3,
+// 				},
+// 				headerTintColor: theme.primary,
+// 				headerLeft: ({ tintColor }) => {
+// 					return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
+// 				},
+// 				headerRight: () => {
+// 					return (
+// 						<MaterialIcons
+// 							onPress={() => {
+// 								navigation.navigate('Guidelines')
+// 							}}
+// 							name="help-outline"
+// 							size={30}
+// 							color={theme.primary}
+// 							style={{ marginRight: 10 }}
+// 						/>
+// 					)
+// 				},
+// 				headerTitle: () => {
+// 					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
+// 				},
+// 			}),
+// 		},
+// 		MediaLibrary: {
+// 			screen: MediaLibraryScreen,
+// 			navigationOptions: ({ navigation }) => ({
+// 				headerStyle: {
+// 					backgroundColor: 'white',
+// 					borderBottomWidth: 0,
+// 					shadowColor: '#000',
+// 					shadowOffset: {
+// 						width: 0,
+// 						height: 1,
+// 					},
+// 					shadowOpacity: 0.22,
+// 					shadowRadius: 2.22,
+// 					elevation: 3,
+// 				},
+// 				headerTintColor: theme.primary,
+// 				headerLeft: ({ tintColor }) => {
+// 					return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
+// 				},
+// 				headerRight: () => {
+// 					return (
+// 						<MaterialIcons
+// 							onPress={() => {
+// 								navigation.navigate('Guidelines')
+// 							}}
+// 							name="help-outline"
+// 							size={30}
+// 							color={theme.primary}
+// 							style={{ marginRight: 10 }}
+// 						/>
+// 					)
+// 				},
+// 				headerTitle: () => {
+// 					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
+// 				},
+// 			}),
+// 		},
+// 		MaterialLibrary: {
+// 			screen: MaterialLibraryScreen,
+// 			navigationOptions: () => ({
+// 				headerStyle: {
+// 					backgroundColor: 'white',
+// 					borderBottomWidth: 0,
+// 					shadowColor: '#000',
+// 					shadowOffset: {
+// 						width: 0,
+// 						height: 3,
+// 					},
+// 					shadowOpacity: 0.29,
+// 					shadowRadius: 4.65,
+
+// 					elevation: 7,
+// 				},
+// 				headerTintColor: theme.primary,
+// 				headerTransparent: false,
+// 				headerTitle: () => {
+// 					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
+// 				},
+// 			}),
+// 		},
+// 		HurrayLibrary: {
+// 			screen: HurrayScreen,
+
+// 			navigationOptions: ({ navigation }) => ({
+// 				headerTintColor: theme.primary,
+// 				headerLeft: null,
+// 				headerTransparent: true,
+// 				headerRight: () => {
+// 					return (
+// 						<MaterialIcons
+// 							onPress={() => {
+// 								navigation.navigate('Map')
+// 							}}
+// 							name="close"
+// 							size={30}
+// 							color={theme.primary}
+// 							style={{ marginRight: 10 }}
+// 						/>
+// 					)
+// 				},
+// 			}),
+// 		},
+// 	},
+// 	{
+// 		headerBackTitleVisible: false,
+// 		headerTransitionPreset: 'fade-in-place',
+// 		headerLayoutPreset: 'center',
+// 		defaultNavigationOptions: {
+// 			gesturesEnabled: false,
+// 		},
+// 	}
+// )
+
+const UploadStack = createStackNavigator(
 	{
-		Camera: {
-			screen: CameraScreen,
+		Upload: {
+			screen: UploadScreen,
 			navigationOptions: ({ navigation }) => ({
-				headerStyle: {
-					backgroundColor: 'white',
-					borderBottomWidth: 0,
-					shadowColor: '#000',
-					shadowOffset: {
-						width: 0,
-						height: 1,
-					},
-					shadowOpacity: 0.22,
-					shadowRadius: 2.22,
-					elevation: 3,
-				},
-				headerTintColor: theme.primary,
-				headerLeft: ({ tintColor }) => {
-					return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
-				},
-				headerRight: () => {
-					return (
-						<MaterialIcons
-							onPress={() => {
-								navigation.navigate('Guidelines')
-							}}
-							name="help-outline"
-							size={30}
-							color={theme.primary}
-							style={{ marginRight: 10 }}
-						/>
-					)
-				},
-				headerTitle: () => {
-					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
-				},
-			}),
-		},
-		MaterialCamera: {
-			screen: MaterialCameraScreen,
-			navigationOptions: () => ({
 				headerStyle: {
 					backgroundColor: 'white',
 					borderBottomWidth: 0,
@@ -324,15 +516,6 @@ const ContributeStack = createStackNavigator(
 				headerTitle: () => {
 					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
 				},
-			}),
-		},
-		HurrayCamera: {
-			screen: HurrayScreen,
-
-			navigationOptions: ({ navigation }) => ({
-				headerTintColor: theme.primary,
-				headerLeft: null,
-				headerTransparent: true,
 				headerRight: () => {
 					return (
 						<MaterialIcons
@@ -348,80 +531,7 @@ const ContributeStack = createStackNavigator(
 				},
 			}),
 		},
-	},
-	{
-		headerBackTitleVisible: false,
-		headerTransitionPreset: 'fade-in-place',
-		headerLayoutPreset: 'center',
-		defaultNavigationOptions: {
-			gesturesEnabled: false,
-		},
-	}
-)
-
-const ContributeLibraryStack = createStackNavigator(
-	{
-		Library: {
-			screen: LibraryScreen,
-			navigationOptions: ({ navigation }) => ({
-				headerStyle: {
-					backgroundColor: 'white',
-					borderBottomWidth: 0,
-					shadowColor: '#000',
-					shadowOffset: {
-						width: 0,
-						height: 1,
-					},
-					shadowOpacity: 0.22,
-					shadowRadius: 2.22,
-					elevation: 3,
-				},
-				headerTintColor: theme.primary,
-				headerLeft: ({ tintColor }) => {
-					return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
-				},
-				headerRight: () => {
-					return (
-						<MaterialIcons
-							onPress={() => {
-								navigation.navigate('Guidelines')
-							}}
-							name="help-outline"
-							size={30}
-							color={theme.primary}
-							style={{ marginRight: 10 }}
-						/>
-					)
-				},
-				headerTitle: () => {
-					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
-				},
-			}),
-		},
-		MaterialLibrary: {
-			screen: MaterialLibraryScreen,
-			navigationOptions: () => ({
-				headerStyle: {
-					backgroundColor: 'white',
-					borderBottomWidth: 0,
-					shadowColor: '#000',
-					shadowOffset: {
-						width: 0,
-						height: 3,
-					},
-					shadowOpacity: 0.29,
-					shadowRadius: 4.65,
-
-					elevation: 7,
-				},
-				headerTintColor: theme.primary,
-				headerTransparent: false,
-				headerTitle: () => {
-					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
-				},
-			}),
-		},
-		HurrayLibrary: {
+		Hurray: {
 			screen: HurrayScreen,
 
 			navigationOptions: ({ navigation }) => ({
@@ -459,14 +569,17 @@ const MainNavigator = createStackNavigator(
 		Main: {
 			screen: DrawerNavigator,
 		},
-		Contribute: {
-			screen: ContributeStack,
+		// Contribute: {
+		// 	screen: ContributeStack,
+		// },
+		// ContributeLibrary: {
+		// 	screen: ContributeLibraryStack,
+		// },
+		Upload: {
+			screen: UploadStack,
 		},
-		ContributeLibrary: {
-			screen: ContributeLibraryStack,
-		},
-		Guidelines: {
-			screen: GuidelinesScreen,
+		GuidelinesModal: {
+			screen: GuidelinesModalScreen,
 		},
 	},
 	{

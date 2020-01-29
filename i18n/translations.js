@@ -928,8 +928,8 @@ module.exports = {
 	},
 	faces_detected: {
 		en: 'Sorry, for privacy concerns we have to reject images with faces',
-		de: 'Sorry, wir können keine Fotos mit Gesichtern annehmen',
-		es: 'Lo sentimos. No podemos acceptar imagenes con caras.',
+		de: 'Sorry, wir können keine Fotos annehmen, in denen Gesichter zu erkennen sind.',
+		es: 'Lo sentimos. No podemos aceptar imagenes con caras.',
 		ar: 'آسف، لاعتبارات الخصوصية علينا أن نرفض الصور مع وجوه',
 		pt: 'Desculpe-nos, por motivo de privacidade nós temos que rejeitar fotos com faces.',
 		zh: '对不起，出于保护隐私的原因，我们不接受图片中出现人脸。',
@@ -1020,7 +1020,7 @@ module.exports = {
 	make_blacklisted: {
 		en: 'Hm, looks like the image was taken with an App that uses color filters, e.g. Hipstamatic. Sorry, try another one!',
 		de: 'Schade! Leider können wir keine Fotos von Apps mit starken Farbfiltern wie Hipstamatic akzeptieren. Versuche es mit einem anderen Foto!',
-		es: 'Qué pena, no podemos acceptar fotos de Apps que aplican filtros de color, ej. Hipstamatic. ¿Tienes otra?',
+		es: 'Qué pena, no podemos aceptar fotos de Apps que aplican filtros de color, ej. Hipstamatic. ¿Tienes otra?',
 		ar: 'هم، يبدو أن الصورة التي تؤخذ مع تطبيق يستخدم مرشحات الألوان، على سبيل المثال Hipstamatic. عذرا، جرب آخر!', // Bassel
 		pt: 'Hmmm, parece que a imagem foi tirada com um aplicativo que usa filtro de cores, como o Hipstamatic. Desculpe, tente outra foto!',
 		zh: '嗨，看起来象是使用滤色镜应用程序拍摄的图片，比如hipstamatic. 抱歉，请试另外的图片！',
@@ -2071,7 +2071,7 @@ module.exports = {
 	accept_terms_first: {
 		en: 'You still have to accept the terms!',
 		de: 'Du musst noch den Bedingungen zustimmen!',
-		es: 'Tienes que acceptar los términos para continuar!',
+		es: 'Tienes que aceptar los términos para continuar!',
 		ar: 'لا يزال عليك قبول الشروط!',
 		pt: 'Você ainda precisa aceitar os termos!',
 		zh: '您仍然必须接受条款！',
@@ -2284,10 +2284,10 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-	permissions_take_photo_missing_msg: {
-		en: 'Please give Coastwards the permission to access your location and camera.\n\nAlso, make sure your location service (GPS) is generally turned on.\n\nThen come back to the App and try again.\n\nThese are the missing permissions:',
-		de: 'Bitte erteile Coastwards die Berechtigung Deinen Standort zu ermitteln und auf Deine Kamera zuzugreifen.\n\nStelle auch sicher, dass die Standortermittlung (GPS) allgemein aktiviert ist.\n\nKomm dann zur App zurück und versuche es erneut.\n\nDie folgenden Berechtigungen fehlen:',
-		es: 'Por favor, permiten el acceso al servicio de localización y cámara.\n\nAsegúranse también que el servicio de localización (GPS) esté activado.\n\nVuelan a la app e inténtenlo de nuevo.\n\nLos siguientes permisos faltan:', // !
+	permissions_take_picture_missing_msg: {
+		en: 'Please give Coastwards the permission to access your location and camera.\n\nAlso, make sure your location service (GPS) is generally turned on.',
+		de: 'Bitte erteile Coastwards die Berechtigung Deinen Standort zu ermitteln und auf Deine Kamera zuzugreifen.\n\nStelle auch sicher, dass die Standortermittlung (GPS) allgemein aktiviert ist.',
+		es: 'Por favor, permiten el acceso al servicio de localización y cámara.\n\nAsegúranse también que el servicio de localización (GPS) esté activado.', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2296,46 +2296,46 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-	permission_location_services: {
-		en: 'Location Services / GPS (general)',
-		de: 'Standortermittlung / GPS (allgemein)',
-		es: 'Localización / GPS (general)', // !
-		// "ar": "", // !
-		// "pt": "", // !
-		// "zh": "", // !
-		// "el": "", // !
-		// "hi": "", // !
-		// "fr": "" // !
-		// "it": "" // !
-	},
-	permission_location: {
-		en: 'Location (App)',
-		de: 'Standortermittlung (App)',
-		es: 'Localización (App)', // !
-		// "ar": "", // !
-		// "pt": "", // !
-		// "zh": "", // !
-		// "el": "", // !
-		// "hi": "", // !
-		// "fr": "" // !
-		// "it": "" // !
-	},
-	permission_camera: {
-		en: 'Camera (App)',
-		de: 'Kamera (App)',
-		es: 'Cámara (App)', // !
-		// "ar": "", // !
-		// "pt": "", // !
-		// "zh": "", // !
-		// "el": "", // !
-		// "hi": "", // !
-		// "fr": "" // !
-		// "it": "" // !
-	},
+	// permission_location_services: {
+	// 	en: 'Location Services / GPS (general)',
+	// 	de: 'Standortermittlung / GPS (allgemein)',
+	// 	es: 'Localización / GPS (general)', // !
+	// 	// "ar": "", // !
+	// 	// "pt": "", // !
+	// 	// "zh": "", // !
+	// 	// "el": "", // !
+	// 	// "hi": "", // !
+	// 	// "fr": "" // !
+	// 	// "it": "" // !
+	// },
+	// permission_location: {
+	// 	en: 'Location (App)',
+	// 	de: 'Standortermittlung (App)',
+	// 	es: 'Localización (App)', // !
+	// 	// "ar": "", // !
+	// 	// "pt": "", // !
+	// 	// "zh": "", // !
+	// 	// "el": "", // !
+	// 	// "hi": "", // !
+	// 	// "fr": "" // !
+	// 	// "it": "" // !
+	// },
+	// permission_camera: {
+	// 	en: 'Camera (App)',
+	// 	de: 'Kamera (App)',
+	// 	es: 'Cámara (App)', // !
+	// 	// "ar": "", // !
+	// 	// "pt": "", // !
+	// 	// "zh": "", // !
+	// 	// "el": "", // !
+	// 	// "hi": "", // !
+	// 	// "fr": "" // !
+	// 	// "it": "" // !
+	// },
 	permissions_photo_library_missing_msg: {
-		en: 'Please give Coastwards the permission to access your Photo Library.\n\nThen come back to the App and try again.\n\nThese are the missing permissions:',
-		de: 'Bitte erteile Coastwards die Berechtigung auf Deine Fotomediathek zuzugreifen.\n\nKomm dann zur App zurück und versuche es erneut.\n\nDie folgenden Berechtigungen fehlen:',
-		es: 'Por favor, permiten el acceso a la fototeca.\n\nVuelan a la app e inténtenlo de nuevo.\n\nLos siguientes permisos faltan:', // !
+		en: 'Please give Coastwards the permission to access your Photo Library.',
+		de: 'Bitte erteile Coastwards die Berechtigung auf Deine Fotomediathek zuzugreifen.',
+		es: 'Por favor, permiten el acceso a la galería de fotos.', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2344,18 +2344,18 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-	permission_camera_roll: {
-		en: 'Photo Library (App)',
-		de: 'Fotomediathek (App)',
-		es: 'Fototeca (App)', // !
-		// "ar": "", // !
-		// "pt": "", // !
-		// "zh": "", // !
-		// "el": "", // !
-		// "hi": "", // !
-		// "fr": "" // !
-		// "it": "" // !
-	},
+	// permission_camera_roll: {
+	// 	en: 'Photo Library (App)',
+	// 	de: 'Fotomediathek (App)',
+	// 	es: 'Galería de Fotos (App)', // !
+	// 	// "ar": "", // !
+	// 	// "pt": "", // !
+	// 	// "zh": "", // !
+	// 	// "el": "", // !
+	// 	// "hi": "", // !
+	// 	// "fr": "" // !
+	// 	// "it": "" // !
+	// },
 	got_it: {
 		en: 'Got it!',
 		de: 'Verstanden!',
@@ -2506,7 +2506,7 @@ module.exports = {
 	accept_once: {
 		en: 'Accept',
 		de: 'Akzeptieren',
-		es: 'Acceptar', // !
+		es: 'Aceptar', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2518,7 +2518,7 @@ module.exports = {
 	accept_always: {
 		en: 'Always accept',
 		de: 'Immer akzeptieren',
-		es: 'Siempre acceptar', // !
+		es: 'Siempre aceptar', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2777,9 +2777,9 @@ module.exports = {
 	open_photo_library: {
 		en: 'Open Photo Library',
 		de: 'Fotomediathek öffnen',
-		es: 'Abrir fototeca',
+		es: 'Abrir galería de fotos',
 		ar: 'مكتبة الصور',
-		pt: 'Fototeca',
+		pt: 'Galería de fotos',
 		zh: '照片库',
 		el: 'Βιβλιοθήκη φωτογραφιών',
 		hi: 'चित्र पुस्तकालय',
@@ -2811,6 +2811,18 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
+	// invalid_long_laty_uploaded: {
+	// 	en: 'The embedded GPS coordinates are not valid.',
+	// 	de: 'Die eingebetteten GPS Daten sind ungültig.',
+	// 	es: 'Los datos GPS son inválidos.', // !
+	// 	// "ar": "", // !
+	// 	// "pt": "", // !
+	// 	// "zh": "", // !
+	// 	// "el": "", // !
+	// 	// "hi": "", // !
+	// 	// "fr": "" // !
+	// 	// "it": "" // !
+	// },
 	continue: {
 		en: 'Continue',
 		de: 'Fortfahren',
@@ -2865,7 +2877,7 @@ module.exports = {
 	"permission_denied_text": {
 		"en": "To be able to take pictures with your camera and choose images from your library",
 		"de": "Für den Zugang zur Kamera und zur Fotomediathek",
-		"es": "Para tener acceso a la fototeca y a la camera",
+		"es": "Para tener acceso a la galería de fotos y a la camera",
 		"ar": "To be able to take pictures with your camera and choose images from your library", // !!!
 		"pt": "To be able to take pictures with your camera and choose images from your library", // !!!
 		"zh": "To be able to take pictures with your camera and choose images from your library", // !!!
