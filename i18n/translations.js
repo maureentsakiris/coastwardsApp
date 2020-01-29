@@ -928,7 +928,7 @@ module.exports = {
 	},
 	faces_detected: {
 		en: 'Sorry, for privacy concerns we have to reject images with faces',
-		de: 'Sorry, wir können keine Fotos mit Gesichtern annehmen',
+		de: 'Sorry, wir können keine Fotos annehmen, in denen Gesichter zu erkennen sind.',
 		es: 'Lo sentimos. No podemos aceptar imagenes con caras.',
 		ar: 'آسف، لاعتبارات الخصوصية علينا أن نرفض الصور مع وجوه',
 		pt: 'Desculpe-nos, por motivo de privacidade nós temos que rejeitar fotos com faces.',
@@ -2284,10 +2284,10 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-	permissions_take_photo_missing_msg: {
-		en: 'Please give Coastwards the permission to access your location and camera.\n\nAlso, make sure your location service (GPS) is generally turned on.\n\nThen come back to the App and try again.\n\nThese are the missing permissions:',
-		de: 'Bitte erteile Coastwards die Berechtigung Deinen Standort zu ermitteln und auf Deine Kamera zuzugreifen.\n\nStelle auch sicher, dass die Standortermittlung (GPS) allgemein aktiviert ist.\n\nKomm dann zur App zurück und versuche es erneut.\n\nDie folgenden Berechtigungen fehlen:',
-		es: 'Por favor, permiten el acceso al servicio de localización y cámara.\n\nAsegúranse también que el servicio de localización (GPS) esté activado.\n\nVuelan a la app e inténtenlo de nuevo.\n\nLos siguientes permisos faltan:', // !
+	permissions_take_picture_missing_msg: {
+		en: 'Please give Coastwards the permission to access your location and camera.\n\nAlso, make sure your location service (GPS) is generally turned on.',
+		de: 'Bitte erteile Coastwards die Berechtigung Deinen Standort zu ermitteln und auf Deine Kamera zuzugreifen.\n\nStelle auch sicher, dass die Standortermittlung (GPS) allgemein aktiviert ist.',
+		es: 'Por favor, permiten el acceso al servicio de localización y cámara.\n\nAsegúranse también que el servicio de localización (GPS) esté activado.', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2296,46 +2296,46 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-	permission_location_services: {
-		en: 'Location Services / GPS (general)',
-		de: 'Standortermittlung / GPS (allgemein)',
-		es: 'Localización / GPS (general)', // !
-		// "ar": "", // !
-		// "pt": "", // !
-		// "zh": "", // !
-		// "el": "", // !
-		// "hi": "", // !
-		// "fr": "" // !
-		// "it": "" // !
-	},
-	permission_location: {
-		en: 'Location (App)',
-		de: 'Standortermittlung (App)',
-		es: 'Localización (App)', // !
-		// "ar": "", // !
-		// "pt": "", // !
-		// "zh": "", // !
-		// "el": "", // !
-		// "hi": "", // !
-		// "fr": "" // !
-		// "it": "" // !
-	},
-	permission_camera: {
-		en: 'Camera (App)',
-		de: 'Kamera (App)',
-		es: 'Cámara (App)', // !
-		// "ar": "", // !
-		// "pt": "", // !
-		// "zh": "", // !
-		// "el": "", // !
-		// "hi": "", // !
-		// "fr": "" // !
-		// "it": "" // !
-	},
+	// permission_location_services: {
+	// 	en: 'Location Services / GPS (general)',
+	// 	de: 'Standortermittlung / GPS (allgemein)',
+	// 	es: 'Localización / GPS (general)', // !
+	// 	// "ar": "", // !
+	// 	// "pt": "", // !
+	// 	// "zh": "", // !
+	// 	// "el": "", // !
+	// 	// "hi": "", // !
+	// 	// "fr": "" // !
+	// 	// "it": "" // !
+	// },
+	// permission_location: {
+	// 	en: 'Location (App)',
+	// 	de: 'Standortermittlung (App)',
+	// 	es: 'Localización (App)', // !
+	// 	// "ar": "", // !
+	// 	// "pt": "", // !
+	// 	// "zh": "", // !
+	// 	// "el": "", // !
+	// 	// "hi": "", // !
+	// 	// "fr": "" // !
+	// 	// "it": "" // !
+	// },
+	// permission_camera: {
+	// 	en: 'Camera (App)',
+	// 	de: 'Kamera (App)',
+	// 	es: 'Cámara (App)', // !
+	// 	// "ar": "", // !
+	// 	// "pt": "", // !
+	// 	// "zh": "", // !
+	// 	// "el": "", // !
+	// 	// "hi": "", // !
+	// 	// "fr": "" // !
+	// 	// "it": "" // !
+	// },
 	permissions_photo_library_missing_msg: {
-		en: 'Please give Coastwards the permission to access your Photo Library.\n\nThen come back to the App and try again.\n\nThese are the missing permissions:',
-		de: 'Bitte erteile Coastwards die Berechtigung auf Deine Fotomediathek zuzugreifen.\n\nKomm dann zur App zurück und versuche es erneut.\n\nDie folgenden Berechtigungen fehlen:',
-		es: 'Por favor, permiten el acceso a la galería de fotos.\n\nVuelan a la app e inténtenlo de nuevo.\n\nLos siguientes permisos faltan:', // !
+		en: 'Please give Coastwards the permission to access your Photo Library.',
+		de: 'Bitte erteile Coastwards die Berechtigung auf Deine Fotomediathek zuzugreifen.',
+		es: 'Por favor, permiten el acceso a la galería de fotos.', // !
 		// "ar": "", // !
 		// "pt": "", // !
 		// "zh": "", // !
@@ -2344,18 +2344,18 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
-	permission_camera_roll: {
-		en: 'Photo Library (App)',
-		de: 'Fotomediathek (App)',
-		es: 'Galería de Fotos (App)', // !
-		// "ar": "", // !
-		// "pt": "", // !
-		// "zh": "", // !
-		// "el": "", // !
-		// "hi": "", // !
-		// "fr": "" // !
-		// "it": "" // !
-	},
+	// permission_camera_roll: {
+	// 	en: 'Photo Library (App)',
+	// 	de: 'Fotomediathek (App)',
+	// 	es: 'Galería de Fotos (App)', // !
+	// 	// "ar": "", // !
+	// 	// "pt": "", // !
+	// 	// "zh": "", // !
+	// 	// "el": "", // !
+	// 	// "hi": "", // !
+	// 	// "fr": "" // !
+	// 	// "it": "" // !
+	// },
 	got_it: {
 		en: 'Got it!',
 		de: 'Verstanden!',
@@ -2811,6 +2811,18 @@ module.exports = {
 		// "fr": "" // !
 		// "it": "" // !
 	},
+	// invalid_long_laty_uploaded: {
+	// 	en: 'The embedded GPS coordinates are not valid.',
+	// 	de: 'Die eingebetteten GPS Daten sind ungültig.',
+	// 	es: 'Los datos GPS son inválidos.', // !
+	// 	// "ar": "", // !
+	// 	// "pt": "", // !
+	// 	// "zh": "", // !
+	// 	// "el": "", // !
+	// 	// "hi": "", // !
+	// 	// "fr": "" // !
+	// 	// "it": "" // !
+	// },
 	continue: {
 		en: 'Continue',
 		de: 'Fortfahren',

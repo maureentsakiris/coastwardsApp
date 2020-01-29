@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Platform, StyleSheet, TouchableOpacity, View, Alert, Linking, Text, Image, ActivityIndicator } from 'react-native'
+import { Platform, StyleSheet, TouchableOpacity, View, Alert, Linking, Text, Image, ActivityIndicator, AsyncStorage } from 'react-native'
 import { NavigationEvents } from 'react-navigation'
 import WebView from 'react-native-webview'
 import * as WebBrowser from 'expo-web-browser'
@@ -7,6 +7,10 @@ import * as Permissions from 'expo-permissions'
 
 import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
+import * as ImagePicker from 'expo-image-picker'
+import * as FaceDetector from 'expo-face-detector'
+import * as ImageManipulator from 'expo-image-manipulator'
+
 import { MaterialIcons } from '@expo/vector-icons'
 import { useActionSheet } from '@expo/react-native-action-sheet'
 import I18n from '../i18n/i18n'
@@ -114,6 +118,7 @@ const MapScreen = ({ navigation }) => {
 	const [counter, setCounter] = useState(false)
 	const [refreshing, setRefreshing] = useState(false)
 	const [showingActionSheet, setShowingActionSheet] = useState(false)
+	const [validating, setValidating] = useState(false)
 
 	const refreshMap = alertUser => {
 		setRefreshing(true)
@@ -152,21 +157,195 @@ const MapScreen = ({ navigation }) => {
 		refreshMap(false)
 	}, [])
 
-	const checkLocationServicesPermission = () => {
+	const checkForFaces = imageOrPic => {
 		return new Promise((resolve, reject) => {
-			Location.hasServicesEnabledAsync()
-				.then(status => {
-					switch (status) {
-						case true:
-							resolve(status)
+			const options = {
+				mode: FaceDetector.Constants.Mode.fast,
+				detectLandmarks: FaceDetector.Constants.Landmarks.none,
+				runClassifications: FaceDetector.Constants.Classifications.none,
+			}
+
+			const { uri } = imageOrPic
+
+			FaceDetector.detectFacesAsync(uri, options)
+				.then(value => {
+					if (value.faces.length > 0) {
+						reject(Error('faces_detected'))
+					}
+					resolve(imageOrPic)
+				})
+				.catch(error => {
+					reject(error)
+				})
+		})
+	}
+
+	const takePicture = () => {
+		const options = {
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			allowsEditing: true,
+			aspect: [1, 1],
+			quality: 1,
+			base64: false,
+			exif: true,
+		}
+
+		const params = {}
+
+		ImagePicker.launchCameraAsync(options)
+			.then(result => {
+				const { cancelled } = result
+				if (!cancelled) {
+					return result
+				}
+				throw Error('cancelled')
+			})
+			.then(image => {
+				setValidating(true)
+				const { exif } = image
+				params.exif = exif
+				return image
+			})
+			.then(image => {
+				const { uri } = image
+				return ImageManipulator.manipulateAsync(uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPG, base64: false })
+			})
+			.then(smallImage => {
+				const { uri } = smallImage
+				params.uri = uri
+				return checkForFaces(smallImage)
+			})
+			.then(() => {
+				return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
+			})
+			.then(location => {
+				const { coords } = location
+				params.location = coords
+				return location
+			})
+			.then(() => {
+				navigation.navigate({ routeName: 'Upload', params })
+				setValidating(false)
+			})
+			.catch(error => {
+				setValidating(false)
+				const { message } = error
+				if (message !== 'cancelled') {
+					const translatedErrorMessages = ['faces_detected']
+					const msg = translatedErrorMessages.includes(message) ? I18n.t(message) : message
+
+					Alert.alert(
+						I18n.t('oops'),
+						msg,
+						[
+							{
+								text: I18n.t('ok'),
+								style: 'cancel',
+							},
+						],
+
+						{ cancelable: false } // Don't allow to cancel by tapping outside
+					)
+				}
+			})
+	}
+
+	const pickImage = () => {
+		const options = {
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			allowsEditing: true,
+			allowsMultipleSelection: true,
+			aspect: [1, 1],
+			quality: 1,
+			base64: false,
+			exif: true,
+		}
+
+		const params = {}
+
+		ImagePicker.launchImageLibraryAsync(options)
+			.then(result => {
+				const { cancelled } = result
+				if (cancelled) {
+					throw Error('cancelled')
+				}
+				return result
+			})
+			.then(image => {
+				setValidating(true)
+
+				if (!image.exif) {
+					throw Error('exifdata_empty')
+				}
+
+				const { exif } = image
+				if (!exif.GPSLatitude || !exif.GPSLongitude) {
+					throw Error('location_undefined_app')
+				}
+
+				const { GPSLatitude, GPSLongitude } = exif
+				params.location = { latitude: GPSLatitude, longitude: GPSLongitude }
+				params.exif = exif
+				const { uri } = image
+				return ImageManipulator.manipulateAsync(uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPG, base64: false })
+			})
+
+			.then(smallImage => {
+				const { uri } = smallImage
+				params.uri = uri
+				return checkForFaces(smallImage)
+			})
+			.then(image => {
+				setValidating(false)
+				navigation.navigate({ routeName: 'Upload', params })
+				return image
+			})
+			.catch(error => {
+				setValidating(false)
+				const { message } = error
+				if (message !== 'cancelled') {
+					const translatedErrorMessages = ['faces_detected', 'exifdata_empty', 'location_undefined_app']
+					const msg = translatedErrorMessages.includes(message) ? I18n.t(message) : message
+
+					Alert.alert(
+						I18n.t('oops'),
+						msg,
+						[
+							{
+								text: I18n.t('ok'),
+								style: 'cancel',
+							},
+						],
+
+						{ cancelable: false } // Don't allow to cancel by tapping outside
+					)
+				}
+			})
+	}
+
+	const fetchGotIt = onDismiss => {
+		return new Promise((resolve, reject) => {
+			const params = {}
+			params.onDismiss = onDismiss
+
+			AsyncStorage.getItem('GOTIT')
+				.then(value => {
+					switch (value) {
+						case null:
+							navigation.navigate({ routeName: 'GuidelinesModal', params })
 							break
-						case false:
-							resolve(status)
+						case 'false':
+							navigation.navigate({ routeName: 'GuidelinesModal', params })
+							break
+						case 'true':
+							onDismiss()
 							break
 						default:
-							reject(status)
+							reject(value)
 							break
 					}
+
+					return value
 				})
 				.catch(error => {
 					reject(error)
@@ -176,22 +355,15 @@ const MapScreen = ({ navigation }) => {
 
 	const checkLocationPermission = () => {
 		return new Promise((resolve, reject) => {
-			const askLocationPermission = async () => {
-				const { status } = await Permissions.askAsync(Permissions.LOCATION)
-				return status
-			}
-
-			askLocationPermission()
-				.then(status => {
+			Permissions.askAsync(Permissions.LOCATION)
+				.then(results => {
+					const { status } = results
 					switch (status) {
 						case 'granted':
 							resolve(status)
 							break
 						case 'denied':
-							resolve(status)
-							break
-						case 'undetermined':
-							resolve(status)
+							reject(status)
 							break
 						default:
 							reject(status)
@@ -206,22 +378,15 @@ const MapScreen = ({ navigation }) => {
 
 	const checkCameraPermission = () => {
 		return new Promise((resolve, reject) => {
-			const askCameraPermission = async () => {
-				const { status } = await Permissions.askAsync(Permissions.CAMERA)
-				return status
-			}
-
-			askCameraPermission()
-				.then(status => {
+			Permissions.askAsync(Permissions.CAMERA)
+				.then(results => {
+					const { status } = results
 					switch (status) {
 						case 'granted':
 							resolve(status)
 							break
 						case 'denied':
-							resolve(status)
-							break
-						case 'undetermined':
-							resolve(status)
+							reject(status)
 							break
 						default:
 							reject(status)
@@ -234,31 +399,22 @@ const MapScreen = ({ navigation }) => {
 		})
 	}
 
-	const checkPermissionsTakePhoto = () => {
-		const results = []
-		// Only breacking permissions
-		checkLocationServicesPermission()
-			.then(val => {
-				results[0] = val
-				return checkLocationPermission()
-			})
-			.then(val => {
-				results[1] = val
+	const launchCamera = () => {
+		//  iOS is not working with this permission being not individually,
+		checkLocationPermission()
+			.then(() => {
+				// granted
 				return checkCameraPermission()
 			})
-			.then(val => {
-				results[2] = val
-
-				// const resultsMsg = `Location Services are on: ${results[0]}\nPermission to access location: ${results[1]}\nPermission to use camera: ${results[2]}`
-
-				let resultsMsg = results[0] ? '' : `❌ ${I18n.t('permission_location_services')}\n`
-				resultsMsg += results[1] === 'granted' ? '' : `❌ ${I18n.t('permission_location')}\n`
-				resultsMsg += results[2] === 'granted' ? '' : `❌ ${I18n.t('permission_camera')}\n`
-
-				if (results.includes(false) || results.includes('denied')) {
+			.then(() => {
+				// granted
+				return fetchGotIt(takePicture)
+			})
+			.catch(error => {
+				if (error === 'denied') {
 					Alert.alert(
 						I18n.t('permissions_missing_title'),
-						`\n${I18n.t('permissions_take_photo_missing_msg')}\n\n${resultsMsg}\n`,
+						I18n.t('permissions_take_picture_missing_msg'),
 						[
 							{
 								text: I18n.t('ok'),
@@ -280,35 +436,22 @@ const MapScreen = ({ navigation }) => {
 						{ cancelable: false } // Don't allow to cancel by tapping outside
 					)
 				} else {
-					// launchCamera()
-
-					navigation.navigate('Contribute')
+					alert(error)
 				}
-				return true
-			})
-			.catch(error => {
-				alert(error)
 			})
 	}
 
-	const checkCameraRollPermission = () => {
+	const checkPhotoLibraryPermissions = () => {
 		return new Promise((resolve, reject) => {
-			const askCameraRollPermission = async () => {
-				const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-				return status
-			}
-
-			askCameraRollPermission()
-				.then(status => {
+			Permissions.askAsync(Permissions.CAMERA_ROLL)
+				.then(results => {
+					const { status } = results
 					switch (status) {
 						case 'granted':
 							resolve(status)
 							break
 						case 'denied':
-							resolve(status)
-							break
-						case 'undetermined':
-							resolve(status)
+							reject(status)
 							break
 						default:
 							reject(status)
@@ -321,17 +464,17 @@ const MapScreen = ({ navigation }) => {
 		})
 	}
 
-	const checkPermissionsPhotoLibrary = () => {
-		checkCameraRollPermission()
-			.then(result => {
-				if (result === 'granted') {
-					navigation.navigate('ContributeLibrary')
-				} else {
-					const resultsMsg = `❌ ${I18n.t('permission_camera_roll')}\n`
-
+	const launchPhotoLibrary = () => {
+		checkPhotoLibraryPermissions()
+			.then(() => {
+				// granted
+				return fetchGotIt(pickImage)
+			})
+			.catch(error => {
+				if (error === 'denied') {
 					Alert.alert(
 						I18n.t('permissions_missing_title'),
-						`\n${I18n.t('permissions_photo_library_missing_msg')}\n\n${resultsMsg}\n`,
+						I18n.t('permissions_photo_library_missing_msg'),
 						[
 							{
 								text: I18n.t('ok'),
@@ -352,12 +495,9 @@ const MapScreen = ({ navigation }) => {
 						],
 						{ cancelable: false } // Don't allow to cancel by tapping outside
 					)
+				} else {
+					alert(error)
 				}
-
-				return true
-			})
-			.catch(error => {
-				alert(error)
 			})
 	}
 
@@ -374,10 +514,10 @@ const MapScreen = ({ navigation }) => {
 			setShowingActionSheet(false)
 			if (index === 0) {
 				// CAMERA
-				checkPermissionsTakePhoto()
+				launchCamera()
 			} else if (index === 1) {
 				// PHOTO LIBRARY
-				checkPermissionsPhotoLibrary()
+				launchPhotoLibrary()
 			}
 		})
 	}
@@ -430,14 +570,17 @@ const MapScreen = ({ navigation }) => {
 					</TouchableOpacity>
 				)}
 				<TouchableOpacity style={styles.uploadButton} disabled={showingActionSheet}>
-					<MaterialIcons
-						name="add-a-photo"
-						size={30}
-						color="white"
-						onPress={() => {
-							showActionSheet()
-						}}
-					/>
+					{!validating && (
+						<MaterialIcons
+							name="add-a-photo"
+							size={30}
+							color="white"
+							onPress={() => {
+								showActionSheet()
+							}}
+						/>
+					)}
+					{validating && <ActivityIndicator size="large" color="white" />}
 				</TouchableOpacity>
 			</View>
 		</View>

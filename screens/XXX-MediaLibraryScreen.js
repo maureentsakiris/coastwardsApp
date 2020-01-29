@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, AsyncStorage, Alert, Dimensions, FlatList, ActivityIndicator } from 'react-native'
 
 import * as MediaLibrary from 'expo-media-library'
+import DateTimePicker from '@react-native-community/datetimepicker'
 
 import AssetPure from '../components/AssetPure'
 
@@ -56,9 +57,13 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
+	datepicker: {
+		width: '100%',
+		// height: 300,
+	},
 })
 
-const LibraryScreen = ({ navigation }) => {
+const MediaLibraryScreen = ({ navigation }) => {
 	const isSafe = useRef(true)
 	useEffect(() => {
 		// Future proofing for double-invoking
@@ -67,41 +72,6 @@ const LibraryScreen = ({ navigation }) => {
 		return () => {
 			isSafe.current = false
 		}
-	}, [])
-
-	useEffect(() => {
-		// alert('fetching gotit')
-		async function fetchGotItStorage() {
-			return AsyncStorage.getItem('GOTIT')
-		}
-
-		fetchGotItStorage()
-			.then(value => {
-				if (isSafe.current) {
-					let val
-					switch (value) {
-						case null:
-							navigation.navigate('Guidelines')
-							break
-						case 'false':
-							navigation.navigate('Guidelines')
-							break
-						case 'true':
-							// openImagePicker()
-							break
-						default:
-							navigation.navigate('Guidelines')
-							break
-					}
-
-					return val
-				}
-			})
-			.catch(error => {
-				if (isSafe.current) {
-					alert(error)
-				}
-			})
 	}, [])
 
 	const [assetList, setAssetList] = useState([])
@@ -126,7 +96,7 @@ const LibraryScreen = ({ navigation }) => {
 
 	const getAssets = count => {
 		return new Promise((resolve, reject) => {
-			MediaLibrary.getAssetsAsync({ first: count, sortBy: [[MediaLibrary.SortBy.default, true]] })
+			MediaLibrary.getAssetsAsync({ first: count, sortBy: [[MediaLibrary.SortBy.creationTime, false]] })
 				.then(results => {
 					if (isSafe.current) {
 						const { assets } = results
@@ -227,8 +197,14 @@ const LibraryScreen = ({ navigation }) => {
 		[selected]
 	)
 
+	const onChangeDate = (event, date) => {
+		// alert(event)
+		// alert(date)
+	}
+
 	return (
 		<View style={styles.safeAreaView}>
+			<DateTimePicker style={styles.datepicker} value={new Date()} mode="date" is24Hour display="default" onChange={onChangeDate} />
 			{!fetching && (
 				<FlatList
 					data={assetList}
@@ -268,4 +244,4 @@ const LibraryScreen = ({ navigation }) => {
 	)
 }
 
-export default LibraryScreen
+export default MediaLibraryScreen

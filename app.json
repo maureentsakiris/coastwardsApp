@@ -4,8 +4,8 @@
 		"slug": "coastwards",
 		"privacy": "public",
 		"sdkVersion": "36.0.0",
-		"platforms": ["ios", "android", "web"],
-		"version": "2.1.2",
+		"platforms": ["ios", "android"],
+		"version": "2.2.0",
 		"orientation": "portrait",
 		"primaryColor": "#0076b7",
 		"icon": "./assets/images/icon.png",
@@ -33,7 +33,7 @@
 			"package": "org.coastwards.app",
 			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA", "READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
 			"googleServicesFile": "./google-services.json",
-			"versionCode": 5
+			"versionCode": 6
 		}
 	}
 }
