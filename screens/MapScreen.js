@@ -183,8 +183,8 @@ const MapScreen = ({ navigation }) => {
 	const takePicture = () => {
 		const options = {
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
-			allowsEditing: true,
-			aspect: [1, 1],
+			allowsEditing: false,
+			// aspect: [1, 1],
 			quality: 1,
 			base64: false,
 			exif: true,
@@ -224,6 +224,7 @@ const MapScreen = ({ navigation }) => {
 				return location
 			})
 			.then(() => {
+				params.source = 'appCamera'
 				navigation.navigate({ routeName: 'Upload', params })
 				setValidating(false)
 			})
@@ -253,9 +254,9 @@ const MapScreen = ({ navigation }) => {
 	const pickImage = () => {
 		const options = {
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
-			allowsEditing: true,
-			allowsMultipleSelection: true,
-			aspect: [1, 1],
+			allowsEditing: false,
+			// allowsMultipleSelection: true, (web only)
+			// aspect: [1, 1],
 			quality: 1,
 			base64: false,
 			exif: true,
@@ -296,6 +297,7 @@ const MapScreen = ({ navigation }) => {
 				return checkForFaces(smallImage)
 			})
 			.then(image => {
+				params.source = 'appLibrary'
 				setValidating(false)
 				navigation.navigate({ routeName: 'Upload', params })
 				return image

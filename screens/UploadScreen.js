@@ -18,10 +18,11 @@ const UploadScreen = ({ navigation }) => {
 	const uri = navigation.getParam('uri')
 	const location = navigation.getParam('location')
 	const exif = navigation.getParam('exif')
+	const source = navigation.getParam('source')
 
 	return (
 		<View style={styles.safeAreaView}>
-			<MaterialScreen navigation={navigation} uri={uri} location={location} exif={exif} landingSheet="Hurray" />
+			<MaterialScreen navigation={navigation} uri={uri} location={location} exif={exif} source={source} landingSheet="Hurray" />
 		</View>
 	)
 }
