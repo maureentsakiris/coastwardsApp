@@ -203,6 +203,7 @@ const MapScreen = ({ navigation }) => {
 			.then(image => {
 				setValidating(true)
 				const { exif } = image
+
 				params.exif = exif
 				return image
 			})
@@ -220,7 +221,7 @@ const MapScreen = ({ navigation }) => {
 			})
 			.then(location => {
 				const { coords } = location
-				params.location = coords
+				params.location = coords // always in degrees
 				return location
 			})
 			.then(() => {
@@ -273,20 +274,45 @@ const MapScreen = ({ navigation }) => {
 				return result
 			})
 			.then(image => {
+				// Degrees, minutes, and seconds (DMS): 41°24'12.2"N 2°10'26.5"E.
+				// Degrees and decimal minutes (DMM): 41 24.2028, 2 10.4418.
+				// Decimal degrees (DD): 41.40338, 2.17403.
+				// Positive latitude is above the equator (N), and negative latitude is below the equator (S).
+				// Positive longitude is east of the prime meridian, while negative longitude is west of the prime meridian (a north-south line that runs through a point in England)."
+
 				setValidating(true)
 
 				if (!image.exif) {
-					throw Error('exifdata_empty')
+					throw Error('exifdata_empty') // Probably not a digital image
 				}
 
 				const { exif } = image
-				if (!exif.GPSLatitude || !exif.GPSLongitude) {
+
+				if (!exif.GPSLatitude || !exif.GPSLongitude || !exif.GPSLatitudeRef || !exif.GPSLongitudeRef) {
 					throw Error('location_undefined_app')
 				}
 
-				const { GPSLatitude, GPSLongitude } = exif
-				params.location = { latitude: GPSLatitude, longitude: GPSLongitude }
+				const { GPSLatitude, GPSLatitudeRef, GPSLongitude, GPSLongitudeRef } = exif
+
+				let lat = GPSLatitude
+				let long = GPSLongitude
+
+				if (GPSLatitudeRef === 'S' && GPSLatitude > 0) {
+					lat = -lat
+					// alert('latitude decimal does not reflect ref')
+				}
+
+				if (GPSLongitudeRef === 'W' && GPSLongitude > 0) {
+					long = -long
+					// alert('longitude decimal does not reflect ref')
+				}
+
+				params.location = { latitude: lat, longitude: long }
 				params.exif = exif
+				return image
+			})
+
+			.then(image => {
 				const { uri } = image
 				return ImageManipulator.manipulateAsync(uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPG, base64: false })
 			})
@@ -401,7 +427,7 @@ const MapScreen = ({ navigation }) => {
 		})
 	}
 
-	const launchCamera = () => {
+	const prepareCamera = () => {
 		//  iOS is not working with this permission being not individually,
 		checkLocationPermission()
 			.then(() => {
@@ -466,7 +492,7 @@ const MapScreen = ({ navigation }) => {
 		})
 	}
 
-	const launchPhotoLibrary = () => {
+	const preparePhotoLibrary = () => {
 		checkPhotoLibraryPermissions()
 			.then(() => {
 				// granted
@@ -516,10 +542,10 @@ const MapScreen = ({ navigation }) => {
 			setShowingActionSheet(false)
 			if (index === 0) {
 				// CAMERA
-				launchCamera()
+				prepareCamera()
 			} else if (index === 1) {
 				// PHOTO LIBRARY
-				launchPhotoLibrary()
+				preparePhotoLibrary()
 			}
 		})
 	}

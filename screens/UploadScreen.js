@@ -18,7 +18,8 @@ const UploadScreen = ({ navigation }) => {
 	const uri = navigation.getParam('uri')
 	const location = navigation.getParam('location')
 	const exif = navigation.getParam('exif')
-	const source = navigation.getParam('source')
+	// const source = navigation.getParam('source')
+	const source = 'app'
 
 	return (
 		<View style={styles.safeAreaView}>
