@@ -31,6 +31,13 @@ const styles = StyleSheet.create({
 	},
 })
 
+/*
+<Text style={styles.p}>{I18n.t('together')}.</Text>
+<Text style={styles.p}>
+	{I18n.t('easy')}. {I18n.t('beautiful')}. {I18n.t('meaningful')}
+</Text>
+*/
+
 const HowScreen = () => {
 	return (
 		<ScrollView style={styles.view}>
@@ -45,10 +52,6 @@ const HowScreen = () => {
 				<Text style={styles.p}>{I18n.t('computer_programs')}</Text>
 				<Text style={styles.p}>{I18n.t('policy_makers')}</Text>
 				<Text style={styles.p}>{I18n.t('best_advice')}</Text>
-				<Text style={styles.p}>{I18n.t('together')}.</Text>
-				<Text style={styles.p}>
-					{I18n.t('easy')}. {I18n.t('beautiful')}. {I18n.t('meaningful')}
-				</Text>
 			</View>
 		</ScrollView>
 	)

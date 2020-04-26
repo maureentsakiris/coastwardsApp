@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
 	},
 })
 
-const MaterialScreen = ({ navigation, uri, location, exif, landingSheet, libraryId }) => {
+const MaterialScreen = ({ navigation, uri, location, exif, source, landingSheet, libraryId }) => {
 	const [materialUser, setMaterialUser] = useState('notset')
 	const [commentUser, setCommentUser] = useState('')
 	const [uploading, setUploading] = useState(false)
@@ -273,7 +273,7 @@ const MaterialScreen = ({ navigation, uri, location, exif, landingSheet, library
 		// formData.append('labels', JSON.stringify(devLabels)) <--- DONE ON SERVER
 		formData.append('material', materialUser)
 		formData.append('comment', commentUser)
-		formData.append('source', 'app')
+		formData.append('source', source)
 
 		fetch('http://coastwards.org/contribute/upload', {
 			method: 'POST',
@@ -412,6 +412,7 @@ MaterialScreen.propTypes = {
 	uri: PropTypes.string.isRequired,
 	location: PropTypes.object.isRequired,
 	exif: PropTypes.object.isRequired,
+	source: PropTypes.string.isRequired,
 	landingSheet: PropTypes.string.isRequired,
 	libraryId: PropTypes.string,
 }
