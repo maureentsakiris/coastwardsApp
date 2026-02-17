@@ -1,39 +1,95 @@
 {
-	"expo": {
-		"name": "Coastwards",
-		"slug": "coastwards",
-		"privacy": "public",
-		"sdkVersion": "36.0.0",
-		"platforms": ["ios", "android"],
-		"version": "2.2.1",
-		"orientation": "portrait",
-		"primaryColor": "#0076b7",
-		"icon": "./assets/images/icon.png",
-		"splash": {
-			"image": "./assets/images/splash.png",
-			"resizeMode": "cover",
-			"backgroundColor": "#0076b7"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"bundleIdentifier": "org.coastwards.app",
-			"infoPlist": {
-				"NSCameraUsageDescription": "This app uses the camera to allow users to take pictures of coasts.",
-				"NSLocationWhenInUseUsageDescription": "This app uses the location to place the pictures of coasts taken by the user on a map.",
-				"NSPhotoLibraryUsageDescription": "This app uses the Photo Library to allow users to choose existing images of coasts."
-			},
-			"googleServicesFile": "./GoogleService-Info.plist",
-			"supportsTablet": true
-		},
-		"description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
-		"android": {
-			"package": "org.coastwards.app",
-			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA", "READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
-			"googleServicesFile": "./google-services.json",
-			"versionCode": 6
-		}
-	}
+  "expo": {
+    "name": "Coastwards",
+    "slug": "coastwards",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "3.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#0076b7",
+    "icon": "./assets/images/icon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#0076b7"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "org.coastwards.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to allow users to take pictures of coasts.",
+        "NSLocationWhenInUseUsageDescription": "This app uses the location to place the pictures of coasts taken by the user on a map.",
+        "NSPhotoLibraryUsageDescription": "This app uses the Photo Library to allow users to choose existing images of coasts.",
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true,
+          "NSExceptionDomains": {
+            "coastwards.org": {
+              "NSIncludesSubdomains": true,
+              "NSTemporaryExceptionAllowsInsecureHTTPLoads": true
+            }
+          }
+        }
+      },
+      "supportsTablet": true
+    },
+    "description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
+    "android": {
+      "package": "org.coastwards.app",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "versionCode": 6
+    },
+    "plugins": [
+      "expo-router",
+      "expo-asset",
+      "expo-font",
+      "expo-localization",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          },
+          "ios": {
+            "infoPlist": {
+              "NSAppTransportSecurity": {
+                "NSAllowsArbitraryLoads": true,
+                "NSExceptionDomains": {
+                  "coastwards.org": {
+                    "NSIncludesSubdomains": true,
+                    "NSTemporaryExceptionAllowsInsecureHTTPLoads": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "expo-web-browser",
+      "expo-video"
+    ],
+    "scheme": "coastwards",
+    "experiments": {
+      "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ee603ea8-ca8f-4e4b-b000-be2791276df2"
+      }
+    },
+    "owner": "coastwards"
+  }
 }
