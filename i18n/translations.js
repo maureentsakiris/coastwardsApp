@@ -926,6 +926,14 @@ module.exports = {
 		fr: "Les métadonnées ne sont pas complètes. Peut-être qu'un filtre a été appliqué? Merci d´utiliser la photo originale.",
 		it: "I dati associati all'immagine non sono completi. Hai per caso applicato un filtro? Prova con l'immagine originale!",
 	},
+	face_detection_failed: {
+		en: 'We could not check the picture for faces. Please try again with another picture.',
+		de: 'Wir konnten das Bild nicht auf Gesichter prüfen. Bitte versuche es mit einem anderen Bild.',
+		es: 'No pudimos comprobar si la foto contiene caras. Inténtalo con otra foto.',
+		fr: 'Nous n’avons pas pu vérifier la présence de visages sur la photo. Réessaie avec une autre photo.',
+		it: 'Non siamo riusciti a verificare la presenza di volti nella foto. Riprova con un’altra foto.',
+		pt: 'Não foi possível verificar se a foto contém rostos. Tenta novamente com outra foto.',
+	},
 	faces_detected: {
 		en: 'Sorry, for privacy concerns we have to reject images with faces',
 		de: 'Sorry, wir können keine Fotos annehmen, in denen Gesichter zu erkennen sind.',

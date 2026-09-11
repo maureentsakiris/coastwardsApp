@@ -7,6 +7,7 @@ import * as WebBrowser from 'expo-web-browser'
 import * as Location from 'expo-location'
 import * as ImagePicker from 'expo-image-picker'
 import * as ImageManipulator from 'expo-image-manipulator'
+import { RNMLKitFaceDetector } from '@infinitered/react-native-mlkit-face-detection'
 
 import { MaterialIcons } from '@expo/vector-icons'
 import { useActionSheet } from '@expo/react-native-action-sheet'
@@ -108,7 +109,7 @@ const IMAGE_PICKER_OPTIONS = {
 }
 
 const showOops = message => {
-	const translatedErrorMessages = ['faces_detected', 'exifdata_empty', 'location_undefined_app']
+	const translatedErrorMessages = ['faces_detected', 'exifdata_empty', 'location_undefined_app', 'face_detection_failed']
 	const msg = translatedErrorMessages.includes(message) ? I18n.t(message) : message
 
 	Alert.alert(I18n.t('oops'), msg, [{ text: I18n.t('ok'), style: 'cancel' }], { cancelable: false })
@@ -141,6 +142,21 @@ const requirePermission = request => {
 			return status
 		}
 		throw Error('denied')
+	})
+}
+
+// On-device ML Kit face detection. Photos with people are rejected before upload (privacy).
+const faceDetector = new RNMLKitFaceDetector({ performanceMode: 'fast', minFaceSize: 0.05 })
+
+const checkForFaces = image => {
+	return faceDetector.detectFaces(image.uri).then(result => {
+		if (!result || !result.success) {
+			throw Error((result && result.error) || 'face_detection_failed')
+		}
+		if (result.faces.length > 0) {
+			throw Error('faces_detected')
+		}
+		return image
 	})
 }
 
@@ -202,6 +218,7 @@ const MapScreen = ({ navigation }) => {
 				params.exif = image.exif || {}
 				return shrink(image.uri)
 			})
+			.then(checkForFaces)
 			.then(smallImage => {
 				params.uri = smallImage.uri
 				return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
@@ -258,6 +275,7 @@ const MapScreen = ({ navigation }) => {
 				params.exif = exif
 				return shrink(image.uri)
 			})
+			.then(checkForFaces)
 			.then(smallImage => {
 				params.uri = smallImage.uri
 				params.source = 'appLibrary'

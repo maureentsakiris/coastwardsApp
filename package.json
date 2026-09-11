@@ -17,6 +17,8 @@
   "dependencies": {
     "@expo/react-native-action-sheet": "^4.1.1",
     "@expo/vector-icons": "^15.0.2",
+    "@infinitered/react-native-mlkit-core": "^5.0.0",
+    "@infinitered/react-native-mlkit-face-detection": "^5.0.0",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/drawer": "^7.13.10",
     "@react-navigation/native": "^7.3.18",
@@ -27,6 +29,7 @@
     "expo-constants": "~57.0.17",
     "expo-crypto": "~57.0.2",
     "expo-font": "~57.0.3",
+    "expo-image": "~57.0.4",
     "expo-image-manipulator": "~57.0.16",
     "expo-image-picker": "~57.0.16",
     "expo-localization": "~57.0.1",
