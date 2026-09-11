@@ -7,23 +7,15 @@ const styles = StyleSheet.create({
 	safeAreaView: {
 		flex: 1,
 	},
-	picture: {
-		height: 200,
-		width: '100%',
-		backgroundColor: 'pink',
-	},
 })
 
-const UploadScreen = ({ navigation }) => {
-	const uri = navigation.getParam('uri')
-	const location = navigation.getParam('location')
-	const exif = navigation.getParam('exif')
-	// const source = navigation.getParam('source')
+const UploadScreen = ({ navigation, route }) => {
+	const { uri, location, exif } = route.params || {}
 	const source = 'app'
 
 	return (
 		<View style={styles.safeAreaView}>
-			<MaterialScreen navigation={navigation} uri={uri} location={location} exif={exif} source={source} landingSheet="Hurray" />
+			<MaterialScreen navigation={navigation} uri={uri} location={location} exif={exif || {}} source={source} landingSheet="Hurray" />
 		</View>
 	)
 }

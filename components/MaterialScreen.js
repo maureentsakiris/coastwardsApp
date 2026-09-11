@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { Text, View, TouchableOpacity, StyleSheet, AsyncStorage, Alert, Dimensions, ScrollView, ActivityIndicator, Platform, TextInput, KeyboardAvoidingView, ImageBackground, Keyboard } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Alert, Dimensions, ScrollView, ActivityIndicator, Platform, TextInput, KeyboardAvoidingView, ImageBackground, Keyboard } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import * as Crypto from 'expo-crypto'
 import { MaterialIcons } from '@expo/vector-icons'
 
-import uuid from 'uuid/v1'
 import I18n from '../i18n/i18n'
 import theme from '../theme'
 
 const { width, height } = Dimensions.get('window')
+
+const UPLOAD_URL = 'http://coastwards.org/contribute/upload'
 
 const MATERIALS = [
 	{
@@ -178,7 +181,7 @@ const styles = StyleSheet.create({
 	},
 })
 
-const MaterialScreen = ({ navigation, uri, location, exif, source, landingSheet, libraryId }) => {
+const MaterialScreen = ({ navigation, uri, location, exif, source, landingSheet, libraryId = null }) => {
 	const [materialUser, setMaterialUser] = useState('notset')
 	const [commentUser, setCommentUser] = useState('')
 	const [uploading, setUploading] = useState(false)
@@ -254,7 +257,7 @@ const MaterialScreen = ({ navigation, uri, location, exif, source, landingSheet,
 		const { latitude, longitude } = location
 
 		const datetime = exif.DateTimeOriginal || exif.DateTimeDigitized || exif.DateTime
-		const uid = uuid()
+		const uid = Crypto.randomUUID()
 		const fileType = uri.substring(uri.lastIndexOf('.') + 1)
 
 		const formData = new FormData()
@@ -275,7 +278,7 @@ const MaterialScreen = ({ navigation, uri, location, exif, source, landingSheet,
 		formData.append('comment', commentUser)
 		formData.append('source', source)
 
-		fetch('http://coastwards.org/contribute/upload', {
+		fetch(UPLOAD_URL, {
 			method: 'POST',
 			body: formData,
 		})
@@ -305,7 +308,7 @@ const MaterialScreen = ({ navigation, uri, location, exif, source, landingSheet,
 			.catch(error => {
 				if (isSafe.current) {
 					setUploading(false)
-					alert('upload_error' + '\n\nError: ' + error)
+					alert(I18n.t('upload_error') + '\n\nError: ' + error)
 				}
 			})
 	}
@@ -401,10 +404,6 @@ const MaterialScreen = ({ navigation, uri, location, exif, source, landingSheet,
 			</View>
 		</View>
 	)
-}
-
-MaterialScreen.defaultProps = {
-	libraryId: null,
 }
 
 MaterialScreen.propTypes = {

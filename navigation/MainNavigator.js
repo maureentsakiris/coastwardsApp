@@ -1,19 +1,13 @@
 import React from 'react'
-import { StyleSheet, ScrollView, Image, View, Platform, Text } from 'react-native'
-import { Linking } from 'expo'
+import { StyleSheet, Image, View, Text, Linking } from 'react-native'
 import Constants from 'expo-constants'
-import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons'
 
 import I18n from '../i18n/i18n'
 
 import MapScreen from '../screens/MapScreen'
-// import CameraScreen from '../screens/CameraScreen'
-// import ImagePickerScreen from '../screens/ImagePickerScreen'
-// import MediaLibraryScreen from '../screens/MediaLibraryScreen'
-// import MaterialLibraryScreen from '../screens/MaterialLibraryScreen'
-// import MaterialCameraScreen from '../screens/MaterialCameraScreen'
 import UploadScreen from '../screens/UploadScreen'
 import HurrayScreen from '../screens/HurrayScreen'
 import GuidelinesModalScreen from '../screens/GuidelinesModalScreen'
@@ -42,7 +36,6 @@ const styles = StyleSheet.create({
 		paddingTop: 50,
 		paddingBottom: 30,
 		backgroundColor: theme.primary,
-		flex: 1,
 	},
 	logoImage: {
 		width: 150,
@@ -55,28 +48,6 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		color: 'white',
 	},
-	items: {
-		marginBottom: 40,
-		flex: 1,
-	},
-	itemStyle: {},
-	iconContainerStyle: {
-		flexShrink: 1,
-	},
-	labelStyle: {
-		flex: 1,
-		flexGrow: 1,
-		marginLeft: 0,
-	},
-	socialDrawer: {
-		display: 'flex',
-		flexDirection: 'column',
-	},
-	followUs: {
-		fontSize: 14,
-		color: 'white',
-		marginRight: 20,
-	},
 	bottomDrawer: {
 		backgroundColor: theme.primary,
 		shadowColor: '#000',
@@ -88,14 +59,12 @@ const styles = StyleSheet.create({
 		shadowRadius: 2.62,
 		elevation: 4,
 		padding: theme.padding,
-
-		display: 'flex',
+		paddingBottom: theme.padding + 10,
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
 	social: {
-		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'flex-end',
@@ -103,35 +72,38 @@ const styles = StyleSheet.create({
 	socialIcon: {
 		marginLeft: theme.padding,
 	},
-	version: {
-		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center',
-		borderTopWidth: 1,
-		borderTopColor: 'white',
-		alignSelf: 'flex-start',
-	},
 	madeWith: {
 		fontSize: 14,
 		color: theme.waterMap,
 	},
+	headerTitleImg: {
+		width: 40,
+		height: 17,
+	},
+	menuIcon: {
+		marginLeft: 10,
+	},
+	closeIcon: {
+		marginRight: 10,
+	},
 })
 
-const Drawer = props => {
+const appVersion = (Constants.expoConfig && Constants.expoConfig.version) || ''
+
+const DrawerContent = props => {
 	return (
 		<View style={styles.view}>
-			<ScrollView style={styles.scrollView}>
+			<DrawerContentScrollView {...props} style={styles.scrollView} contentContainerStyle={{ paddingTop: 0 }}>
 				<View style={styles.logoView}>
 					<Image source={logoWhite} style={styles.logoImage} />
 					<Text style={styles.headerTxt}>
 						{I18n.t('help_science')} {I18n.t('by')}
 					</Text>
 				</View>
-				<DrawerItems itemsContainerStyle={styles.items} itemStyle={styles.itemStyle} iconContainerStyle={styles.iconContainerStyle} labelStyle={styles.labelStyle} {...props} />
-			</ScrollView>
+				<DrawerItemList {...props} />
+			</DrawerContentScrollView>
 			<View style={styles.bottomDrawer}>
-				<Text style={styles.madeWith}>v{Constants.manifest.version} Made with ❤︎</Text>
+				<Text style={styles.madeWith}>v{appVersion} Made with ❤︎</Text>
 				<View style={styles.social}>
 					<Ionicons onPress={() => Linking.openURL('https://www.facebook.com/coastwards/')} style={styles.socialIcon} size={30} name="logo-facebook" color={theme.waterMap} />
 					<Ionicons onPress={() => Linking.openURL('https://twitter.com/gocoastwards')} style={styles.socialIcon} size={30} name="logo-twitter" color={theme.waterMap} />
@@ -141,454 +113,151 @@ const Drawer = props => {
 	)
 }
 
-const config = {
-	defaultNavigationOptions: ({ navigation }) => ({
-		headerStyle: {
-			backgroundColor: 'white',
-			borderBottomWidth: 0,
-			shadowColor: '#000',
-			shadowOffset: {
-				width: 0,
-				height: 1,
-			},
-			shadowOpacity: 0.22,
-			shadowRadius: 2.22,
-			elevation: 3,
-		},
-		headerTintColor: theme.primary,
-		headerLeft: ({ tintColor }) => {
-			return <MaterialIcons onPress={() => navigation.openDrawer()} style={{ marginLeft: 10 }} size={30} name="menu" color={tintColor} />
-		},
-		headerTitle: () => {
-			return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
-		},
-		headerTitleAlign: 'center',
-	}),
+const HeaderTitle = () => <Image style={styles.headerTitleImg} source={tinyTurtleBlue} />
+
+const stackScreenOptions = ({ navigation }) => ({
+	headerStyle: {
+		backgroundColor: 'white',
+	},
+	headerShadowVisible: true,
+	headerTintColor: theme.primary,
+	headerTitleAlign: 'center',
+	headerTitle: HeaderTitle,
+	headerLeft: ({ tintColor }) => <MaterialIcons onPress={() => navigation.openDrawer()} style={styles.menuIcon} size={30} name="menu" color={tintColor || theme.primary} />,
+})
+
+const makeStack = (name, Component) => {
+	const Stack = createNativeStackNavigator()
+	const StackComponent = () => (
+		<Stack.Navigator screenOptions={stackScreenOptions}>
+			<Stack.Screen name={name} component={Component} />
+		</Stack.Navigator>
+	)
+	StackComponent.displayName = `${name}Stack`
+	return StackComponent
 }
 
-const HowStack = createStackNavigator(
-	{
-		How: HowScreen,
-	},
-	config
-)
-const TeamStack = createStackNavigator(
-	{
-		Team: TeamScreen,
-	},
-	config
-)
-const GuidelinesStack = createStackNavigator(
-	{
-		Guidelines: GuidelinesScreen,
-	},
-	config
-)
-const FeedbackStack = createStackNavigator(
-	{
-		Feedback: FeedbackScreen,
-	},
-	config
-)
-const PrivacyPolicyStack = createStackNavigator(
-	{
-		PrivacyPolicy: PrivacyPolicyScreen,
-	},
-	config
-)
+const HowStack = makeStack('HowMain', HowScreen)
+const TeamStack = makeStack('TeamMain', TeamScreen)
+const GuidelinesStack = makeStack('GuidelinesMain', GuidelinesScreen)
+const FeedbackStack = makeStack('FeedbackMain', FeedbackScreen)
+const PrivacyPolicyStack = makeStack('PrivacyPolicyMain', PrivacyPolicyScreen)
 
-const DrawerNavigator = createDrawerNavigator(
-	{
-		Map: {
-			screen: MapScreen,
-			navigationOptions: {
+const Drawer = createDrawerNavigator()
+
+const DrawerNavigator = () => (
+	<Drawer.Navigator
+		drawerContent={props => <DrawerContent {...props} />}
+		screenOptions={{
+			headerShown: false,
+			drawerType: 'back',
+			drawerStyle: { backgroundColor: theme.primary },
+			drawerInactiveTintColor: theme.waterMap,
+			drawerActiveTintColor: 'white',
+			drawerActiveBackgroundColor: '#01659c',
+		}}
+	>
+		<Drawer.Screen
+			name="Map"
+			component={MapScreen}
+			options={{
 				drawerLabel: I18n.t('map'),
-				drawerIcon: ({ tintColor }) => {
-					return <Ionicons size={26} name={Platform.OS === 'ios' ? 'ios-globe' : 'md-globe'} color={tintColor} />
-				},
-			},
-		},
-		How: {
-			screen: HowStack,
-			navigationOptions: {
+				drawerIcon: ({ color }) => <Ionicons size={26} name="globe-outline" color={color} />,
+			}}
+		/>
+		<Drawer.Screen
+			name="How"
+			component={HowStack}
+			options={{
 				drawerLabel: I18n.t('how'),
-				drawerIcon: ({ tintColor }) => {
-					return <FontAwesome size={26} name="question-circle" color={tintColor} />
-				},
-			},
-		},
-		Guidelines: {
-			screen: GuidelinesStack,
-			navigationOptions: {
+				drawerIcon: ({ color }) => <FontAwesome size={26} name="question-circle" color={color} />,
+			}}
+		/>
+		<Drawer.Screen
+			name="Guidelines"
+			component={GuidelinesStack}
+			options={{
 				drawerLabel: I18n.t('any_picture_title'),
-				drawerIcon: ({ tintColor }) => {
-					return <MaterialIcons size={26} name="photo-camera" color={tintColor} />
-				},
-			},
-		},
-		Team: {
-			screen: TeamStack,
-			navigationOptions: {
+				drawerIcon: ({ color }) => <MaterialIcons size={26} name="photo-camera" color={color} />,
+			}}
+		/>
+		<Drawer.Screen
+			name="Team"
+			component={TeamStack}
+			options={{
 				drawerLabel: I18n.t('about'),
-				drawerIcon: ({ tintColor }) => {
-					return <MaterialIcons size={26} name="people" color={tintColor} />
-				},
-			},
-		},
-		Feedback: {
-			screen: FeedbackStack,
-			navigationOptions: {
+				drawerIcon: ({ color }) => <MaterialIcons size={26} name="people" color={color} />,
+			}}
+		/>
+		<Drawer.Screen
+			name="Feedback"
+			component={FeedbackStack}
+			options={{
 				drawerLabel: I18n.t('feedback'),
-				drawerIcon: ({ tintColor }) => {
-					return <MaterialIcons size={26} name="feedback" color={tintColor} />
-				},
-			},
-		},
-		PrivacyPolicy: {
-			screen: PrivacyPolicyStack,
-			navigationOptions: {
+				drawerIcon: ({ color }) => <MaterialIcons size={26} name="feedback" color={color} />,
+			}}
+		/>
+		<Drawer.Screen
+			name="PrivacyPolicy"
+			component={PrivacyPolicyStack}
+			options={{
 				drawerLabel: I18n.t('privacy_policy'),
-				drawerIcon: ({ tintColor }) => {
-					return <MaterialIcons size={26} name="lock" color={tintColor} />
-				},
-			},
-		},
-	},
-	{
-		drawerType: 'back',
-		drawerBackgroundColor: theme.primary,
-		contentComponent: Drawer,
-		contentOptions: {
-			inactiveTintColor: theme.waterMap,
-			activeTintColor: 'white',
-			activeBackgroundColor: '#01659c',
-		},
-	}
+				drawerIcon: ({ color }) => <MaterialIcons size={26} name="lock" color={color} />,
+			}}
+		/>
+	</Drawer.Navigator>
 )
 
-// const ContributeStack = createStackNavigator(
-// 	{
-// 		Camera: {
-// 			screen: CameraScreen,
-// 			navigationOptions: ({ navigation }) => ({
-// 				headerStyle: {
-// 					backgroundColor: 'white',
-// 					borderBottomWidth: 0,
-// 					shadowColor: '#000',
-// 					shadowOffset: {
-// 						width: 0,
-// 						height: 1,
-// 					},
-// 					shadowOpacity: 0.22,
-// 					shadowRadius: 2.22,
-// 					elevation: 3,
-// 				},
-// 				headerTintColor: theme.primary,
-// 				headerLeft: ({ tintColor }) => {
-// 					return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
-// 				},
-// 				headerRight: () => {
-// 					return (
-// 						<MaterialIcons
-// 							onPress={() => {
-// 								navigation.navigate('Guidelines')
-// 							}}
-// 							name="help-outline"
-// 							size={30}
-// 							color={theme.primary}
-// 							style={{ marginRight: 10 }}
-// 						/>
-// 					)
-// 				},
-// 				headerTitle: () => {
-// 					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
-// 				},
-// 			}),
-// 		},
-// 		MaterialCamera: {
-// 			screen: MaterialCameraScreen,
-// 			navigationOptions: () => ({
-// 				headerStyle: {
-// 					backgroundColor: 'white',
-// 					borderBottomWidth: 0,
-// 					shadowColor: '#000',
-// 					shadowOffset: {
-// 						width: 0,
-// 						height: 3,
-// 					},
-// 					shadowOpacity: 0.29,
-// 					shadowRadius: 4.65,
+const UploadStack = createNativeStackNavigator()
 
-// 					elevation: 7,
-// 				},
-// 				headerTintColor: theme.primary,
-// 				headerTransparent: false,
-// 				headerTitle: () => {
-// 					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
-// 				},
-// 			}),
-// 		},
-// 		HurrayCamera: {
-// 			screen: HurrayScreen,
+const closeToMap = navigation => <MaterialIcons onPress={() => navigation.navigate('Main', { screen: 'Map' })} name="close" size={30} color={theme.primary} style={styles.closeIcon} />
 
-// 			navigationOptions: ({ navigation }) => ({
-// 				headerTintColor: theme.primary,
-// 				headerLeft: null,
-// 				headerTransparent: true,
-// 				headerRight: () => {
-// 					return (
-// 						<MaterialIcons
-// 							onPress={() => {
-// 								navigation.navigate('Map')
-// 							}}
-// 							name="close"
-// 							size={30}
-// 							color={theme.primary}
-// 							style={{ marginRight: 10 }}
-// 						/>
-// 					)
-// 				},
-// 			}),
-// 		},
-// 	},
-// 	{
-// 		headerBackTitleVisible: false,
-// 		headerTransitionPreset: 'fade-in-place',
-// 		headerLayoutPreset: 'center',
-// 		defaultNavigationOptions: {
-// 			gesturesEnabled: false,
-// 		},
-// 	}
-// )
-
-// const ContributeLibraryStack = createStackNavigator(
-// 	{
-// 		ImagePicker: {
-// 			screen: ImagePickerScreen,
-// 			navigationOptions: ({ navigation }) => ({
-// 				headerStyle: {
-// 					backgroundColor: 'white',
-// 					borderBottomWidth: 0,
-// 					shadowColor: '#000',
-// 					shadowOffset: {
-// 						width: 0,
-// 						height: 1,
-// 					},
-// 					shadowOpacity: 0.22,
-// 					shadowRadius: 2.22,
-// 					elevation: 3,
-// 				},
-// 				headerTintColor: theme.primary,
-// 				headerLeft: ({ tintColor }) => {
-// 					return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
-// 				},
-// 				headerRight: () => {
-// 					return (
-// 						<MaterialIcons
-// 							onPress={() => {
-// 								navigation.navigate('Guidelines')
-// 							}}
-// 							name="help-outline"
-// 							size={30}
-// 							color={theme.primary}
-// 							style={{ marginRight: 10 }}
-// 						/>
-// 					)
-// 				},
-// 				headerTitle: () => {
-// 					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
-// 				},
-// 			}),
-// 		},
-// 		MediaLibrary: {
-// 			screen: MediaLibraryScreen,
-// 			navigationOptions: ({ navigation }) => ({
-// 				headerStyle: {
-// 					backgroundColor: 'white',
-// 					borderBottomWidth: 0,
-// 					shadowColor: '#000',
-// 					shadowOffset: {
-// 						width: 0,
-// 						height: 1,
-// 					},
-// 					shadowOpacity: 0.22,
-// 					shadowRadius: 2.22,
-// 					elevation: 3,
-// 				},
-// 				headerTintColor: theme.primary,
-// 				headerLeft: ({ tintColor }) => {
-// 					return <MaterialIcons onPress={() => navigation.navigate('Main')} style={{ marginLeft: 10 }} size={30} name="close" color={tintColor} />
-// 				},
-// 				headerRight: () => {
-// 					return (
-// 						<MaterialIcons
-// 							onPress={() => {
-// 								navigation.navigate('Guidelines')
-// 							}}
-// 							name="help-outline"
-// 							size={30}
-// 							color={theme.primary}
-// 							style={{ marginRight: 10 }}
-// 						/>
-// 					)
-// 				},
-// 				headerTitle: () => {
-// 					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
-// 				},
-// 			}),
-// 		},
-// 		MaterialLibrary: {
-// 			screen: MaterialLibraryScreen,
-// 			navigationOptions: () => ({
-// 				headerStyle: {
-// 					backgroundColor: 'white',
-// 					borderBottomWidth: 0,
-// 					shadowColor: '#000',
-// 					shadowOffset: {
-// 						width: 0,
-// 						height: 3,
-// 					},
-// 					shadowOpacity: 0.29,
-// 					shadowRadius: 4.65,
-
-// 					elevation: 7,
-// 				},
-// 				headerTintColor: theme.primary,
-// 				headerTransparent: false,
-// 				headerTitle: () => {
-// 					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
-// 				},
-// 			}),
-// 		},
-// 		HurrayLibrary: {
-// 			screen: HurrayScreen,
-
-// 			navigationOptions: ({ navigation }) => ({
-// 				headerTintColor: theme.primary,
-// 				headerLeft: null,
-// 				headerTransparent: true,
-// 				headerRight: () => {
-// 					return (
-// 						<MaterialIcons
-// 							onPress={() => {
-// 								navigation.navigate('Map')
-// 							}}
-// 							name="close"
-// 							size={30}
-// 							color={theme.primary}
-// 							style={{ marginRight: 10 }}
-// 						/>
-// 					)
-// 				},
-// 			}),
-// 		},
-// 	},
-// 	{
-// 		headerBackTitleVisible: false,
-// 		headerTransitionPreset: 'fade-in-place',
-// 		headerLayoutPreset: 'center',
-// 		defaultNavigationOptions: {
-// 			gesturesEnabled: false,
-// 		},
-// 	}
-// )
-
-const UploadStack = createStackNavigator(
-	{
-		Upload: {
-			screen: UploadScreen,
-			navigationOptions: ({ navigation }) => ({
-				headerStyle: {
-					backgroundColor: 'white',
-					borderBottomWidth: 0,
-					shadowColor: '#000',
-					shadowOffset: {
-						width: 0,
-						height: 3,
-					},
-					shadowOpacity: 0.29,
-					shadowRadius: 4.65,
-
-					elevation: 7,
-				},
-				headerTintColor: theme.primary,
-				headerTransparent: false,
-				headerTitle: () => {
-					return <Image style={{ width: 40, height: 17 }} source={tinyTurtleBlue} />
-				},
-				headerRight: () => {
-					return (
-						<MaterialIcons
-							onPress={() => {
-								navigation.navigate('Map')
-							}}
-							name="close"
-							size={30}
-							color={theme.primary}
-							style={{ marginRight: 10 }}
-						/>
-					)
-				},
-			}),
-		},
-		Hurray: {
-			screen: HurrayScreen,
-
-			navigationOptions: ({ navigation }) => ({
-				headerTintColor: theme.primary,
-				headerLeft: null,
+const UploadNavigator = () => (
+	<UploadStack.Navigator
+		screenOptions={{
+			gestureEnabled: false,
+			headerTintColor: theme.primary,
+			headerTitleAlign: 'center',
+			headerBackVisible: false,
+			animation: 'fade',
+		}}
+	>
+		<UploadStack.Screen
+			name="Upload"
+			component={UploadScreen}
+			options={({ navigation }) => ({
+				headerStyle: { backgroundColor: 'white' },
+				headerShadowVisible: true,
+				headerTitle: HeaderTitle,
+				headerRight: () => closeToMap(navigation),
+			})}
+		/>
+		<UploadStack.Screen
+			name="Hurray"
+			component={HurrayScreen}
+			options={({ navigation }) => ({
 				headerTransparent: true,
-				headerRight: () => {
-					return (
-						<MaterialIcons
-							onPress={() => {
-								navigation.navigate('Map')
-							}}
-							name="close"
-							size={30}
-							color={theme.primary}
-							style={{ marginRight: 10 }}
-						/>
-					)
-				},
-			}),
-		},
-	},
-	{
-		headerBackTitleVisible: false,
-		headerTransitionPreset: 'fade-in-place',
-		headerLayoutPreset: 'center',
-		defaultNavigationOptions: {
-			gesturesEnabled: false,
-		},
-	}
+				headerTitle: '',
+				headerRight: () => closeToMap(navigation),
+			})}
+		/>
+	</UploadStack.Navigator>
 )
 
-const MainNavigator = createStackNavigator(
-	{
-		Main: {
-			screen: DrawerNavigator,
-		},
-		// Contribute: {
-		// 	screen: ContributeStack,
-		// },
-		// ContributeLibrary: {
-		// 	screen: ContributeLibraryStack,
-		// },
-		Upload: {
-			screen: UploadStack,
-		},
-		GuidelinesModal: {
-			screen: GuidelinesModalScreen,
-		},
-	},
-	{
-		mode: 'modal',
-		headerMode: 'none',
-		defaultNavigationOptions: {
-			gesturesEnabled: false,
-		},
-	}
+const RootStack = createNativeStackNavigator()
+
+const MainNavigator = () => (
+	<RootStack.Navigator
+		screenOptions={{
+			headerShown: false,
+			presentation: 'modal',
+			gestureEnabled: false,
+		}}
+	>
+		<RootStack.Screen name="Main" component={DrawerNavigator} />
+		<RootStack.Screen name="UploadFlow" component={UploadNavigator} />
+		<RootStack.Screen name="GuidelinesModal" component={GuidelinesModalScreen} />
+	</RootStack.Navigator>
 )
 
 export default MainNavigator

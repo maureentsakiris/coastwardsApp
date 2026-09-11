@@ -13,7 +13,7 @@ import zh from './locales/zh'
 import it from './locales/it'
 
 I18n.fallbacks = true
-I18n.default_locale = 'en'
+I18n.defaultLocale = 'en'
 I18n.translations = {
 	en,
 	de,
@@ -27,6 +27,7 @@ I18n.translations = {
 	it,
 }
 
-I18n.locale = Localization.locale.split('-')[0]
+const locales = Localization.getLocales()
+I18n.locale = (locales && locales[0] && locales[0].languageCode) || 'en'
 
 export default I18n

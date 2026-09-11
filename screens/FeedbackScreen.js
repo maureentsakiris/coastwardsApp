@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import { Linking } from 'expo'
+import { View, StyleSheet, Text, TouchableOpacity, Linking } from 'react-native'
 import I18n from '../i18n/i18n'
 
 import theme from '../theme'
@@ -42,7 +41,7 @@ const FeedbackScreen = () => {
 		<View style={styles.safeAreaView}>
 			<Text style={styles.header}>{I18n.t('feedback_title')}</Text>
 			<Text style={styles.p}>{I18n.t('feedback_text')}</Text>
-			<TouchableOpacity style={styles.emailBtn} onPress={() => Linking.openURL('mailTo:go@coastwards.org')}>
+			<TouchableOpacity style={styles.emailBtn} onPress={() => Linking.openURL('mailto:go@coastwards.org')}>
 				<Text style={styles.emailBtnTxt}>{I18n.t('send_email')}</Text>
 			</TouchableOpacity>
 		</View>

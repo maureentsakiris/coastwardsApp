@@ -1,12 +1,14 @@
-import { AppLoading } from 'expo'
+import 'react-native-gesture-handler'
+import React, { useCallback, useEffect, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import * as SplashScreen from 'expo-splash-screen'
 import { Asset } from 'expo-asset'
 import * as Font from 'expo-font'
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { Platform, StatusBar, StyleSheet, View } from 'react-native'
-
-import { createAppContainer } from 'react-navigation'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons'
+import { NavigationContainer } from '@react-navigation/native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 import MainNavigator from './navigation/MainNavigator'
 
@@ -19,6 +21,8 @@ const notonlybeaches = require('./assets/guidelines/notonlybeaches.png')
 const tinyTurtleBlue = require('./assets/images/tinyTurtleBlue.png')
 const logoWhite = require('./assets/images/logoWhite.png')
 
+SplashScreen.preventAutoHideAsync().catch(() => {})
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -26,56 +30,54 @@ const styles = StyleSheet.create({
 	},
 })
 
-const AppNavigator = createAppContainer(MainNavigator)
-
 async function loadResourcesAsync() {
 	await Promise.all([
-		// AsyncStorage.clear(),
 		Asset.loadAsync([icon, anyCoast, closeup, nofaces, coastmaterial, notonlybeaches, tinyTurtleBlue, logoWhite]),
 		Font.loadAsync({
-			// This is the font that we are using for our tab bar
 			...Ionicons.font,
-			// We include SpaceMono because we use it in HomeScreen.js. Feel free to
-			// remove this if you are not using it in your app
-			// 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+			...MaterialIcons.font,
+			...FontAwesome.font,
 		}),
 	])
 }
 
-function handleLoadingError(error: Error) {
-	// In this case, you might want to report the error to your error reporting
-	// service, for example Sentry
-	console.warn(error)
-}
-
-function handleFinishLoading(setLoadingComplete) {
-	setLoadingComplete(true)
-}
-
-const App = props => {
-	const { skipLoadingScreen } = props
+const App = () => {
 	const [isLoadingComplete, setLoadingComplete] = useState(false)
 
-	if (!isLoadingComplete && !skipLoadingScreen) {
-		return <AppLoading startAsync={loadResourcesAsync} onError={handleLoadingError} onFinish={() => handleFinishLoading(setLoadingComplete)} />
+	useEffect(() => {
+		loadResourcesAsync()
+			.catch(error => {
+				console.warn(error)
+			})
+			.finally(() => {
+				setLoadingComplete(true)
+			})
+	}, [])
+
+	const onLayoutRootView = useCallback(() => {
+		if (isLoadingComplete) {
+			SplashScreen.hideAsync().catch(() => {})
+		}
+	}, [isLoadingComplete])
+
+	if (!isLoadingComplete) {
+		return null
 	}
 
 	return (
-		<ActionSheetProvider>
-			<View style={styles.container}>
-				{Platform.OS === 'ios' && <StatusBar barStyle="default" hidden={false} />}
-				<AppNavigator />
-			</View>
-		</ActionSheetProvider>
+		<GestureHandlerRootView style={styles.container}>
+			<SafeAreaProvider>
+				<ActionSheetProvider>
+					<View style={styles.container} onLayout={onLayoutRootView}>
+						<StatusBar style="dark" />
+						<NavigationContainer>
+							<MainNavigator />
+						</NavigationContainer>
+					</View>
+				</ActionSheetProvider>
+			</SafeAreaProvider>
+		</GestureHandlerRootView>
 	)
-}
-
-App.defaultProps = {
-	skipLoadingScreen: null,
-}
-
-App.propTypes = {
-	skipLoadingScreen: PropTypes.bool,
 }
 
 export default App

@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { Platform, StyleSheet, TouchableOpacity, View, Alert, Linking, Text, Image, ActivityIndicator, AsyncStorage } from 'react-native'
-import { NavigationEvents } from 'react-navigation'
+import React, { useState, useCallback } from 'react'
+import { StyleSheet, TouchableOpacity, View, Alert, Linking, Text, Image, ActivityIndicator } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import WebView from 'react-native-webview'
 import * as WebBrowser from 'expo-web-browser'
-import * as Permissions from 'expo-permissions'
-
-import * as IntentLauncher from 'expo-intent-launcher'
 import * as Location from 'expo-location'
 import * as ImagePicker from 'expo-image-picker'
-import * as FaceDetector from 'expo-face-detector'
 import * as ImageManipulator from 'expo-image-manipulator'
 
 import { MaterialIcons } from '@expo/vector-icons'
@@ -16,7 +13,10 @@ import { useActionSheet } from '@expo/react-native-action-sheet'
 import I18n from '../i18n/i18n'
 import theme from '../theme'
 
-import turtle from '../assets/images/tinyTurtleBlue.png'
+const turtle = require('../assets/images/tinyTurtleBlue.png')
+
+const MAP_URL = 'http://coastwards.org/map'
+const COUNT_URL = 'http://coastwards.org/contribute/count'
 
 const styles = StyleSheet.create({
 	safeAreaView: {
@@ -49,12 +49,7 @@ const styles = StyleSheet.create({
 		shadowRadius: 6.68,
 		elevation: 11,
 	},
-	buttonText: {
-		fontSize: 20,
-		color: 'white',
-	},
 	controlsTop: {
-		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -67,7 +62,6 @@ const styles = StyleSheet.create({
 		paddingRight: theme.padding,
 	},
 	controlsBottom: {
-		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -88,7 +82,6 @@ const styles = StyleSheet.create({
 	counterControl: {
 		position: 'absolute',
 		left: theme.padding,
-		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
 	},
@@ -98,19 +91,69 @@ const styles = StyleSheet.create({
 		marginLeft: 5,
 		flex: 1,
 	},
-	bottomLeft: {
-		position: 'absolute',
-		left: theme.padding,
-		bottom: theme.safePadding,
-	},
 	refreshIndicator: {
-		display: 'flex',
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: 40,
 	},
 })
+
+const IMAGE_PICKER_OPTIONS = {
+	mediaTypes: ['images'],
+	allowsEditing: false,
+	quality: 1,
+	base64: false,
+	exif: true,
+}
+
+const showOops = message => {
+	const translatedErrorMessages = ['faces_detected', 'exifdata_empty', 'location_undefined_app']
+	const msg = translatedErrorMessages.includes(message) ? I18n.t(message) : message
+
+	Alert.alert(I18n.t('oops'), msg, [{ text: I18n.t('ok'), style: 'cancel' }], { cancelable: false })
+}
+
+const showPermissionMissing = msgKey => {
+	Alert.alert(
+		I18n.t('permissions_missing_title'),
+		I18n.t(msgKey),
+		[
+			{
+				text: I18n.t('ok'),
+				style: 'cancel',
+			},
+			{
+				text: I18n.t('open_settings'),
+				onPress: () => {
+					Linking.openSettings()
+				},
+				style: 'cancel',
+			},
+		],
+		{ cancelable: false }
+	)
+}
+
+const requirePermission = request => {
+	return request().then(({ status }) => {
+		if (status === 'granted') {
+			return status
+		}
+		throw Error('denied')
+	})
+}
+
+const shrink = uri => {
+	return ImageManipulator.manipulateAsync(uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPEG, base64: false })
+}
+
+const firstAsset = result => {
+	if (result.canceled || !result.assets || !result.assets[0]) {
+		throw Error('cancelled')
+	}
+	return result.assets[0]
+}
 
 const MapScreen = ({ navigation }) => {
 	const { showActionSheetWithOptions } = useActionSheet()
@@ -122,26 +165,14 @@ const MapScreen = ({ navigation }) => {
 
 	const refreshMap = alertUser => {
 		setRefreshing(true)
-		fetch('http://coastwards.org/contribute/count', {
-			method: 'GET',
-		})
+		fetch(COUNT_URL, { method: 'GET' })
 			.then(response => response.json())
 			.then(responseJson => {
 				const newCount = responseJson.count
 				if (newCount !== counter) {
-					setCounter(responseJson.count)
-				} else if (newCount === responseJson.count && alertUser) {
-					Alert.alert(
-						I18n.t('no_new_contributions_title'),
-						I18n.t('no_new_contributions'),
-						[
-							{
-								text: I18n.t('ok'),
-								style: 'cancel',
-							},
-						],
-						{ cancelable: false } // Don't allow to cancel by tapping outside
-					)
+					setCounter(newCount)
+				} else if (alertUser) {
+					Alert.alert(I18n.t('no_new_contributions_title'), I18n.t('no_new_contributions'), [{ text: I18n.t('ok'), style: 'cancel' }], { cancelable: false })
 				}
 				setRefreshing(false)
 			})
@@ -151,135 +182,53 @@ const MapScreen = ({ navigation }) => {
 			})
 	}
 
-	useEffect(() => {
-		// Future proofing for double-invoking
-		// effects in Strict Mode.
-		refreshMap(false)
-	}, [])
+	useFocusEffect(
+		useCallback(() => {
+			refreshMap(false)
+		}, [])
+	)
 
-	const checkForFaces = imageOrPic => {
-		return new Promise((resolve, reject) => {
-			const options = {
-				mode: FaceDetector.Constants.Mode.fast,
-				detectLandmarks: FaceDetector.Constants.Landmarks.none,
-				runClassifications: FaceDetector.Constants.Classifications.none,
-			}
-
-			const { uri } = imageOrPic
-
-			FaceDetector.detectFacesAsync(uri, options)
-				.then(value => {
-					if (value.faces.length > 0) {
-						reject(Error('faces_detected'))
-					}
-					resolve(imageOrPic)
-				})
-				.catch(error => {
-					reject(error)
-				})
-		})
+	const goToUpload = params => {
+		navigation.navigate('UploadFlow', { screen: 'Upload', params })
 	}
 
 	const takePicture = () => {
-		const options = {
-			mediaTypes: ImagePicker.MediaTypeOptions.Images,
-			allowsEditing: false,
-			// aspect: [1, 1],
-			quality: 1,
-			base64: false,
-			exif: true,
-		}
-
 		const params = {}
 
-		ImagePicker.launchCameraAsync(options)
-			.then(result => {
-				const { cancelled } = result
-				if (!cancelled) {
-					return result
-				}
-				throw Error('cancelled')
-			})
+		ImagePicker.launchCameraAsync(IMAGE_PICKER_OPTIONS)
+			.then(firstAsset)
 			.then(image => {
 				setValidating(true)
-				const { exif } = image
-
-				params.exif = exif
-				return image
-			})
-			.then(image => {
-				const { uri } = image
-				return ImageManipulator.manipulateAsync(uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPG, base64: false })
+				params.exif = image.exif || {}
+				return shrink(image.uri)
 			})
 			.then(smallImage => {
-				const { uri } = smallImage
-				params.uri = uri
-				return checkForFaces(smallImage)
-			})
-			.then(() => {
+				params.uri = smallImage.uri
 				return Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
 			})
 			.then(location => {
-				const { coords } = location
-				params.location = coords // always in degrees
-				return location
-			})
-			.then(() => {
+				params.location = location.coords // always in degrees
 				params.source = 'appCamera'
-				navigation.navigate({ routeName: 'Upload', params })
 				setValidating(false)
+				goToUpload(params)
 			})
 			.catch(error => {
 				setValidating(false)
-				const { message } = error
-				if (message !== 'cancelled') {
-					const translatedErrorMessages = ['faces_detected']
-					const msg = translatedErrorMessages.includes(message) ? I18n.t(message) : message
-
-					Alert.alert(
-						I18n.t('oops'),
-						msg,
-						[
-							{
-								text: I18n.t('ok'),
-								style: 'cancel',
-							},
-						],
-
-						{ cancelable: false } // Don't allow to cancel by tapping outside
-					)
+				if (error.message !== 'cancelled') {
+					showOops(error.message)
 				}
 			})
 	}
 
 	const pickImage = () => {
-		const options = {
-			mediaTypes: ImagePicker.MediaTypeOptions.Images,
-			allowsEditing: false,
-			// allowsMultipleSelection: true, (web only)
-			// aspect: [1, 1],
-			quality: 1,
-			base64: false,
-			exif: true,
-		}
-
 		const params = {}
 
-		ImagePicker.launchImageLibraryAsync(options)
-			.then(result => {
-				const { cancelled } = result
-				if (cancelled) {
-					throw Error('cancelled')
-				}
-				return result
-			})
+		ImagePicker.launchImageLibraryAsync(IMAGE_PICKER_OPTIONS)
+			.then(firstAsset)
 			.then(image => {
-				// Degrees, minutes, and seconds (DMS): 41°24'12.2"N 2°10'26.5"E.
-				// Degrees and decimal minutes (DMM): 41 24.2028, 2 10.4418.
 				// Decimal degrees (DD): 41.40338, 2.17403.
-				// Positive latitude is above the equator (N), and negative latitude is below the equator (S).
-				// Positive longitude is east of the prime meridian, while negative longitude is west of the prime meridian (a north-south line that runs through a point in England)."
-
+				// Positive latitude is above the equator (N), negative below (S).
+				// Positive longitude is east of the prime meridian, negative west (W).
 				setValidating(true)
 
 				if (!image.exif) {
@@ -299,230 +248,60 @@ const MapScreen = ({ navigation }) => {
 
 				if (GPSLatitudeRef === 'S' && GPSLatitude > 0) {
 					lat = -lat
-					// alert('latitude decimal does not reflect ref')
 				}
 
 				if (GPSLongitudeRef === 'W' && GPSLongitude > 0) {
 					long = -long
-					// alert('longitude decimal does not reflect ref')
 				}
 
 				params.location = { latitude: lat, longitude: long }
 				params.exif = exif
-				return image
+				return shrink(image.uri)
 			})
-
-			.then(image => {
-				const { uri } = image
-				return ImageManipulator.manipulateAsync(uri, [{ resize: { width: 800 } }], { compress: 1, format: ImageManipulator.SaveFormat.JPG, base64: false })
-			})
-
 			.then(smallImage => {
-				const { uri } = smallImage
-				params.uri = uri
-				return checkForFaces(smallImage)
-			})
-			.then(image => {
+				params.uri = smallImage.uri
 				params.source = 'appLibrary'
 				setValidating(false)
-				navigation.navigate({ routeName: 'Upload', params })
-				return image
+				goToUpload(params)
 			})
 			.catch(error => {
 				setValidating(false)
-				const { message } = error
-				if (message !== 'cancelled') {
-					const translatedErrorMessages = ['faces_detected', 'exifdata_empty', 'location_undefined_app']
-					const msg = translatedErrorMessages.includes(message) ? I18n.t(message) : message
-
-					Alert.alert(
-						I18n.t('oops'),
-						msg,
-						[
-							{
-								text: I18n.t('ok'),
-								style: 'cancel',
-							},
-						],
-
-						{ cancelable: false } // Don't allow to cancel by tapping outside
-					)
+				if (error.message !== 'cancelled') {
+					showOops(error.message)
 				}
 			})
 	}
 
 	const fetchGotIt = onDismiss => {
-		return new Promise((resolve, reject) => {
-			const params = {}
-			params.onDismiss = onDismiss
-
-			AsyncStorage.getItem('GOTIT')
-				.then(value => {
-					switch (value) {
-						case null:
-							navigation.navigate({ routeName: 'GuidelinesModal', params })
-							break
-						case 'false':
-							navigation.navigate({ routeName: 'GuidelinesModal', params })
-							break
-						case 'true':
-							onDismiss()
-							break
-						default:
-							reject(value)
-							break
-					}
-
-					return value
-				})
-				.catch(error => {
-					reject(error)
-				})
-		})
-	}
-
-	const checkLocationPermission = () => {
-		return new Promise((resolve, reject) => {
-			Permissions.askAsync(Permissions.LOCATION)
-				.then(results => {
-					const { status } = results
-					switch (status) {
-						case 'granted':
-							resolve(status)
-							break
-						case 'denied':
-							reject(status)
-							break
-						default:
-							reject(status)
-							break
-					}
-				})
-				.catch(error => {
-					reject(error)
-				})
-		})
-	}
-
-	const checkCameraPermission = () => {
-		return new Promise((resolve, reject) => {
-			Permissions.askAsync(Permissions.CAMERA)
-				.then(results => {
-					const { status } = results
-					switch (status) {
-						case 'granted':
-							resolve(status)
-							break
-						case 'denied':
-							reject(status)
-							break
-						default:
-							reject(status)
-							break
-					}
-				})
-				.catch(error => {
-					reject(error)
-				})
+		return AsyncStorage.getItem('GOTIT').then(value => {
+			if (value === 'true') {
+				onDismiss()
+			} else {
+				navigation.navigate('GuidelinesModal', { onDismiss })
+			}
+			return value
 		})
 	}
 
 	const prepareCamera = () => {
-		//  iOS is not working with this permission being not individually,
-		checkLocationPermission()
-			.then(() => {
-				// granted
-				return checkCameraPermission()
-			})
-			.then(() => {
-				// granted
-				return fetchGotIt(takePicture)
-			})
+		requirePermission(Location.requestForegroundPermissionsAsync)
+			.then(() => requirePermission(ImagePicker.requestCameraPermissionsAsync))
+			.then(() => fetchGotIt(takePicture))
 			.catch(error => {
-				if (error === 'denied') {
-					Alert.alert(
-						I18n.t('permissions_missing_title'),
-						I18n.t('permissions_take_picture_missing_msg'),
-						[
-							{
-								text: I18n.t('ok'),
-								style: 'cancel',
-							},
-							{
-								text: I18n.t('open_settings'),
-								onPress: () => {
-									if (Platform.OS === 'ios') {
-										Linking.openURL('app-settings:')
-									} else {
-										// IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS)
-										IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_SETTINGS)
-									}
-								},
-								style: 'cancel',
-							},
-						],
-						{ cancelable: false } // Don't allow to cancel by tapping outside
-					)
+				if (error.message === 'denied') {
+					showPermissionMissing('permissions_take_picture_missing_msg')
 				} else {
 					alert(error)
 				}
 			})
 	}
 
-	const checkPhotoLibraryPermissions = () => {
-		return new Promise((resolve, reject) => {
-			Permissions.askAsync(Permissions.CAMERA_ROLL)
-				.then(results => {
-					const { status } = results
-					switch (status) {
-						case 'granted':
-							resolve(status)
-							break
-						case 'denied':
-							reject(status)
-							break
-						default:
-							reject(status)
-							break
-					}
-				})
-				.catch(error => {
-					reject(error)
-				})
-		})
-	}
-
 	const preparePhotoLibrary = () => {
-		checkPhotoLibraryPermissions()
-			.then(() => {
-				// granted
-				return fetchGotIt(pickImage)
-			})
+		requirePermission(ImagePicker.requestMediaLibraryPermissionsAsync)
+			.then(() => fetchGotIt(pickImage))
 			.catch(error => {
-				if (error === 'denied') {
-					Alert.alert(
-						I18n.t('permissions_missing_title'),
-						I18n.t('permissions_photo_library_missing_msg'),
-						[
-							{
-								text: I18n.t('ok'),
-								style: 'cancel',
-							},
-							{
-								text: I18n.t('open_settings'),
-								onPress: () => {
-									if (Platform.OS === 'ios') {
-										Linking.openURL('app-settings:')
-									} else {
-										// IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS)
-										IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_SETTINGS)
-									}
-								},
-								style: 'cancel',
-							},
-						],
-						{ cancelable: false } // Don't allow to cancel by tapping outside
-					)
+				if (error.message === 'denied') {
+					showPermissionMissing('permissions_photo_library_missing_msg')
 				} else {
 					alert(error)
 				}
@@ -541,55 +320,42 @@ const MapScreen = ({ navigation }) => {
 		showActionSheetWithOptions(options, index => {
 			setShowingActionSheet(false)
 			if (index === 0) {
-				// CAMERA
 				prepareCamera()
 			} else if (index === 1) {
-				// PHOTO LIBRARY
 				preparePhotoLibrary()
 			}
 		})
 	}
 
+	const mapUrl = `${MAP_URL}?id=${counter}`
+
 	return (
 		<View style={styles.safeAreaView}>
-			<NavigationEvents onWillFocus={() => refreshMap(false)} />
 			<View style={styles.webview}>
-				{counter && (
+				{counter !== false && (
 					<WebView
 						onShouldStartLoadWithRequest={req => {
-							if (req.url === `http://coastwards.org/map?id=${counter}`) {
+							if (req.url === mapUrl) {
 								return true
 							}
 							WebBrowser.openBrowserAsync(req.url)
 							return false
 						}}
 						style={styles.webviewInner}
-						source={{ uri: `http://coastwards.org/map?id=${counter}` }}
-						useWebKit
+						source={{ uri: mapUrl }}
+						geolocationEnabled
 					/>
 				)}
 			</View>
 			<View style={styles.controlsTop} pointerEvents="box-none">
-				<TouchableOpacity style={styles.menuButton}>
-					<MaterialIcons
-						name="menu"
-						size={50}
-						color={theme.primary}
-						onPress={() => {
-							navigation.openDrawer()
-						}}
-					/>
+				<TouchableOpacity style={styles.menuButton} onPress={() => navigation.openDrawer()}>
+					<MaterialIcons name="menu" size={50} color={theme.primary} />
 				</TouchableOpacity>
 				<Image source={turtle} style={styles.logo} />
 			</View>
 			<View style={styles.controlsBottom} pointerEvents="box-none">
-				{counter && (
-					<TouchableOpacity
-						style={styles.counterControl}
-						onPress={() => {
-							refreshMap(true)
-						}}
-					>
+				{counter !== false && (
+					<TouchableOpacity style={styles.counterControl} onPress={() => refreshMap(true)}>
 						<View style={styles.refreshIndicator}>
 							{!refreshing && <MaterialIcons name="refresh" size={40} color={theme.primary} />}
 							{refreshing && <ActivityIndicator size="small" color={theme.primary} />}
@@ -597,29 +363,13 @@ const MapScreen = ({ navigation }) => {
 						<Text style={styles.counter}>{counter}</Text>
 					</TouchableOpacity>
 				)}
-				<TouchableOpacity style={styles.uploadButton} disabled={showingActionSheet}>
-					{!validating && (
-						<MaterialIcons
-							name="add-a-photo"
-							size={30}
-							color="white"
-							onPress={() => {
-								showActionSheet()
-							}}
-						/>
-					)}
+				<TouchableOpacity style={styles.uploadButton} disabled={showingActionSheet || validating} onPress={showActionSheet}>
+					{!validating && <MaterialIcons name="add-a-photo" size={30} color="white" />}
 					{validating && <ActivityIndicator size="large" color="white" />}
 				</TouchableOpacity>
 			</View>
 		</View>
 	)
-}
-
-MapScreen.navigationOptions = {
-	title: 'Home',
-	headerStyle: {
-		backgroundColor: '#f4511e',
-	},
 }
 
 export default MapScreen

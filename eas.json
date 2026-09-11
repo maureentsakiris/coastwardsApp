@@ -1,0 +1,30 @@
+{
+	"cli": {
+		"version": ">= 16.0.0",
+		"appVersionSource": "local"
+	},
+	"build": {
+		"production": {
+			"android": {
+				"buildType": "app-bundle",
+				"credentialsSource": "remote"
+			}
+		},
+		"preview": {
+			"distribution": "internal",
+			"android": {
+				"buildType": "apk",
+				"credentialsSource": "local"
+			}
+		},
+		"production-local": {
+			"extends": "production",
+			"android": {
+				"credentialsSource": "local"
+			}
+		}
+	},
+	"submit": {
+		"production": {}
+	}
+}

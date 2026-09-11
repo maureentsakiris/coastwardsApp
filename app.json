@@ -2,38 +2,82 @@
 	"expo": {
 		"name": "Coastwards",
 		"slug": "coastwards",
-		"privacy": "public",
-		"sdkVersion": "36.0.0",
-		"platforms": ["ios", "android"],
-		"version": "2.2.1",
+		"version": "2.3.0",
 		"orientation": "portrait",
-		"primaryColor": "#0076b7",
 		"icon": "./assets/images/icon.png",
-		"splash": {
-			"image": "./assets/images/splash.png",
-			"resizeMode": "cover",
-			"backgroundColor": "#0076b7"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
+		"userInterfaceStyle": "light",
+		"primaryColor": "#0076b7",
+		"description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
+		"assetBundlePatterns": [
+			"**/*"
+		],
+		"platforms": [
+			"ios",
+			"android"
+		],
 		"ios": {
 			"bundleIdentifier": "org.coastwards.app",
+			"supportsTablet": true,
 			"infoPlist": {
-				"NSCameraUsageDescription": "This app uses the camera to allow users to take pictures of coasts.",
-				"NSLocationWhenInUseUsageDescription": "This app uses the location to place the pictures of coasts taken by the user on a map.",
-				"NSPhotoLibraryUsageDescription": "This app uses the Photo Library to allow users to choose existing images of coasts."
-			},
-			"googleServicesFile": "./GoogleService-Info.plist",
-			"supportsTablet": true
+				"NSAppTransportSecurity": {
+					"NSAllowsArbitraryLoads": true
+				}
+			}
 		},
-		"description": "Help Science study the risks of sea-level rise by uploading pictures of coasts.",
 		"android": {
 			"package": "org.coastwards.app",
-			"permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA", "READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
-			"googleServicesFile": "./google-services.json",
-			"versionCode": 6
-		}
+			"versionCode": 7,
+			"permissions": [
+				"android.permission.ACCESS_COARSE_LOCATION",
+				"android.permission.ACCESS_FINE_LOCATION",
+				"android.permission.CAMERA",
+				"android.permission.RECORD_AUDIO"
+			]
+		},
+		"plugins": [
+			[
+				"expo-build-properties",
+				{
+					"android": {
+						"usesCleartextTraffic": true
+					}
+				}
+			],
+			[
+				"expo-splash-screen",
+				{
+					"image": "./assets/images/splash.png",
+					"resizeMode": "cover",
+					"backgroundColor": "#0076b7"
+				}
+			],
+			[
+				"expo-image-picker",
+				{
+					"photosPermission": "This app uses the Photo Library to allow users to choose existing images of coasts.",
+					"cameraPermission": "This app uses the camera to allow users to take pictures of coasts.",
+					"microphonePermission": false
+				}
+			],
+			[
+				"expo-location",
+				{
+					"locationWhenInUsePermission": "This app uses the location to place the pictures of coasts taken by the user on a map.",
+					"isAndroidBackgroundLocationEnabled": false
+				}
+			],
+			"expo-video",
+			"expo-web-browser",
+			"expo-localization",
+			"expo-asset",
+			"expo-font",
+			"expo-status-bar"
+		],
+		"extra": {
+			"eas": {
+				"projectId": "d0031140-b0b2-11e9-8c67-61df1351d799"
+			}
+		},
+		"owner": "maureentsakiris"
 	}
 }

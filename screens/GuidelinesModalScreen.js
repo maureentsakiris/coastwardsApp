@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, AsyncStorage, Alert } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { MaterialIcons } from '@expo/vector-icons'
 import I18n from '../i18n/i18n'
 import theme from '../theme'
@@ -8,6 +9,8 @@ import Guidelines from '../components/Guidelines'
 const styles = StyleSheet.create({
 	safeAreaView: {
 		flex: 1,
+		paddingTop: theme.safePadding,
+		backgroundColor: 'white',
 	},
 	actions: {
 		height: 150,
@@ -45,36 +48,18 @@ const styles = StyleSheet.create({
 	},
 })
 
-const GuidelinesModalScreen = ({ navigation }) => {
-	const onDismiss = navigation.getParam('onDismiss')
+const GuidelinesModalScreen = ({ navigation, route }) => {
+	const onDismiss = route.params && route.params.onDismiss
 	const [isChecked, setIsChecked] = useState(false)
+
 	useEffect(() => {
-		async function fetchGotItStorage() {
-			return AsyncStorage.getItem('GOTIT')
-		}
-
-		fetchGotItStorage()
+		AsyncStorage.getItem('GOTIT')
 			.then(value => {
-				let val
-				switch (value) {
-					case null:
-						setIsChecked(false)
-						break
-					case 'false':
-						setIsChecked(false)
-						break
-					case 'true':
-						setIsChecked(true)
-						break
-					default:
-						setIsChecked(false)
-						break
-				}
-
-				return val
+				setIsChecked(value === 'true')
+				return value
 			})
 			.catch(error => {
-				Alert.alert(error)
+				Alert.alert(String(error))
 			})
 	}, [])
 
@@ -92,23 +77,16 @@ const GuidelinesModalScreen = ({ navigation }) => {
 	}
 
 	return (
-		<View style={styles.safeAreaView} pointerEvents="box-none">
+		<View style={styles.safeAreaView}>
 			<Guidelines />
 			<View style={styles.actions}>
 				<TouchableOpacity onPress={gotIt}>
 					<Text style={styles.gotItBtn}>{I18n.t('got_it')}</Text>
 				</TouchableOpacity>
-				<View style={styles.dontShowAgain}>
-					<MaterialIcons
-						name={isChecked ? 'check-box' : 'check-box-outline-blank'}
-						size={24}
-						color={theme.primary}
-						onPress={() => {
-							setIsChecked(!isChecked)
-						}}
-					/>
+				<TouchableOpacity style={styles.dontShowAgain} onPress={() => setIsChecked(!isChecked)}>
+					<MaterialIcons name={isChecked ? 'check-box' : 'check-box-outline-blank'} size={24} color={theme.primary} />
 					<Text style={styles.dontShowAgainTxt}>{I18n.t('do_not_show_again')}</Text>
-				</View>
+				</TouchableOpacity>
 			</View>
 		</View>
 	)

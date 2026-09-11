@@ -1,18 +1,16 @@
 import React from 'react'
-import { StyleSheet, View, Text, Dimensions, ScrollView } from 'react-native'
-import { Video } from 'expo-av'
+import { StyleSheet, View, Text, ScrollView, useWindowDimensions } from 'react-native'
+import { useVideoPlayer, VideoView } from 'expo-video'
 import I18n from '../i18n/i18n'
 import theme from '../theme'
 
-const { width } = Dimensions.get('window')
+const VIDEO_URL = 'http://coastwards.org/assets/coastwards.mp4'
 
 const styles = StyleSheet.create({
 	view: {
 		flex: 1,
 	},
 	video: {
-		width,
-		height: width * 0.56,
 		backgroundColor: 'white',
 	},
 	transcript: {
@@ -31,17 +29,17 @@ const styles = StyleSheet.create({
 	},
 })
 
-/*
-<Text style={styles.p}>{I18n.t('together')}.</Text>
-<Text style={styles.p}>
-	{I18n.t('easy')}. {I18n.t('beautiful')}. {I18n.t('meaningful')}
-</Text>
-*/
-
 const HowScreen = () => {
+	const { width } = useWindowDimensions()
+	const player = useVideoPlayer(VIDEO_URL, p => {
+		p.loop = false
+		p.muted = true
+		p.play()
+	})
+
 	return (
 		<ScrollView style={styles.view}>
-			<Video style={styles.video} useNativeControls source={{ uri: 'http://coastwards.org/assets/coastwards.mp4' }} rate={1.0} volume={0} isMuted resizeMode="contain" shouldPlay isLooping={false} />
+			<VideoView style={[styles.video, { width, height: width * 0.56 }]} player={player} nativeControls contentFit="contain" />
 			<View style={styles.transcript}>
 				<Text style={styles.header}>{I18n.t('how')}</Text>
 				<Text style={styles.p}>{I18n.t('in_a_nutshell')}</Text>

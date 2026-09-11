@@ -65,3 +65,13 @@ typings/
 GoogleService-Info.plist
 
 google-services.json
+# EAS
+credentials.json
+*.aab
+*.apk
+
+# extracted certs
+coastwards_certificate.*
+coastwards_public_key.pem
+dist/
+upload_certificate.pem
